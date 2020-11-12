@@ -1,0 +1,133 @@
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -p
+
+create database muscle_db default character set utf8;
+
+grant all privileges on muscle_db.* to muscle_user@'localhost' identified by 'muscle_pass' with grant option;
+
+/Applications/XAMPP/xamppfiles/bin/mysql -u muscle_user -p
+
+use muscle_db;
+
+create table customer (
+    customer_no int unsigned not null auto_increment,
+    family_name varchar(20) not null,
+    first_name varchar(20) not null,
+    email varchar(255) not null,
+    password varchar(255) not null,
+    create_date datetime not null,
+    update_date datetime,
+    delete_date datetime,
+    delete_flg tinyint(1) unsigned not null default 0,
+    primary key( mem_id )
+);
+
+create table session (
+    customer_no int unsigned not null auto_increment,
+    session_key varchar(32),
+    primary key(customer_no)
+);
+
+create table item (
+    item_id int unsigned not null auto_increment,
+    item_name varchar(100) not null,
+    detail text not null,
+    price decimal(10,3) unsigned not null,
+    image varchar(50) not null,
+    flavor_id tinyint unsigned not null,
+    purpose_id tinyint unsigned not null,
+    brand_id tinyint unsigned not null,
+    primary key( item_id ),
+    index item_idx( flavor_id, purpose_id,  brand_id )
+);
+
+create table flavor (
+    flavor_id tinyint unsigned not null auto_increment,
+    flavor_name varchar(100) not null,
+    primary key( flavor_id )
+);
+
+create table purpose (
+    purpose_id tinyint unsigned not null auto_increment,
+    purpose_name varchar(100) not null,
+    primary key( purpose_id )
+);
+
+create table brand (
+    brand_id tinyint unsigned not null auto_increment,
+    brand_name varchar(100) not null,
+    primary key( brand_id )
+);
+
+create table cart (
+    crt_id int unsigned not null auto_increment,
+    customer_no int unsigned not null,
+    item_id int unsigned not null,
+    num tinyint(1) unsigned not null default 1,
+    delete_flg tinyint(1) unsigned not null default 0,
+    primary key( crt_id ),
+    index crt_idx( customer_no, delete_flg )
+);
+
+create table want_item (
+    want_id int unsigned not null auto_increment,
+    customer_no int unsigned not null,
+    item_id int unsigned not null,
+    num tinyint(1) unsigned not null default 1,
+    delete_flg tinyint(1) unsigned not null default 0,
+    primary key( want_id ),
+    index want_item_idx( customer_no, delete_flg )
+);
+
+create table bought_item (
+    bought_id int unsigned not null auto_increment,
+    customer_no int unsigned not null,
+    item_id int unsigned not null,
+    num tinyint(1) unsigned not null default 1,
+    buy_date datetime not null,
+    primary key( bought_id ),
+    index bought_item_idx( customer_no )
+);
+
+create table review (
+    review_id int unsigned not null auto_increment,
+    customer_no int unsigned not null,
+    item_id int unsigned not null,
+    content varchar(200) not null,
+    delete_flg tinyint(1) unsigned not null default 0,
+    review_date datetime not null,
+    primary key( review_id ),
+    index review_idx( customer_no, delete_flg )
+);
+
+create table contact (
+    contact_id int unsigned not null auto_increment,
+    customer_no int unsigned not null,
+    contact_ctg_id int unsigned not null,
+    content varchar(1000) not null,
+    contact_date datetime not null,
+    primary key( contact_id )
+);
+
+create table contact_ctg (
+    contact_ctg_id tinyint unsigned not null auto_increment,
+    contact_ctg_name varchar(100) not null,
+    primary key( contact_ctg_id )
+);
+
+create table cancel (
+    cancel_id int unsigned not null auto_increment,
+    customer_no int unsigned not null,
+    cancel_ctg_id int unsigned not null,
+    content varchar(1000),
+    cancel_date datetime not null,
+    primary key( ancel_id )
+);
+
+create table cancel_ctg (
+    cancel_ctg_id tinyint unsigned not null auto_increment,
+    cancel_ctg_name varchar(100) not null,
+    primary key( cancel_ctg_id )
+);
+
+
+
