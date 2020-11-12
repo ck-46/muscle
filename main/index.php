@@ -25,6 +25,9 @@ $twig = new \Twig_Environment($loader, [
 $ses->checkSession();
 $customer_no = $_SESSION['customer_no'];
 
+// var_dump($_SESSION['log']);
+// exit;
+
 $context = [];
 $context['customer_no'] = $customer_no;
 $template = $twig->loadTemplate('index.html.twig');

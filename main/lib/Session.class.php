@@ -38,11 +38,17 @@ class Session
                 $_SESSION['customer_no'] = '';
             }
         }
+
+
+
+        // if ($_SESSION['log'] === '') {
+        //     $_SESSION['log'] = 'out';
+        // }
     }
 
     private function selectSession()
     {
-        $table = ' customer ';
+        $table = ' session ';
         $col = ' customer_no ';
         $where = ' session_key = ? ';
         $arrVal = [$this->session_key];
@@ -53,7 +59,7 @@ class Session
 
     private function insertSession()
     {
-        $table = ' customer ';
+        $table = ' session ';
         $insData = ['session_key' => $this->session_key];
         $res = $this->db->insert($table, $insData);
         return $res;

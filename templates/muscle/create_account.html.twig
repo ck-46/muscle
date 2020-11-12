@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUSCLE STORE｜新規登録ページ</title>
+</head>
+<body>
+    <header>
+        {% include 'header.html.twig' %}
+    </header>
+    <main>
+        <input type="hidden" name="entry_url" id="entry_url" value="{{constant('main\\Bootstrap::ENTRY_URL')}}">
+        <form method="post" action="create_account_confirm.php">
+            <h2>新規登録</h2>
+            <div>
+                <div>氏：</div>
+                <div>
+                    <input type="text" name="family_name" value="{{dataArr.family_name}}" size="40">
+                    <div>{% if errArr.family_name | length > 0 %}{{ errArr.family_name }}{% endif %}</div>
+                </div>
+                <div>名：</div>
+                <div>
+                    <input type="text" name="first_name" value="{{dataArr.first_name}}" size="40">
+                    <div>{% if errArr.first_name | length > 0 %}{{ errArr.first_name }}{% endif %}</div>
+                </div>
+                <div>メールアドレス：</div>
+                <div>
+                    <input type="text" name="email" value="{{dataArr.email}}" size="40">
+                    <div>{% if errArr.email | length > 0 %}{{errArr.email}}{% endif %}</div>
+                </div>
+                <div>もう一度メールアドレスを入力してください：</div>
+                <div>
+                    <input type="text" name="confirm_email" value="{{confirmDataArr.confirm_email}}" size="40">
+                    <div>{% if errArr.confirm_email | length > 0 %}{{errArr.confirm_email}}{% endif %}</div>
+                </div>
+                <div>パスワード：</div>
+                <div>※パスワードは6〜20文字の半角数字で入力してください</div>
+                <div>
+                    <input type="password" name="password" value="{{dataArr.password}}" size="40">
+                    <div>{% if errArr.password | length > 0 %}{{ errArr.password }}{% endif %}</div>
+                </div>
+                <div>もう一度パスワードを入力してください：</div>
+                <div>
+                    <input type="password" name="confirm_password" value="{{confirmDataArr.confirm_password}}" size="40">
+                    <div>{% if errArr.confirm_password | length > 0 %}{{errArr.confirm_password}}{% endif %}</div>
+                </div>
+            </div>
+            <div>
+                <input type="submit" name="confirm" value="入力情報を確認">
+            </div>
+        </form>
+    </main>
+    <footer>
+        {% include 'footer.html.twig' %}
+    </footer>
+</body>
+</html>

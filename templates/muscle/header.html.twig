@@ -1,12 +1,14 @@
-<h1>MUSCLE STORE</h1>
+<h1><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}index.php">MUSCLE STORE</a></h1>
 <form action="" method="post">
     <input type="text" name="keyword" value="">
     <input type="submit" name="search" value="検索">
 </form>
 <div>アカウント</div>
 <div>
-    <a href="">ログイン</a>
-    <a href="">新規登録</a>
+    {# {% if log = 'out' %} #}
+        <a href="">ログイン</a>
+        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}create_account.php">新規登録</a>
+    {# {% endif %} #}
     <a href="">カート</a>
     <a href="">欲しい物リスト</a>
     <a href="">購入履歴</a>

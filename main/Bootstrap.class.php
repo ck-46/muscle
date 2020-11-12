@@ -30,7 +30,7 @@ class Bootstrap
 
     const APP_URL = 'http://localhost/muscle/';
 
-    const ENTRY_URL = self::APP_URL . 'muscle/';
+    const ENTRY_URL = self::APP_URL . 'main/';
 
     public static function loadClass($class)
     {
