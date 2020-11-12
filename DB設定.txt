@@ -10,15 +10,16 @@ use muscle_db;
 
 create table customer (
     customer_no int unsigned not null auto_increment,
-    family_name varchar(20) not null,
-    first_name varchar(20) not null,
-    email varchar(255) not null,
-    password varchar(255) not null,
-    create_date datetime not null,
+    session_key varchar(32),
+    family_name varchar(20),
+    first_name varchar(20),
+    email varchar(255),
+    password varchar(255),
+    create_date datetime,
     update_date datetime,
     delete_date datetime,
     delete_flg tinyint(1) unsigned not null default 0,
-    primary key( mem_id )
+    primary key( customer_no )
 );
 
 create table session (
@@ -26,6 +27,8 @@ create table session (
     session_key varchar(32),
     primary key(customer_no)
 );
+
+11/12 12:56 ここまで作った
 
 create table item (
     item_id int unsigned not null auto_increment,
