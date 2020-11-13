@@ -8,9 +8,10 @@ grant all privileges on muscle_db.* to muscle_user@'localhost' identified by 'mu
 
 use muscle_db;
 
+    customer_no int unsigned not null,
+
 create table member (
     mem_id int unsigned not null auto_increment,
-    customer_no int unsigned not null,
     family_name varchar(20) not null,
     first_name varchar(20) not null,
     email varchar(255) not null,
