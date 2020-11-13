@@ -12,7 +12,14 @@
     </header>
     <main>
         <div>
-            <h2>完了しました</h2>
+            <h2>{{ content.type }}完了しました</h2>
+            {% if  content.page | length > 0 %}
+                {# ログインページURL #}
+                <div><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}login.php">{{ content.page }}</a></div>
+            {% endif %}
+            {% if content.name | length > 0 %}
+                <div>こんにちは、{{ content.name }}さん</div>
+            {% endif %}
             <div><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}index.php">トップページへ</a></div>
         </div>
     </main>

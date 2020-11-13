@@ -9,6 +9,7 @@ namespace main\lib;
 class Account
 {
     public $db = null;
+    public $ses = null;
 
     private $dataArr = [];
     private $errArr = [];
@@ -67,9 +68,13 @@ class Account
             $arrVal = [$this->dataArr['email']];
 
             $res = $this->db->select($table, $col, $where, $arrVal);
+            // var_dump($res);
+            // exit;
 
-            if ($res[0]['email'] === $this->dataArr['email']) {
-                $this->errArr['email'] = '既に同じメールアドレスが存在します';
+            if (count($res) !== 0) {
+                if ($res[0]['email'] === $this->dataArr['email']) {
+                    $this->errArr['email'] = '既に同じメールアドレスが存在します';
+                }
             }
         }
     }
@@ -118,5 +123,37 @@ class Account
 
         $res = $this->db->insert($table, $insData);
         return $res;
+    }
+
+    private function loginErrorCheck()
+    {
+        if ($this->dataArr['email'] === '' || $this->dataArr['password'] === '') {
+            $this->errArr['login'] = 'メールアドレスとパスワードを入力してください';
+        } else {
+            $table = ' member ';
+            $col = ' * ';
+            $where = ' email = ? ';
+            $arrVal = [$this->dataArr['email']];
+    
+            $res = $this->db->select($table, $col, $where, $arrVal);
+    
+            if (count($res) === 0) {
+                $this->errArr['login'] = 'メールアドレスまたはパスワードが異なります';
+            } elseif (password_verify($this->dataArr['password'], $res[0]['password']) !== true) {
+                $this->errArr['login'] = 'メールアドレスまたはパスワードが異なります';
+            } elseif ($res[0]['delete_flg'] === 1) {
+                $this->errArr['login'] = 'こちらのアカウントは既に退会しております';
+            }
+        }
+    }
+
+    public function loginCheck($dataArr)
+    {
+        $this->errArr['login'] = '';
+        $this->dataArr = $dataArr;
+
+        $this->loginErrorCheck();
+
+        return $this->errArr;
     }
 }

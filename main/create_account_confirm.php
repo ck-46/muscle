@@ -21,9 +21,9 @@ $twig = new \Twig_Environment($loader, [
 ]);
 
 $db = new PDODatabase(Bootstrap::DB_HOST, Bootstrap::DB_USER, Bootstrap::DB_PASS, Bootstrap::DB_NAME, Bootstrap::DB_TYPE);
-$ses = new Session($db);
 $acnt = new Account($db);
-
+$ses = new Session($db);
+$user_name = (isset($_SESSION['name']) === true) ? $_SESSION['name'] : '';
 
 // $mode = $acnt->checkMode($_post);
 
@@ -73,8 +73,8 @@ switch ($mode) {
 
         $dataArr['password'] = password_hash($dataArr['password'], PASSWORD_DEFAULT);
 
-        $customer_no = $_SESSION['customer_no'];
-        $dataArr['customer_no'] = $customer_no;
+        // $customer_no = $_SESSION['customer_no'];
+        // $dataArr['customer_no'] = $customer_no;
 
         // ↓この情報はいらないので外しておく
         unset($dataArr['complete']);
@@ -86,7 +86,7 @@ switch ($mode) {
         if ($res === true) {
             $_SESSION['log'] = 'in';
             // 登録成功時は完成ページへ
-            header('Location: ' . Bootstrap::ENTRY_URL . 'complete.php');
+            header('Location: ' . Bootstrap::ENTRY_URL . 'complete.php?key=create_account');
             exit();
         } else {
             // 登録失敗時は登録画面に戻る
@@ -99,7 +99,11 @@ switch ($mode) {
     break;
 }
 
+$context = [];
+
 $context['dataArr'] = $dataArr;
 $context['errArr'] = $errArr;
+
+$context['user_name'] = $user_name;
 $template = $twig->loadTemplate($template);
 $template->display($context);

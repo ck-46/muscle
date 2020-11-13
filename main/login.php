@@ -1,8 +1,8 @@
 <?php
 /**
- * ファイルパス：/Applications/XAMPP/xamppfiles/htdocs/muscle/main/index.php
- * ファイル名：index.php（トップページを表示するプログラム、Controller）
- * アクセスURL：http://localhost/muscle/main/index.php
+ * ファイルパス：/Applications/XAMPP/xamppfiles/htdocs/muscle/main/login.php
+ * ファイル名：login.php（ログインフォームを表示するプログラム、Controller）
+ * アクセスURL：http://localhost/muscle/main/login.php
  */
 
 namespace main;
@@ -23,8 +23,23 @@ $twig = new \Twig_Environment($loader, [
     'cache' => Bootstrap::CACHE_DIR
 ]);
 
+// 初期データを設定
+$dataArr = [
+    'email' => '',
+    'password' => ''
+];
+
+// エラーメッセージの定義、初期化
+$errArr = [];
+foreach ($dataArr as $key => $value) {
+    $errArr[$key] = '';
+}
+
 $context = [];
 
+$context['dataArr'] = $dataArr;
+$context['errArr'] = $errArr;
+
 $context['user_name'] = $user_name;
-$template = $twig->loadTemplate('index.html.twig');
+$template = $twig->loadTemplate('login.html.twig');
 $template->display($context);

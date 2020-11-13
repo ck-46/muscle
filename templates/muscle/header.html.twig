@@ -5,13 +5,17 @@
 </form>
 <div>アカウント</div>
 <div>
-    {# {% if log = 'out' %} #}
-        <a href="">ログイン</a>
+    {% if user_name | length > 0 %}
+        <div>{{ user_name }}さんのアカウント</div>
+        <a href="">カート</a>
+        <a href="">欲しい物リスト</a>
+        <a href="">購入履歴</a>
+        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}logout.php">ログアウト</a>
+    {% endif %}
+    {% if user_name | length < 1 %}
+        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}login.php">ログイン</a>
         <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}create_account.php">新規登録</a>
-    {# {% endif %} #}
-    <a href="">カート</a>
-    <a href="">欲しい物リスト</a>
-    <a href="">購入履歴</a>
+    {% endif %}
 </div>
 <div>
     <div>ブランド別</div>
