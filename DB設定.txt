@@ -8,13 +8,14 @@ grant all privileges on muscle_db.* to muscle_user@'localhost' identified by 'mu
 
 use muscle_db;
 
-create table customer (
-    customer_no int unsigned not null auto_increment,
+create table member (
+    mem_id int unsigned not null auto_increment,
+    customer_no int unsigned not null,
     family_name varchar(20) not null,
     first_name varchar(20) not null,
     email varchar(255) not null,
     password varchar(255) not null,
-    create_date datetime not null,
+    create_date timestamp not null default current_timestamp,
     update_date datetime,
     delete_date datetime,
     delete_flg tinyint(1) unsigned not null default 0,
@@ -26,6 +27,8 @@ create table session (
     session_key varchar(32),
     primary key(customer_no)
 );
+
+11/12 12:56 ここまで作った
 
 create table item (
     item_id int unsigned not null auto_increment,
@@ -60,7 +63,7 @@ create table brand (
 
 create table cart (
     crt_id int unsigned not null auto_increment,
-    customer_no int unsigned not null,
+    mem_id int unsigned not null,
     item_id int unsigned not null,
     num tinyint(1) unsigned not null default 1,
     delete_flg tinyint(1) unsigned not null default 0,
@@ -70,7 +73,7 @@ create table cart (
 
 create table want_item (
     want_id int unsigned not null auto_increment,
-    customer_no int unsigned not null,
+    mem_id int unsigned not null,
     item_id int unsigned not null,
     num tinyint(1) unsigned not null default 1,
     delete_flg tinyint(1) unsigned not null default 0,
@@ -80,7 +83,7 @@ create table want_item (
 
 create table bought_item (
     bought_id int unsigned not null auto_increment,
-    customer_no int unsigned not null,
+    mem_id int unsigned not null,
     item_id int unsigned not null,
     num tinyint(1) unsigned not null default 1,
     buy_date datetime not null,
@@ -90,7 +93,7 @@ create table bought_item (
 
 create table review (
     review_id int unsigned not null auto_increment,
-    customer_no int unsigned not null,
+    mem_id int unsigned not null,
     item_id int unsigned not null,
     content varchar(200) not null,
     delete_flg tinyint(1) unsigned not null default 0,
@@ -101,7 +104,7 @@ create table review (
 
 create table contact (
     contact_id int unsigned not null auto_increment,
-    customer_no int unsigned not null,
+    mem_id int unsigned not null,
     contact_ctg_id int unsigned not null,
     content varchar(1000) not null,
     contact_date datetime not null,
@@ -116,7 +119,7 @@ create table contact_ctg (
 
 create table cancel (
     cancel_id int unsigned not null auto_increment,
-    customer_no int unsigned not null,
+    mem_id int unsigned not null,
     cancel_ctg_id int unsigned not null,
     content varchar(1000),
     cancel_date datetime not null,
