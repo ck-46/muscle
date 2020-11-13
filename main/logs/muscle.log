@@ -168,3 +168,7 @@
 [SQL_LOG:2020-11-13 13:03:00]:  INSERT INTO  member  (family_name,first_name,email,password,customer_no) VALUES (?,?,?,?,?)  [chiba,kohei,chibakohei@gmail.com,$2y$10$Ln8u1agyT5ULJ.Dx3Ac27.Zt9NbEBC7uKKWpr55h6jdiHqWFE1Qt2,]
 [SQL_LOG:2020-11-13 13:03:25]:  INSERT INTO  member  (family_name,first_name,email,password,customer_no) VALUES (?,?,?,?,?)  [chiba,kohei,chibakohei@gmail.com,$2y$10$l3F3M255vdCCYVcNQaas8.6VwNRAsNvYlrqMiypwuL32ai7Yo697e,]
 [SQL_LOG:2020-11-13 13:03:47]:  INSERT INTO  member  (family_name,first_name,email,password) VALUES (?,?,?,?)  [chiba,kohei,chibakohei@gmail.com,$2y$10$xDE2J8f/XFAGUITfFNqo5eQW70/68xzH2NS1ZBTSwDefnxM4U.0wO]
+[SQL_LOG:2020-11-13 19:30:12]:  SELECT  item_id, item_name, price, image  FROM  item     []
+[SQL_LOG:2020-11-13 19:30:44]:  SELECT  item_id, item_name, price, image  FROM  item     []
+[SQL_LOG:2020-11-13 19:31:44]:  SELECT  item_id, item_name, price, image  FROM  item     []
+[SQL_LOG:2020-11-13 19:33:47]:  SELECT  item_id, item_name, price, image  FROM  item     []
