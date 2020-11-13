@@ -43,9 +43,8 @@ class Item
     public function getItemDetailData($item_id)
     {
         $table = ' item ';
-        $col = ' item_id, item_name, detail, price, image, ctg_id';
+        $col = ' item_id, item_name, detail, price, image ';
         $where = ($item_id !== '') ? ' item_id = ? ' : '';
-        // カテゴリーによって表示させるアイテムをかえる
         $arrVal = ($item_id !== '') ? [$item_id] : [];
 
         $res = $this->db->select($table, $col, $where, $arrVal);

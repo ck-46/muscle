@@ -25,18 +25,17 @@ $twig = new \Twig_Environment($loader, [
     'cache' => Bootstrap::CACHE_DIR
 ]);
 
-// $ctg_id = (isset($_GET['ctg_id']) === true && preg_match('/^[0-9]+$/', $_GET['ctg_id']) === 1) ? $_GET['ctg_id'] : '';
 $ctg_id = '';
 
-// 登録画面から来た場合
+// フレーバー別
 if (isset($_GET['flavor']) === true && preg_match('/^[0-9]+$/', $_GET['flavor']) === 1) {
     $ctg_id = 'flavor';
 }
-// 戻る場合
+// 目的別
 if (isset($_POST['purpose']) === true && preg_match('/^[0-9]+$/', $_GET['purpose']) === 1) {
     $ctg_id = 'purpose';
 }
-// 登録完了
+// ブランド別
 if (isset($_POST['brand']) === true && preg_match('/^[0-9]+$/', $_GET['purpose']) === 1) {
     $ctg_id = 'brand';
 }
