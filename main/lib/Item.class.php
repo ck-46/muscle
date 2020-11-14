@@ -25,14 +25,52 @@ class Item
         return $res;
     }
 
-    // 商品リストを取得する
-    public function getItemList($ctg_id)
+    // 全商品リストを取得する
+    public function getAllList()
     {
-        // カテゴリーによって表示させるアイテムをかえる
         $table = ' item ';
         $col = ' item_id, item_name, price, image ';
-        $where = ($ctg_id !==  '') ? ' ctg_id = ? ' : '';
-        $arrVal = ($ctg_id !== '') ? [$ctg_id] : [];
+        $where = '';
+        $arrVal = [];
+
+        $res = $this->db->select($table, $col, $where, $arrVal);
+
+        return ($res !== false && count($res) !== 0) ? $res : false;
+    }
+
+    // フレーバー別リストを取得する
+    public function getFlavorList($flavor_id)
+    {
+        $table = ' item ';
+        $col = ' item_id, item_name, price, image ';
+        $where = ($flavor_id !==  '') ? ' flavor_id = ? ' : '';
+        $arrVal = ($flavor_id !== '') ? [$flavor_id] : [];
+
+        $res = $this->db->select($table, $col, $where, $arrVal);
+
+        return ($res !== false && count($res) !== 0) ? $res : false;
+    }
+    
+    // 目的別リストを取得する
+    public function getPurposeList($purpose_id)
+    {
+        $table = ' item ';
+        $col = ' item_id, item_name, price, image ';
+        $where = ($purpose_id !==  '') ? ' purpose_id = ? ' : '';
+        $arrVal = ($purpose_id !== '') ? [$purpose_id] : [];
+
+        $res = $this->db->select($table, $col, $where, $arrVal);
+
+        return ($res !== false && count($res) !== 0) ? $res : false;
+    }
+
+    // ブランド別リストを取得する
+    public function getBrandList($brand_id)
+    {
+        $table = ' item ';
+        $col = ' item_id, item_name, price, image ';
+        $where = ($brand_id !==  '') ? ' brand_id = ? ' : '';
+        $arrVal = ($brand_id !== '') ? [$brand_id] : [];
 
         $res = $this->db->select($table, $col, $where, $arrVal);
 

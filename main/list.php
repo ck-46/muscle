@@ -25,23 +25,30 @@ $twig = new \Twig_Environment($loader, [
     'cache' => Bootstrap::CACHE_DIR
 ]);
 
-$ctg_id = '';
+$flavor_id = '';
+$purpose_id = '';
+$brand_id = '';
 
-// フレーバー別
+// フレーバー別リスト
 if (isset($_GET['flavor']) === true && preg_match('/^[0-9]+$/', $_GET['flavor']) === 1) {
-    $ctg_id = 'flavor';
+    $flavor_id = $_GET['flavor'];
+    $dataArr = $itm->getFlavorList($flavor_id);
 }
-// 目的別
-if (isset($_POST['purpose']) === true && preg_match('/^[0-9]+$/', $_GET['purpose']) === 1) {
-    $ctg_id = 'purpose';
+// 目的別リスト
+if (isset($_GET['purpose']) === true && preg_match('/^[0-9]+$/', $_GET['purpose']) === 1) {
+    $purpose_id = $_GET['purpose'];
+    $dataArr = $itm->getPurposeList($purpose_id);
 }
-// ブランド別
-if (isset($_POST['brand']) === true && preg_match('/^[0-9]+$/', $_GET['purpose']) === 1) {
-    $ctg_id = 'brand';
+// ブランド別リスト
+if (isset($_GET['brand']) === true && preg_match('/^[0-9]+$/', $_GET['brand']) === 1) {
+    $brand_id = $_GET['brand'];
+    $dataArr = $itm->getBrandList($brand_id);
 }
 
-// 商品リストを取得する
-$dataArr = $itm->getItemList($ctg_id);
+// 全商品リスト
+if ($flavor_id === '' && $purpose_id === '' && $brand_id === '') {
+    $dataArr = $itm->getAllList();
+}
 
 $context = [];
 
