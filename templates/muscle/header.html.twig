@@ -7,9 +7,7 @@
 <div>
     {% if user_name | length > 0 %}
         <div>{{ user_name }}さんのアカウント</div>
-        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}cart.php">カート</a>
-        <a href="">欲しい物リスト</a>
-        <a href="">購入履歴</a>
+        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}mypage.php">マイページ</a>
         <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}logout.php">ログアウト</a>
     {% endif %}
     {% if user_name | length < 1 %}
@@ -18,21 +16,5 @@
     {% endif %}
 </div>
 <div>
-    <div>ブランド別</div>
-    <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?brand=1">ウイダー</a>
-    <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?brand=2">ザバス</a>
-    <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?brand=3">マイプロテイン</a>
-    <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?brand=4">ゴールドスタンダード</a>
-    <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?brand=5">ゴールドジム</a>
-    <div>目的別</div>
-    <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?purpose=1">増量</a>
-    <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?purpose=2">減量</a>
-    <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?purpose=3">健康維持</a>
-    <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?purpose=4">リカバリー</a>
-    <div>フレーバー別</div>
-    <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?flavor=1">ココア</a>
-    <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?flavor=2">フルーツ</a>
-    <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?flavor=3">コーヒー</a>
-    <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?flavor=4"> バニラ</a>
-    <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?flavor=5">チョコ</a>
+    {% include 'category.html.twig' %}
 </div>
