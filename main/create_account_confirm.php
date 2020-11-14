@@ -25,13 +25,11 @@ $acnt = new Account($db);
 $ses = new Session($db);
 $user_name = (isset($_SESSION['name']) === true) ? $_SESSION['name'] : '';
 
-// $mode = $acnt->checkMode($_post);
-
 // 登録画面から来た場合
 if (isset($_POST['confirm']) === true) {
     $mode = 'confirm';
 }
-// 戻る場合
+// 修正するから来た場合
 if (isset($_POST['back']) === true) {
     $mode = 'back';
 }
@@ -72,9 +70,6 @@ switch ($mode) {
         $dataArr = $_POST;
 
         $dataArr['password'] = password_hash($dataArr['password'], PASSWORD_DEFAULT);
-
-        // $customer_no = $_SESSION['customer_no'];
-        // $dataArr['customer_no'] = $customer_no;
 
         // ↓この情報はいらないので外しておく
         unset($dataArr['complete']);

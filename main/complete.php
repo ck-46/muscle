@@ -41,6 +41,10 @@ if (isset($_GET['key']) === true) {
         $content['type'] = 'ログアウト';
         $content['page'] = 'ログインページへ';
     }
+    // 退会から来た場合
+    if ($_GET['key'] === 'delete_account') {
+        $content['type'] = '退会手続き';
+    }
 }
 
 $context = [];

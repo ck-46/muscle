@@ -216,16 +216,19 @@ class PDODatabase
             .  $preSt
             .  ' WHERE '
             .  $where;
-            $updateData = array_merge(array_values($insData), $arrWhereVal);
-            $this->sqlLogInfo($sql, $updateData);
 
-            $stmt = $this->dbh->prepare($sql);
-            $res = $stmt->execute($updateData);
+        $updateData = array_merge(array_values($insData), $arrWhereVal);
+        $this->sqlLogInfo($sql, $updateData);
 
-            if ($res === false) {
-                $this->catchError($stmt->errorInfo());
-            }
-            return $res;
+        $stmt = $this->dbh->prepare($sql);
+        // var_dump($stmt);
+        // exit;
+        $res = $stmt->execute($updateData);
+
+        if ($res === false) {
+            $this->catchError($stmt->errorInfo());
+        }
+        return $res;
     }
 
     public function getLastId()

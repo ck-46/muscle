@@ -134,14 +134,14 @@ class Account
             $col = ' * ';
             $where = ' email = ? ';
             $arrVal = [$this->dataArr['email']];
-    
+
             $res = $this->db->select($table, $col, $where, $arrVal);
-    
+
             if (count($res) === 0) {
                 $this->errArr['login'] = 'メールアドレスまたはパスワードが異なります';
             } elseif (password_verify($this->dataArr['password'], $res[0]['password']) !== true) {
                 $this->errArr['login'] = 'メールアドレスまたはパスワードが異なります';
-            } elseif ($res[0]['delete_flg'] === 1) {
+            } elseif ($res[0]['delete_flg'] === '1') {
                 $this->errArr['login'] = 'こちらのアカウントは既に退会しております';
             }
         }
@@ -155,5 +155,59 @@ class Account
         $this->loginErrorCheck();
 
         return $this->errArr;
+    }
+
+    public function deleteCheck($dataArr)
+    {
+        $this->dataArr = $dataArr;
+        // クラス内のメソッドを読み込む
+        $this->createErrorMessage();
+
+        $this->delCtgCheck();
+        $this->delTextCheck();
+
+        return $this->errArr;
+    }
+
+    private function delCtgCheck()
+    {
+        if ($this->dataArr['del_ctg_id'] === '') {
+            $this->errArr['del_ctg_id'] = '退会理由を選択してください';
+        }
+    }
+
+    private function delTextCheck()
+    {
+        if ($this->dataArr['del_text'] === '') {
+            $this->errArr['del_text'] = '退会理由の入力をお願いします';
+        }
+    }
+
+    public function delMemberData($mem_id, $dataArr)
+    {
+        // delete_flgを1にする
+        $date = date('Y-m-d H:i:s');
+        $table = ' member ';
+        $insData = [
+            'delete_flg' => 1,
+            'delete_date' => $date
+        ];
+        $where = 'mem_id = ' . $mem_id;
+
+        $res = $this->db->update($table, $insData, $where);
+        return $res;
+    }
+
+    public function recordDelReason($mem_id, $dataArr)
+    {
+        // 退会理由をDBに格納
+        $dataArr['mem_id'] = $mem_id;
+        $dataArr['delete_date'] = date('Y-m-d H:i:s');
+
+        $table = ' delete_reason ';
+        $insData = $dataArr;
+
+        $result = $this->db->insert($table, $insData);
+        return $result;
     }
 }
