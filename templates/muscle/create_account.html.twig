@@ -15,7 +15,6 @@
             <div><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}index.php">トップページへ</a></div>
         {% endif %}
         {% if user_name | length < 1 %}
-            <input type="hidden" name="entry_url" id="entry_url" value="{{constant('main\\Bootstrap::ENTRY_URL')}}">
             <form method="post" action="create_account_confirm.php">
                 <h2>新規登録</h2>
                 <div>

@@ -7,9 +7,7 @@
 <div>
     {% if user_name | length > 0 %}
         <div>{{ user_name }}さんのアカウント</div>
-        <a href="">カート</a>
-        <a href="">欲しい物リスト</a>
-        <a href="">購入履歴</a>
+        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}mypage.php">マイページ</a>
         <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}logout.php">ログアウト</a>
     {% endif %}
     {% if user_name | length < 1 %}
@@ -18,14 +16,5 @@
     {% endif %}
 </div>
 <div>
-    <div>ブランド別</div>
-    <a href="">ZAVAS</a>
-    <a href="">DNS</a>
-    <div>目的別</div>
-    <a href="">ムキムキになりたい</a>
-    <a href="">ダイエットしたい</a>
-    <div>フレーバー別</div>
-    <a href="">バニラ系</a>
-    <a href="">チョコ系</a>
-    <a href="">フルーツ系</a>
+    {% include 'category.html.twig' %}
 </div>

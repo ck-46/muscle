@@ -16,7 +16,7 @@ create table member (
     first_name varchar(20) not null,
     email varchar(255) not null,
     password varchar(255) not null,
-    create_date timestamp not null default current_timestamp,
+    create_date datetime not null default current_timestamp,
     update_date datetime,
     delete_date datetime,
     delete_flg tinyint(1) unsigned not null default 0,
@@ -44,11 +44,39 @@ create table item (
     index item_idx( flavor_id, purpose_id,  brand_id )
 );
 
+insert into item values ( 1, 'ウイダーマッスルフィットプロテイン', '吸収スピードの速いホエイプロテインと、ゆっくりと吸収されるカゼインプロテインを配合しています。ココア味はエネルギー74kcal、タンパク質15.0g。また、ウイダー独自のEルチンも配合しています。飲むタイミングは、運動後や就寝前がおすすめです。', 3917, 'weider0101.jpg', 1, 1, 1);
+insert into item values ( 2, 'ウイダーおいしい大豆プロテイン', '大豆プロテインを主原料にしています。1食分は、エネルギー74kcal、タンパク質10.0gです。日本人において不足しがちなカルシウムや、カルシウムの吸収を助けるビタミンDも配合しています。タンパク質が足りないときや運動後の栄養補給に活用できるのではないでしょうか。', 3100, 'weider0303.jpg', 3, 3, 1);
+insert into item values ( 3, 'ウイダーリカバリーパワープロテイン', '強度の高いスポーツをしたときに必要量が高まるといわれている抗酸化作用のあるビタミンCや、アミノ酸代謝や糖質代謝など、代謝に関わるビタミンB群も含まれています。また、アミノ酸の1つであるグルタミンやEルチンも配合しており、酷使された体のリカバリーを助けるプロテインです。', 3136, 'weider0204.jpg', 2, 4, 1);
+insert into item values ( 4, 'ウイダーウエイトダウンプロテイン', '体重を落としたいときには、運動を増やすほか食事量をコントロールすることもあるのではないでしょうか。そんな減量中に不足しがちなカルシウム、鉄、ビタミンB群、ビタミンA、ビタミンC、ビタミンD、ビタミンEを配合しています。1食分のエネルギーは52kcal、タンパク質は7.5gです。', 4591, 'weider0202.jpg', 2, 2, 1);
+insert into item values ( 5, 'ウイダーウエイトアップビッグ', 'エネルギー補給に役立つ、デキストリン、果糖、カゼインを配合しています。1食分は、エネルギー112kcal、タンパク質5.0gです。オルニチンや、カルシウム、ビタミンD、ビタミンB群を配合しています。アスリートなどエネルギー消費量が多く、食事だけの栄養補給で補いきれない場合などに活用できるのではないでしょうか。', 3164, 'weider0401.jpg', 4, 1, 1);
+insert into item values ( 6, 'マイプロテインインパクト ホエイ', '1回分あたりのコストは約「114円」と安め。無理なく続けられるお手頃価格だと言えるでしょう。タンパク質含有率も「72%」と平均よりも2%高く、トレーニング前後に摂取することでしっかりと筋肉増加の効果を期待できます。味・価格ともに評価が高く、毎日続けやすい要素が揃っているため、特に初心者におすすめのホエイプロテインです。', 2845, 'myprotein0501.jpg', 5, 1, 3);
+insert into item values ( 7, 'ゴールドスタンダード 100％ホエイ', 'タンパク質含有量が「75%」と平均よりも5%ほど高く、効率良くタンパク質を摂取したい人に向いています。1回分あたりのコストは「154円」と決して安くはないものの、家計に響くような高さでもないため、安さを重視する人でなければ問題ない価格だと言えるでしょう。', 4939, 'goldstandard0501.jpg', 5, 1, 4);
+insert into item values ( 8, 'ゴールドジムCFMホエイプロテイン', '独自の膜処理技術により製造された、高たんぱく質・低脂肪の高品質ホエイプロテイン（ＷＰＩ）です。CFM製法で製造されたホエイプロテインは、他の製法に比べ、ＢＣＡＡの組成比率が高いグリコマクロペプチド（ＧＭＰ）を多く含むのでレベルアップを目指すアスリートにおすすめです。', 6628, 'goldsgym0501.jpg', 5, 1, 5);
+insert into item values ( 9, 'ザバスホエイプロテイン100', 'カラダづくりに欠かせない「ビタミンB群・ビタミンD」、体調維持に欠かせない「ビタミンC」を配合しています。「ザバスホエイプロテイン100」は明治が実施したアスリートの食事調査に基づき、アスリートのカラダづくりに必要とされるビタミンを独自に設計して配合しています。', 4036, 'zavas0101.jpg', 1, 1, 2);
+
+create table brand (
+    brand_id tinyint unsigned not null auto_increment,
+    brand_name varchar(100) not null,
+    primary key( brand_id )
+);
+
+insert into brand values ( 1, 'weider' );
+insert into brand values ( 2, 'zavas' );
+insert into brand values ( 3, 'myprotein' );
+insert into brand values ( 4, 'goldstandard' );
+insert into brand values ( 5, 'goldsgym' );
+
 create table flavor (
     flavor_id tinyint unsigned not null auto_increment,
     flavor_name varchar(100) not null,
     primary key( flavor_id )
 );
+
+insert into flavor values ( 1, 'cocoa' );
+insert into flavor values ( 2, 'fruits' );
+insert into flavor values ( 3, 'coffee' );
+insert into flavor values ( 4, 'vanilla' );
+insert into flavor values ( 5, 'chocolate' );
 
 create table purpose (
     purpose_id tinyint unsigned not null auto_increment,
@@ -56,11 +84,12 @@ create table purpose (
     primary key( purpose_id )
 );
 
-create table brand (
-    brand_id tinyint unsigned not null auto_increment,
-    brand_name varchar(100) not null,
-    primary key( brand_id )
-);
+insert into purpose values ( 1, 'increase' );
+insert into purpose values ( 2, 'loss' );
+insert into purpose values ( 3, 'health' );
+insert into purpose values ( 4, 'recovery' );
+
+11/13 17:03 ここまで作った
 
 create table cart (
     crt_id int unsigned not null auto_increment,
@@ -69,8 +98,37 @@ create table cart (
     num tinyint(1) unsigned not null default 1,
     delete_flg tinyint(1) unsigned not null default 0,
     primary key( crt_id ),
-    index crt_idx( customer_no, delete_flg )
+    index crt_idx( mem_id, delete_flg )
 );
+
+11/14 9:53 ここまで作った
+
+create table delete_reason (
+    del_id int unsigned not null auto_increment,
+    mem_id int unsigned not null,
+    del_ctg_id int unsigned not null,
+    del_text varchar(1000),
+    delete_date datetime not null,
+    primary key( del_id )
+);
+
+create table delete_ctg (
+    del_ctg_id tinyint unsigned not null auto_increment,
+    del_ctg_name varchar(100) not null,
+    primary key( del_ctg_id )
+);
+
+insert into delete_ctg values ( 1, '会員ID・パスワードを忘れた' );
+insert into delete_ctg values ( 2, '二重に会員登録してしまった' );
+insert into delete_ctg values ( 3, '品揃えに満足できなかった' );
+insert into delete_ctg values ( 4, '商品情報に満足できなかった' );
+insert into delete_ctg values ( 5, '価格に満足できなかった' );
+insert into delete_ctg values ( 6, '配達・お届け商品に満足できなかった' );
+insert into delete_ctg values ( 7, '接客・応対に満足できなかった' );
+insert into delete_ctg values ( 8, 'サービスに満足できなかった' );
+insert into delete_ctg values ( 9, 'その他' );
+
+11/14 20:46 ここまで作った
 
 create table want_item (
     want_id int unsigned not null auto_increment,
@@ -116,21 +174,6 @@ create table contact_ctg (
     contact_ctg_id tinyint unsigned not null auto_increment,
     contact_ctg_name varchar(100) not null,
     primary key( contact_ctg_id )
-);
-
-create table cancel (
-    cancel_id int unsigned not null auto_increment,
-    mem_id int unsigned not null,
-    cancel_ctg_id int unsigned not null,
-    content varchar(1000),
-    cancel_date datetime not null,
-    primary key( ancel_id )
-);
-
-create table cancel_ctg (
-    cancel_ctg_id tinyint unsigned not null auto_increment,
-    cancel_ctg_name varchar(100) not null,
-    primary key( cancel_ctg_id )
 );
 
 

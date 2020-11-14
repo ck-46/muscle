@@ -21,23 +21,14 @@
                 <a href="">item3</a>
             </div>
             <div>
-                <a href="">商品一覧を見る</a>
+                <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php">商品一覧を見る</a>
             <div>
         </div>
         <div>
             <h2>商品を探す</h2>
             <div>
                 <div>
-                    <div>ブランド別</div>
-                    <a href="">ZAVAS</a>
-                    <a href="">DNS</a>
-                    <div>目的別</div>
-                    <a href="">ムキムキになりたい</a>
-                    <a href="">ダイエットしたい</a>
-                    <div>フレーバー別</div>
-                    <a href="">バニラ系</a>
-                    <a href="">チョコ系</a>
-                    <a href="">フルーツ系</a>
+                    {% include 'category.html.twig' %}
                 </div>
                 <div>
                     <form action="" method="post">

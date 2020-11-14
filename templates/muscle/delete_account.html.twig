@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUSCLE STORE｜退会ページ</title>
+</head>
+<body>
+    <header>
+        {% include 'header.html.twig' %}
+    </header>
+    <main>
+        <h2>退会手続き</h2>
+        <form action="delete_account_confirm.php" method="post">
+            <table>
+                <tr>
+                    <th>退会理由</th>
+                    <td>
+                        {% for index, label in delArr %}
+                        <input type="radio" name="del_ctg_id" value="{{index}}" id="del_{{index}}" {% if dataArr.del_ctg_id == index %} checked="checked" {% endif %}>
+                        <label for="del_{{index}}">{{label}}</label><br>
+                        {% endfor %}
+                        {% if errArr.del_ctg_id | length > 0 %}
+                        <span>{{errArr.del_ctg_id}}</span><br>
+                        {% endif %}
+                        <span>上記理由の詳細または「その他」の理由：</span><br>
+                        <span>（今後のサービス向上のため退会理由をお聞かせいただけると幸いです）</span><br>
+                        <textarea name="del_text" cols="50" rows="5">{{dataArr.del_text}}</textarea><br>
+                         <span>{{errArr.del_text}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" name="confirm" value="入力情報を確認">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </main>
+    <footer>
+        {% include 'footer.html.twig' %}
+    </footer>
+</body>
+</html>
