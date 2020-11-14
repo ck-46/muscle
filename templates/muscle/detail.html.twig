@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{constant('main\\Bootstrap::APP_URL')}}js/muscle.js"></script>
     <title>MUSCLE STORE｜商品詳細ページ</title>
 </head>
 <body>
+<input type="hidden" name="entry_url" value="{{constant('main\\Bootstrap::ENTRY_URL')}}" id="entry_url">
     <header>
         {% include 'header.html.twig' %}
     </header>
@@ -27,7 +30,7 @@
             </div>
             <div>
                 <input type="button" name="back" value="一覧へ戻る" onclick="history.back(); return false;">
-                <input type="button" name="cart_in" value="ショッピングカートへ入れる" id="cart_in">
+                <input type="button" name="cart_in" value="カートへ入れる" id="cart_in">
             </div>
         </div>
     </main>

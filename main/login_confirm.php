@@ -38,11 +38,17 @@ if (isset($_POST['confirm']) === true) {
     // err_check = true →エラーなし
     // エラーがなければcomplete.php、エラーがあればlogin.html.twig
     if ($err_check === true) {
-        // ユーザー情報をセッションに保存
-        // $_SESSION['id'] = $member['id'];
-        // $_SESSION['name'] = $member['name'];
+        if ($_SESSION['route'] === 'cart') {
+            $url = $_SESSION['url'];
+            $_SESSION = array();
+            $_SESSION = $ses->getSession($dataArr);
+            header('Location: ' . $url);
+            exit();
 
+        }
+        // ユーザー情報をセッションに保存
         $_SESSION = $ses->getSession($dataArr);
+
         header('Location: ' . Bootstrap::ENTRY_URL . 'complete.php?key=login');
         exit();
     } else {

@@ -7,7 +7,7 @@
 <div>
     {% if user_name | length > 0 %}
         <div>{{ user_name }}さんのアカウント</div>
-        <a href="">カート</a>
+        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}cart.php">カート</a>
         <a href="">欲しい物リスト</a>
         <a href="">購入履歴</a>
         <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}logout.php">ログアウト</a>

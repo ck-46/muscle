@@ -26,7 +26,7 @@ class Session
     // {
     //     // セッションのIDのチェック
     //     $customer_no = $this->selectSession();
-    //     // セッションIDがある（過去にショッピングカートに来たことがある）
+    //     // セッションIDがある（過去にカートに来たことがある）
     //     if ($customer_no !== false) {
     //         $_SESSION['customer_no'] = $customer_no;
     //     } else {
