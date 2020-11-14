@@ -23,7 +23,7 @@ $twig = new \Twig_Environment($loader, [
 $db = new PDODatabase(Bootstrap::DB_HOST, Bootstrap::DB_USER, Bootstrap::DB_PASS, Bootstrap::DB_NAME, Bootstrap::DB_TYPE);
 $acnt = new Account($db);
 $ses = new Session($db);
-$user_name = (isset($_SESSION['name']) === true) ? $_SESSION['name'] : '';
+$user_name = (isset($_SESSION['user_name']) === true) ? $_SESSION['user_name'] : '';
 
 // 登録画面から来た場合
 if (isset($_POST['confirm']) === true) {
@@ -76,7 +76,7 @@ switch ($mode) {
         unset($dataArr['confirm_email']);
         unset($dataArr['confirm_password']);
 
-        $res = $acnt->insMemberData($dataArr);
+        $res = $acnt->insUserData($dataArr);
 
         if ($res === true) {
             $_SESSION['log'] = 'in';

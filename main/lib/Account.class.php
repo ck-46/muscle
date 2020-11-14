@@ -62,7 +62,7 @@ class Account
         } elseif (preg_match('/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+[a-zA-Z0-9\._-]+$/', $this->dataArr['email']) === 0) {
             $this->errArr['email'] = 'メールアドレスを正しい形式で入力してください';
         } else {
-            $table = ' member ';
+            $table = ' user ';
             $col = ' email ';
             $where = ' email = ? ';
             $arrVal = [$this->dataArr['email']];
@@ -116,9 +116,9 @@ class Account
         return $err_check;
     }
 
-    public function insMemberData($dataArr)
+    public function insUserData($dataArr)
     {
-        $table = ' member ';
+        $table = ' user ';
         $insData = $dataArr;
 
         $res = $this->db->insert($table, $insData);
@@ -130,7 +130,7 @@ class Account
         if ($this->dataArr['email'] === '' || $this->dataArr['password'] === '') {
             $this->errArr['login'] = 'メールアドレスとパスワードを入力してください';
         } else {
-            $table = ' member ';
+            $table = ' user ';
             $col = ' * ';
             $where = ' email = ? ';
             $arrVal = [$this->dataArr['email']];
@@ -183,25 +183,25 @@ class Account
         }
     }
 
-    public function delMemberData($mem_id, $dataArr)
+    public function delUserData($user_id, $dataArr)
     {
         // delete_flgを1にする
         $date = date('Y-m-d H:i:s');
-        $table = ' member ';
+        $table = ' user ';
         $insData = [
             'delete_flg' => 1,
             'delete_date' => $date
         ];
-        $where = 'mem_id = ' . $mem_id;
+        $where = 'user_id = ' . $user_id;
 
         $res = $this->db->update($table, $insData, $where);
         return $res;
     }
 
-    public function recordDelReason($mem_id, $dataArr)
+    public function recordDelReason($user_id, $dataArr)
     {
         // 退会理由をDBに格納
-        $dataArr['mem_id'] = $mem_id;
+        $dataArr['user_id'] = $user_id;
         $dataArr['delete_date'] = date('Y-m-d H:i:s');
 
         $table = ' delete_reason ';

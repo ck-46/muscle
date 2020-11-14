@@ -18,7 +18,7 @@ use main\lib\Account;
 $db = new PDODatabase(Bootstrap::DB_HOST, Bootstrap::DB_USER, Bootstrap::DB_PASS, Bootstrap::DB_NAME, Bootstrap::DB_TYPE);
 $acnt = new Account($db);
 $ses = new Session($db);
-$user_name = (isset($_SESSION['name']) === true) ? $_SESSION['name'] : '';
+$user_name = (isset($_SESSION['user_name']) === true) ? $_SESSION['user_name'] : '';
 
 // テンプレート指定
 $loader = new \Twig_Loader_Filesystem(Bootstrap::TEMPLATE_DIR);
@@ -77,14 +77,14 @@ switch ($mode) {
     break;
 
     case 'complete':
-        $mem_id = (isset($_SESSION['mem_id']) === true) ? $_SESSION['mem_id'] : '';
+        $user_id = (isset($_SESSION['user_id']) === true) ? $_SESSION['user_id'] : '';
 
         $dataArr = $_POST;
         unset($dataArr['complete']);
 
-        $res = $acnt->delMemberData($mem_id, $dataArr);
+        $res = $acnt->delUserData($user_id, $dataArr);
         if ($res === true) {
-            $result = $acnt->recordDelReason($mem_id, $dataArr);
+            $result = $acnt->recordDelReason($user_id, $dataArr);
             if ($result === true) {
                 header('Location: ' . Bootstrap::ENTRY_URL . 'complete.php?key=delete_account');
                 exit();

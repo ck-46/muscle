@@ -15,7 +15,7 @@ use main\lib\Session;
 
 $db = new PDODatabase(Bootstrap::DB_HOST, Bootstrap::DB_USER, Bootstrap::DB_PASS, Bootstrap::DB_NAME, Bootstrap::DB_TYPE);
 $ses = new Session($db);
-$user_name = (isset($_SESSION['name']) === true) ? $_SESSION['name'] : '';
+$user_name = (isset($_SESSION['user_name']) === true) ? $_SESSION['user_name'] : '';
 
 // テンプレート指定
 $loader = new \Twig_Loader_Filesystem(Bootstrap::TEMPLATE_DIR);
@@ -34,7 +34,7 @@ if (isset($_GET['key']) === true) {
     // ログインから来た場合
     if ($_GET['key'] === 'login') {
         $content['type'] = 'ログイン';
-        $content['name'] = $_SESSION['name'];
+        $content['name'] = $_SESSION['user_name'];
     }
     // ログアウトから来た場合
     if ($_GET['key'] === 'logout') {

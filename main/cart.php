@@ -16,7 +16,7 @@ use main\lib\Cart;
 
 $db = new PDODatabase(Bootstrap::DB_HOST, Bootstrap::DB_USER, Bootstrap::DB_PASS, Bootstrap::DB_NAME, Bootstrap::DB_TYPE);
 $ses = new Session($db);
-$user_name = (isset($_SESSION['name']) === true) ? $_SESSION['name'] : '';
+$user_name = (isset($_SESSION['user_name']) === true) ? $_SESSION['user_name'] : '';
 $cart = new Cart($db);
 
 // テンプレート指定
@@ -27,8 +27,8 @@ $twig = new \Twig_Environment($loader, [
 
 // ログインしていない場合はログインページへ遷移
 // ログインできたら商品がカートに追加された状態のカートに遷移
-if (isset($_SESSION['mem_id']) === true) {
-    $mem_id = $_SESSION['mem_id'];
+if (isset($_SESSION['user_id']) === true) {
+    $user_id = $_SESSION['user_id'];
 } else {
     $_SESSION['route'] = 'cart';
     $_SESSION['url'] = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://').$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
@@ -42,7 +42,7 @@ $crt_id = (isset($_GET['crt_id']) === true && preg_match('/^\d+$/', $_GET['crt_i
 
 // item_idが設定されていれば、カートに登録する
 if ($item_id !== '') {
-    $res = $cart->insCartData($mem_id, $item_id);
+    $res = $cart->insCartData($user_id, $item_id);
     // 登録に失敗した場合、エラーページを表示する
     if ($res === false) {
         echo '商品購入に失敗しました。';
@@ -55,11 +55,11 @@ if ($crt_id !== '') {
     $res = $cart->delCartData($crt_id);
 }
 // カートの情報を取得する
-$dataArr = $cart->getCartData($mem_id);
+$dataArr = $cart->getCartData($user_id);
 // アイテム数と合計金額を取得する
 // listは配列をそれぞれの変数に分ける
 // $cartSumAndNumData = $cart->getItemAndSumPrice($customer_no);
-list($sumNum, $sumPrice) = $cart->getItemAndSumPrice($mem_id);
+list($sumNum, $sumPrice) = $cart->getItemAndSumPrice($user_id);
 
 $context = [];
 
