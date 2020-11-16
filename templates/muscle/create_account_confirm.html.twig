@@ -7,31 +7,29 @@
     <title>MUSCLE STORE｜新規登録確認ページ</title>
 </head>
 <body>
-<div class="container">
-    <header>
-        {% include 'header.html.twig' %}
-    </header>
-    <main>
-        <form method="post" action="create_account_confirm.php">
-            <h2>入力情報の確認</h2>
-            <div>
-                <div>氏：{{dataArr.family_name}}</div>
-                <div>名：{{dataArr.first_name}}</div>
-                <div>メールアドレス：{{dataArr.email}}</div>
-                <div>パスワード：******</div>
-            </div>
-            <div>
-                <input type="submit" name="back" value="修正する">
-                <input type="submit" name="complete" value="登録する">
-            </div>
-            {% for key,value in dataArr %}
-                <input type="hidden" name="{{key}}" value="{{value}}">
-            {% endfor %}
-        </form>
-    </main>
-    <footer>
-        {% include 'footer.html.twig' %}
-    </footer>
-</div>
+<header>
+    {% include 'header.html.twig' %}
+</header>
+<main class="container">
+    <h2 class="h2 mt-4 mb-4">入力情報の確認</h2>
+    <form method="post" action="create_account_confirm.php">
+        <div>
+            <div>氏：{{dataArr.family_name}}</div>
+            <div>名：{{dataArr.first_name}}</div>
+            <div>メールアドレス：{{dataArr.email}}</div>
+            <div>パスワード：******</div>
+        </div>
+        <div>
+            <input type="submit" class="btn btn-secondary" name="back" value="修正する">
+            <input type="submit" class="btn btn-primary" name="complete" value="登録する">
+        </div>
+        {% for key,value in dataArr %}
+            <input type="hidden" name="{{key}}" value="{{value}}">
+        {% endfor %}
+    </form>
+</main>
+<footer>
+    {% include 'footer.html.twig' %}
+</footer>
 </body>
 </html>

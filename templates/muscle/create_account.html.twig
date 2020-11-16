@@ -7,60 +7,58 @@
     <title>MUSCLE STORE｜新規登録ページ</title>
 </head>
 <body>
-<div class="container">
-    <header>
-        {% include 'header.html.twig' %}
-    </header>
-    <main>
-        {% if user_name | length > 0 %}
-            <div>{{ user_name }}さんは登録済みです</div>
-            <div><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}index.php">トップページへ</a></div>
-        {% endif %}
-        {% if user_name | length < 1 %}
-            <form method="post" action="create_account_confirm.php">
-                <h2>新規登録</h2>
-                <div>
-                    <div>氏：</div>
-                    <div>
-                        <input type="text" name="family_name" value="{{dataArr.family_name}}" size="40">
-                        <div>{% if errArr.family_name | length > 0 %}{{ errArr.family_name }}{% endif %}</div>
-                    </div>
-                    <div>名：</div>
-                    <div>
-                        <input type="text" name="first_name" value="{{dataArr.first_name}}" size="40">
-                        <div>{% if errArr.first_name | length > 0 %}{{ errArr.first_name }}{% endif %}</div>
-                    </div>
-                    <div>メールアドレス：</div>
-                    <div>
-                        <input type="text" name="email" value="{{dataArr.email}}" size="40">
-                        <div>{% if errArr.email | length > 0 %}{{errArr.email}}{% endif %}</div>
-                    </div>
-                    <div>もう一度メールアドレスを入力してください：</div>
-                    <div>
-                        <input type="text" name="confirm_email" value="{{confirmDataArr.confirm_email}}" size="40">
-                        <div>{% if errArr.confirm_email | length > 0 %}{{errArr.confirm_email}}{% endif %}</div>
-                    </div>
-                    <div>パスワード：</div>
+<header>
+    {% include 'header.html.twig' %}
+</header>
+<main class="container">
+    {% if user_name | length > 0 %}
+        <div>{{ user_name }}さんは登録済みです</div>
+        <div><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}index.php">トップページへ</a></div>
+    {% endif %}
+    {% if user_name | length < 1 %}
+        <form method="post" action="create_account_confirm.php">
+            <h2 class="h2 mt-4 mb-4">新規登録</h2>
+            <div>
+                <div class="form-group">
+                    <label for="family_name">氏：</label>
+                    {% if errArr.family_name | length > 0 %}<div class="text-danger">{{ errArr.family_name }}</div>{% endif %}
+                    <input type="text" id="family_name" class="form-control" name="family_name" value="{{dataArr.family_name}}" size="40">
+                </div>
+                <div class="form-group">
+                    <label for="first_name">名：</label>
+                    {% if errArr.first_name | length > 0 %}<div class="text-danger">{{ errArr.first_name }}</div>{% endif %}
+                    <input type="text" id="first_name" class="form-control" name="first_name" value="{{dataArr.first_name}}" size="40">
+                </div>
+                <div class="form-group">
+                    <label for="email">メールアドレス：</label>
+                    {% if errArr.email | length > 0 %}<div class="text-danger">{{errArr.email}}</div>{% endif %}
+                    <input type="text" id="email" class="form-control" name="email" value="{{dataArr.email}}" size="40">
+                </div>
+                <div class="form-group">
+                    <label for="confirm_email">もう一度メールアドレスを入力してください：</label>
+                    {% if errArr.confirm_email | length > 0 %}<div class="text-danger">{{errArr.confirm_email}}</div>{% endif %}
+                    <input type="text" id="confirm_email" class="form-control" name="confirm_email" value="{{confirmDataArr.confirm_email}}" size="40">
+                </div>
+                <div class="form-group">
+                    <label for="password">パスワード：</label>
                     <div>※パスワードは6〜20文字の半角数字で入力してください</div>
-                    <div>
-                        <input type="password" name="password" value="{{dataArr.password}}" size="40">
-                        <div>{% if errArr.password | length > 0 %}{{ errArr.password }}{% endif %}</div>
-                    </div>
-                    <div>もう一度パスワードを入力してください：</div>
-                    <div>
-                        <input type="password" name="confirm_password" value="{{confirmDataArr.confirm_password}}" size="40">
-                        <div>{% if errArr.confirm_password | length > 0 %}{{errArr.confirm_password}}{% endif %}</div>
-                    </div>
+                    {% if errArr.password | length > 0 %}<div class="text-danger">{{ errArr.password }}</div>{% endif %}
+                    <input type="password" id="password" class="form-control" name="password" value="{{dataArr.password}}" size="40">
                 </div>
-                <div>
-                    <input type="submit" name="confirm" value="入力情報を確認">
+                <div class="form-group">
+                    <label for="confirm_password">もう一度パスワードを入力してください：</label>
+                    {% if errArr.confirm_password | length > 0 %}<div class="text-danger">{{errArr.confirm_password}}</div>{% endif %}
+                    <input type="password" id="confirm_password" class="form-control" name="confirm_password" value="{{confirmDataArr.confirm_password}}" size="40">
                 </div>
-            </form>
-        {% endif %}
-    </main>
-    <footer>
-        {% include 'footer.html.twig' %}
-    </footer>
-</div>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-primary" name="confirm" value="入力情報を確認">
+            </div>
+        </form>
+    {% endif %}
+</main>
+<footer>
+    {% include 'footer.html.twig' %}
+</footer>
 </body>
 </html>

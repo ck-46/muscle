@@ -10,35 +10,33 @@
 </head>
 <body>
 <input type="hidden" name="entry_url" value="{{constant('main\\Bootstrap::ENTRY_URL')}}" id="entry_url">
-<div class="container">
-    <header>
-        {% include 'header.html.twig' %}
-    </header>
-    <main>
+<header>
+    {% include 'header.html.twig' %}
+</header>
+<main class="container">
+    <div>
         <div>
-            <div>
-                <img src="{{constant('main\\Bootstrap::ENTRY_URL')}}images/{{itemData.image}}" alt="{{itemData.item_name}}">
-            </div>
-            <div>
-                <dl>
-                    <dt>商品名</dt>
-                    <dd>{{itemData.item_name}}</dd>
-                    <dt>詳細</dt>
-                    <dd>{{itemData.detail}}</dd>
-                    <dt>価格</dt>
-                    <dd>&yen;{{itemData.price|number_format(0, '.', ',')}}</dd>
-                    <input type="hidden" name="item_id" id="item_id" value="{{itemData.item_id}}">
-                </dl>
-            </div>
-            <div>
-                <input type="button" name="back" value="一覧へ戻る" onclick="history.back(); return false;">
-                <input type="button" name="cart_in" value="カートへ入れる" id="cart_in">
-            </div>
+            <img src="{{constant('main\\Bootstrap::ENTRY_URL')}}images/{{itemData.image}}" alt="{{itemData.item_name}}">
         </div>
-    </main>
-    <footer>
-        {% include 'footer.html.twig' %}
-    </footer>
-</div>
+        <div>
+            <dl>
+                <dt>商品名</dt>
+                <dd>{{itemData.item_name}}</dd>
+                <dt>詳細</dt>
+                <dd>{{itemData.detail}}</dd>
+                <dt>価格</dt>
+                <dd>&yen;{{itemData.price|number_format(0, '.', ',')}}</dd>
+                <input type="hidden" name="item_id" id="item_id" value="{{itemData.item_id}}">
+            </dl>
+        </div>
+        <div>
+            <input type="button" name="back" value="一覧へ戻る" onclick="history.back(); return false;">
+            <input type="button" name="cart_in" value="カートへ入れる" id="cart_in">
+        </div>
+    </div>
+</main>
+<footer>
+    {% include 'footer.html.twig' %}
+</footer>
 </body>
 </html>

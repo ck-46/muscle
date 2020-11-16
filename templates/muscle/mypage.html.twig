@@ -7,25 +7,23 @@
     <title>MUSCLE STORE｜マイページ</title>
 </head>
 <body>
-<div class="container">
-    <header>
-        {% include 'header.html.twig' %}
-    </header>
-    <main>
-        <h2>マイページ</h2>
-        <div>
-            <div><a href="">欲しい物リスト</a></div>
-            <div><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}cart.php">カート</a></div>
-            <div><a href="">購入履歴</a></div>
-            <div><a href="">アカウント情報編集</a></div>
-            <div><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}delete_account.php">退会</a></div>
-            <div><a href="">お問い合わせ</a></div>
-            <div><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}index.php">トップページへ</a></div>
-        </div>
-    </main>
-    <footer>
-        {% include 'footer.html.twig' %}
-    </footer>
-</div>
+<header>
+    {% include 'header.html.twig' %}
+</header>
+<main class="container">
+    <h2 class="h2 mt-4 mb-4">マイページ</h2>
+    <div>
+        <div><a href="">欲しい物リスト</a></div>
+        <div><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}cart.php">カート</a></div>
+        <div><a href="">購入履歴</a></div>
+        <div><a href="">アカウント情報編集</a></div>
+        <div><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}delete_account.php">退会</a></div>
+        <div><a href="">お問い合わせ</a></div>
+        <div><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}index.php">トップページへ</a></div>
+    </div>
+</main>
+<footer>
+    {% include 'footer.html.twig' %}
+</footer>
 </body>
 </html>
