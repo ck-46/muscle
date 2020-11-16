@@ -7,38 +7,26 @@
     <title>MUSCLE STORE｜退会確認ページ</title>
 </head>
 <body>
-<div class="container">
-    <header>
-        {% include 'header.html.twig' %}
-    </header>
-    <main>
-        <h2>入力情報の確認</h2>
-        <form action="delete_account_confirm.php" method="post">
-            <table>
-                <tr>
-                    <th>退会理由</th>
-                    <td>
-                        {% for index, label in delArr %}
-                            <div>{% if dataArr.del_ctg_id == index %}{{label}}{% endif %}</div>
-                        {% endfor %}
-                        <div>{{dataArr.del_text}}</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" name="back" value="修正する">
-                        <input type="submit" name="complete" value="登録する">
-                    </td>
-                </tr>
-            </table>
-            {% for key,value in dataArr %}
-                <input type="hidden" name="{{key}}" value="{{value}}">
-            {% endfor %}
-        </form>
-    </main>
-    <footer>
-        {% include 'footer.html.twig' %}
-    </footer>
-</div>
+<header>
+    {% include 'header.html.twig' %}
+</header>
+<main class="container">
+    <h2 class="h2 mt-4 mb-4">入力情報の確認</h2>
+    <form action="delete_account_confirm.php" method="post">
+        <h3>退会理由</h3>
+        {% for index, label in delArr %}
+            <div>{% if dataArr.del_ctg_id == index %}{{label}}{% endif %}</div>
+        {% endfor %}
+        <div>{{dataArr.del_text}}</div><br>
+        <input type="submit" class="btn btn-secondary" name="back" value="修正する">
+        <input type="submit" class="btn btn-primary" name="complete" value="退会する">
+        {% for key,value in dataArr %}
+            <input type="hidden" name="{{key}}" value="{{value}}">
+        {% endfor %}
+    </form>
+</main>
+<footer>
+    {% include 'footer.html.twig' %}
+</footer>
 </body>
 </html>

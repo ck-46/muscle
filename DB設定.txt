@@ -123,7 +123,7 @@ insert into delete_ctg values ( 2, '二重に会員登録してしまった' );
 insert into delete_ctg values ( 3, '品揃えに満足できなかった' );
 insert into delete_ctg values ( 4, '商品情報に満足できなかった' );
 insert into delete_ctg values ( 5, '価格に満足できなかった' );
-insert into delete_ctg values ( 6, '配達・お届け商品に満足できなかった' );
+insert into delete_ctg values ( 6, '配達に満足できなかった' );
 insert into delete_ctg values ( 7, '接客・応対に満足できなかった' );
 insert into delete_ctg values ( 8, 'サービスに満足できなかった' );
 insert into delete_ctg values ( 9, 'その他' );
