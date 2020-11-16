@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{constant('main\\Bootstrap::ENTRY_URL')}}stylesheets/index.css" rel="stylesheet">
     <title>MUSCLE STORE｜トップページ</title>
 </head>
 <body>
+<div class="container">
     <header>
         {% include 'header.html.twig' %}
     </header>
@@ -13,8 +15,7 @@
         <div>
             <div>main-image</div>
         </div>
-        <div>
-            <h2>おすすめの商品</h2>
+            <h2 class="h2 text-dark mt-4 mb-4">おすすめの商品</h2>
             <div>
                 <a href="">item1</a>
                 <a href="">item2</a>
@@ -23,9 +24,7 @@
             <div>
                 <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php">商品一覧を見る</a>
             <div>
-        </div>
-        <div>
-            <h2>商品を探す</h2>
+            <h2 class="h2 text-dark mt-4 mb-4">商品を探す</h2>
             <div>
                 <div>
                     {% include 'category.html.twig' %}
@@ -41,10 +40,10 @@
                     </form>
                 </div>
             </div>
-        </div>
     </main>
     <footer>
         {% include 'footer.html.twig' %}
     </footer>
+</div>
 </body>
 </html>

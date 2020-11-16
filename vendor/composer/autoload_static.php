@@ -18,6 +18,7 @@ class ComposerStaticInitcaae8d2c61a81748f7885fdccdeeed73
         'S' => 
         array (
             'Symfony\\Polyfill\\Ctype\\' => 23,
+            'ScssPhp\\ScssPhp\\' => 16,
         ),
     );
 
@@ -29,6 +30,10 @@ class ComposerStaticInitcaae8d2c61a81748f7885fdccdeeed73
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
+        'ScssPhp\\ScssPhp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/scssphp/scssphp/src',
         ),
     );
 

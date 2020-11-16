@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{constant('main\\Bootstrap::ENTRY_URL')}}stylesheets/index.css" rel="stylesheet">
     <title>MUSCLE STORE｜退会確認ページ</title>
 </head>
 <body>
+<div class="container">
     <header>
         {% include 'header.html.twig' %}
     </header>
@@ -37,5 +39,6 @@
     <footer>
         {% include 'footer.html.twig' %}
     </footer>
+</div>
 </body>
 </html>
