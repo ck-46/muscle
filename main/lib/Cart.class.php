@@ -16,18 +16,18 @@ class Cart
     }
 
     // カートに登録する（必要な情報は、誰が$customer_no、何を($item_id)）
-    public function insCartData($mem_id, $item_id)
+    public function insCartData($user_id, $item_id)
     {
         $table = ' cart ';
         $insData = [
-            'mem_id' => $mem_id,
+            'user_id' => $user_id,
             'item_id' => $item_id
         ];
         return $this->db->insert($table, $insData);
     }
 
     // カートの情報を取得する（必要な情報は、誰が$customer_no。必要な商品情報は名前、商品画像、金額）
-    public function getCartData($mem_id)
+    public function getCartData($user_id)
     {
         // SELECT
         // c.crt_id,
@@ -42,11 +42,11 @@ class Cart
         // ON
         // c.item_id = i.item_id
         // WHERE
-        // c.mem_id = ? AND c.delete_flg = ? ;
+        // c.user_id = ? AND c.delete_flg = ? ;
         $table = ' cart c LEFT JOIN item i ON c.item_id = i.item_id ';
         $column = ' c.crt_id, i.item_id, i.item_name, i.price, i.image ';
-        $where = ' c.mem_id = ? AND c.delete_flg = ? ';
-        $arrVal = [$mem_id, 0];
+        $where = ' c.user_id = ? AND c.delete_flg = ? ';
+        $arrVal = [$user_id, 0];
 
         return $this->db->select($table, $column, $where, $arrVal);
     }
@@ -63,7 +63,7 @@ class Cart
     }
 
     // アイテム数と合計金額を取得する
-    public function getItemAndSumPrice($mem_id)
+    public function getItemAndSumPrice($user_id)
     {
         // 合計金額
         // SELECT
@@ -75,11 +75,11 @@ class Cart
         // ON
         // c.item_id = i.item_id "
         // WHERE
-        // c.mem_id = ? AND c.delete_flg = ? ';
+        // c.user_id = ? AND c.delete_flg = ? ';
         $table = ' cart c LEFT JOIN item i ON c.item_id = i.item_id ';
         $column = ' SUM( i.price ) AS totalPrice ';
-        $where = ' c.mem_id = ? AND c.delete_flg = ? ';
-        $arrWhereVal = [$mem_id, 0];
+        $where = ' c.user_id = ? AND c.delete_flg = ? ';
+        $arrWhereVal = [$user_id, 0];
 
         $res = $this->db->select($table, $column, $where, $arrWhereVal);
         $price = ($res !== false && count($res) !== 0) ? $res[0]['totalPrice'] : 0;

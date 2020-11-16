@@ -17,7 +17,7 @@ use main\lib\Account;
 $db = new PDODatabase(Bootstrap::DB_HOST, Bootstrap::DB_USER, Bootstrap::DB_PASS, Bootstrap::DB_NAME, Bootstrap::DB_TYPE);
 $acnt = new Account($db);
 $ses = new Session($db);
-$user_name = (isset($_SESSION['name']) === true) ? $_SESSION['name'] : '';
+$user_name = (isset($_SESSION['user_name']) === true) ? $_SESSION['user_name'] : '';
 
 //セッションの中身をすべて削除
 $_SESSION = array();
