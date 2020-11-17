@@ -86,6 +86,10 @@ switch ($mode) {
         if ($res === true) {
             $result = $acnt->recordDelReason($user_id, $dataArr);
             if ($result === true) {
+                //セッションの中身をすべて削除
+                $_SESSION = array();
+                //セッションを破壊
+                session_destroy();
                 header('Location: ' . Bootstrap::ENTRY_URL . 'complete.php?key=delete_account');
                 exit();
             }

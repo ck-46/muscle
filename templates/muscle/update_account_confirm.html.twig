@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{constant('main\\Bootstrap::ENTRY_URL')}}stylesheets/index.css" rel="stylesheet">
+    <title>MUSCLE STORE｜変更確認ページ</title>
+</head>
+<body>
+<header>
+    {% include 'header.html.twig' %}
+</header>
+<main class="container">
+    <h2 class="h2 mt-4 mb-4">入力情報の確認</h2>
+    <form method="post" action="update_account_confirm.php">
+        <div>
+            {% if updateDataArr.family_name | length > 0 %}<div>氏：{{updateDataArr.family_name}}</div>{% endif %}
+            {% if updateDataArr.first_name | length > 0 %}<div>名：{{updateDataArr.first_name}}</div>{% endif %}
+            {% if updateDataArr.email | length > 0 %}<div>メールアドレス：{{updateDataArr.email}}</div>{% endif %}
+            {% if updateDataArr.password | length > 0 %}<div>パスワード：******</div>{% endif %}
+        </div>
+        <div>
+            <input type="submit" class="btn btn-secondary" name="back" value="修正する">
+            <input type="submit" class="btn btn-primary" name="complete" value="登録する">
+        </div>
+        {% for key,value in updateDataArr %}
+            <input type="hidden" name="{{key}}" value="{{value}}">
+        {% endfor %}
+    </form>
+</main>
+<footer>
+    {% include 'footer.html.twig' %}
+</footer>
+</body>
+</html>

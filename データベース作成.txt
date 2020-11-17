@@ -1,0 +1,87 @@
+mysql -u root -p
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -p
+
+CREATE DATABASE board_db default character SET utf8;
+
+//ユーザーの作成
+//名前
+//見ていいデータベース
+//パスワード
+grant all privileges on board_db. *to board_user@'localhost' identified by 'board_pass' with grant option;
+
+SELECT host, user FROM mysql. user;
+
+exit
+
+mysql -u board_user -p
+show databases;
+
+use board_db;
+
+//列の名前と型、その他の情報
+//個別のデータを認識する番号
+//ダブらない、カラじゃない
+//int：整数
+//not null：空白ではない（必ず存在する）
+//auto_increment：自動採番
+//primary kuy：主キー（識別）
+//varchar(255)：文字列型で225文字まで
+
+create table board (
+    id int unsigned not null auto_increment primary key,
+    name varchar(255) not null,
+    contents text not null
+);
+
+show tables;
+desc board;
+
+insert into board ( name , contents ) values ( 'nakata' , 'PHP' );
+insert into board ( name , contents ) values ( 'saito' , 'Java' );
+
+select id , name , contents from board ;
+select * from board;
+
+DELETE FROM board WHERE id = 1;
+
+◯データベースのコマンド
+CRUD（クラッド）：Create（生成/INSERT）、Read（読み取り/SELECT）、Update（更新/UPDATE）、Delete（削除/DELETE）
+
+    データベースを作成する
+    CREATE DATABASE データベース名
+
+    ユーザを作成する
+    GRANT 権限 ON DB名. TABLE名 TO ユーザ名@ホスト名　IDENTIFIED BY 'パスワード' WITH GARNT OPTION;
+
+        テーブルを作成する
+        CREATE TABLE テーブル名 ( カラム1 型, カラム2 型 );
+
+        データベースの一覧を表示する
+        SHOW DATABASES;
+
+        データベースを選択する
+        USE データベース名;
+
+        テーブルの一覧を表示する
+        SHOW TABLES;
+
+        テーブルの構造を表示する
+        DESC テーブル名;
+
+        データを登録する
+        INSERT INTO テーブル名 ( カラム1, カラム2, ...) VALUES ( 値1, 値2, ...);
+
+        データを更新する
+        UPDATE テーブル名　SET カラム1 = 値1, カラム2 = 値2, ... WHERE カラム3 = 値3;
+
+        データを削除する（→現場では、Deleteフラグを作成したほうがイイ）
+        DELETE FROM テーブル名 WHERE カラム1 = 値1;
+
+        データを選択する
+        SELECT カラム1, カラム2, ... FROM テーブル名 WHERE カラム名 条件
+
+        ユーザーの確認
+        SELECT host, user FROM mysql. user;
+
+        データの後に続く()は文字の長さ varchar(10)だと10文字
+        intはなくてもOK

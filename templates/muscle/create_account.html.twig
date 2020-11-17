@@ -18,42 +18,38 @@
     {% if user_name | length < 1 %}
         <form method="post" action="create_account_confirm.php">
             <h2 class="h2 mt-4 mb-4">新規登録</h2>
-            <div>
-                <div class="form-group">
-                    <label for="family_name">氏：</label>
-                    {% if errArr.family_name | length > 0 %}<div class="text-danger">{{ errArr.family_name }}</div>{% endif %}
-                    <input type="text" id="family_name" class="form-control" name="family_name" value="{{dataArr.family_name}}" size="40">
-                </div>
-                <div class="form-group">
-                    <label for="first_name">名：</label>
-                    {% if errArr.first_name | length > 0 %}<div class="text-danger">{{ errArr.first_name }}</div>{% endif %}
-                    <input type="text" id="first_name" class="form-control" name="first_name" value="{{dataArr.first_name}}" size="40">
-                </div>
-                <div class="form-group">
-                    <label for="email">メールアドレス：</label>
-                    {% if errArr.email | length > 0 %}<div class="text-danger">{{errArr.email}}</div>{% endif %}
-                    <input type="text" id="email" class="form-control" name="email" value="{{dataArr.email}}" size="40">
-                </div>
-                <div class="form-group">
-                    <label for="confirm_email">もう一度メールアドレスを入力してください：</label>
-                    {% if errArr.confirm_email | length > 0 %}<div class="text-danger">{{errArr.confirm_email}}</div>{% endif %}
-                    <input type="text" id="confirm_email" class="form-control" name="confirm_email" value="{{confirmDataArr.confirm_email}}" size="40">
-                </div>
-                <div class="form-group">
-                    <label for="password">パスワード：</label>
-                    <div>※パスワードは6〜20文字の半角数字で入力してください</div>
-                    {% if errArr.password | length > 0 %}<div class="text-danger">{{ errArr.password }}</div>{% endif %}
-                    <input type="password" id="password" class="form-control" name="password" value="{{dataArr.password}}" size="40">
-                </div>
-                <div class="form-group">
-                    <label for="confirm_password">もう一度パスワードを入力してください：</label>
-                    {% if errArr.confirm_password | length > 0 %}<div class="text-danger">{{errArr.confirm_password}}</div>{% endif %}
-                    <input type="password" id="confirm_password" class="form-control" name="confirm_password" value="{{confirmDataArr.confirm_password}}" size="40">
-                </div>
+            <div class="form-group">
+                <label for="family_name">氏：</label>
+                {% if errArr.family_name | length > 0 %}<div class="text-danger">{{ errArr.family_name }}</div>{% endif %}
+                <input type="text" id="family_name" class="form-control" name="family_name" value="{{dataArr.family_name}}" size="40">
             </div>
-            <div>
-                <input type="submit" class="btn btn-primary" name="confirm" value="入力情報を確認">
+            <div class="form-group">
+                <label for="first_name">名：</label>
+                {% if errArr.first_name | length > 0 %}<div class="text-danger">{{ errArr.first_name }}</div>{% endif %}
+                <input type="text" id="first_name" class="form-control" name="first_name" value="{{dataArr.first_name}}" size="40">
             </div>
+            <div class="form-group">
+                <label for="email">メールアドレス：</label>
+                {% if errArr.email | length > 0 %}<div class="text-danger">{{errArr.email}}</div>{% endif %}
+                <input type="text" id="email" class="form-control" name="email" value="{{dataArr.email}}" size="40">
+            </div>
+            <div class="form-group">
+                <label for="confirm_email">もう一度メールアドレスを入力してください：</label>
+                {% if errArr.confirm_email | length > 0 %}<div class="text-danger">{{errArr.confirm_email}}</div>{% endif %}
+                <input type="text" id="confirm_email" class="form-control" name="confirm_email" value="{{confirmDataArr.confirm_email}}" size="40">
+            </div>
+            <div class="form-group">
+                <label for="password">パスワード：</label>
+                <div>※パスワードは6〜20文字の半角数字で入力してください</div>
+                {% if errArr.password | length > 0 %}<div class="text-danger">{{ errArr.password }}</div>{% endif %}
+                <input type="password" id="password" class="form-control" name="password" value="" size="40">
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">もう一度パスワードを入力してください：</label>
+                {% if errArr.confirm_password | length > 0 %}<div class="text-danger">{{errArr.confirm_password}}</div>{% endif %}
+                <input type="password" id="confirm_password" class="form-control" name="confirm_password" value="{{confirmDataArr.confirm_password}}" size="40">
+            </div>
+            <input type="submit" class="btn btn-primary" name="confirm" value="入力情報を確認">
         </form>
     {% endif %}
 </main>
