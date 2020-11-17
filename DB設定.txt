@@ -106,7 +106,7 @@ create table delete_reason (
     user_id int unsigned not null,
     del_ctg_id int unsigned not null,
     del_text varchar(1000),
-    delete_date datetime not null,
+    delete_date datetime not null default current_timestamp,
     primary key( del_id )
 );
 
@@ -127,6 +127,28 @@ insert into delete_ctg values ( 8, 'サービスに満足できなかった' );
 insert into delete_ctg values ( 9, 'その他' );
 
 11/14 20:46 ここまで作った
+
+create table contact (
+    contact_id int unsigned not null auto_increment,
+    user_id int unsigned not null,
+    contact_ctg_id int unsigned not null,
+    content varchar(1000) not null,
+    contact_date datetime not null default current_timestamp,
+    primary key( contact_id )
+);
+
+create table contact_ctg (
+    contact_ctg_id tinyint unsigned not null auto_increment,
+    contact_ctg_name varchar(100) not null,
+    primary key( contact_ctg_id )
+);
+
+insert into contact_ctg values ( 1, '商品について' );
+insert into contact_ctg values ( 2, 'お支払いについて' );
+insert into contact_ctg values ( 3, 'サイトの不具合について' );
+insert into contact_ctg values ( 9, 'その他' );
+
+11/17 11:47 ここまで作った
 
 create table want_item (
     want_id int unsigned not null auto_increment,
@@ -157,21 +179,6 @@ create table review (
     review_date datetime not null,
     primary key( review_id ),
     index review_idx( customer_no, delete_flg )
-);
-
-create table contact (
-    contact_id int unsigned not null auto_increment,
-    user_id int unsigned not null,
-    contact_ctg_id int unsigned not null,
-    content varchar(1000) not null,
-    contact_date datetime not null,
-    primary key( contact_id )
-);
-
-create table contact_ctg (
-    contact_ctg_id tinyint unsigned not null auto_increment,
-    contact_ctg_name varchar(100) not null,
-    primary key( contact_ctg_id )
 );
 
 

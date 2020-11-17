@@ -203,7 +203,6 @@ class Account
     {
         // 退会理由をDBに格納
         $dataArr['user_id'] = $user_id;
-        $dataArr['delete_date'] = date('Y-m-d H:i:s');
 
         $table = ' delete_reason ';
         $insData = $dataArr;
@@ -261,6 +260,61 @@ class Account
         $where = 'user_id = ' . $user_id;
 
         $res = $this->db->update($table, $insData, $where);
+        return $res;
+    }
+
+    public function contactCheck($dataArr)
+    {
+        $this->dataArr = $dataArr;
+        // クラス内のメソッドを読み込む
+        $this->createErrorMessage();
+
+        $this->contactCtgCheck();
+        $this->contactContentCheck();
+
+        return $this->errArr;
+    }
+
+    private function contactCtgCheck()
+    {
+        if ($this->dataArr['contact_ctg_id'] === '') {
+            $this->errArr['contact_ctg_id'] = '種別を選択してください';
+        }
+    }
+
+    private function contactContentCheck()
+    {
+        if ($this->dataArr['content'] === '') {
+            $this->errArr['content'] = 'お問い合わせ内容の入力をお願いします';
+        }
+    }
+
+    public function recordContact($user_id, $dataArr)
+    {
+        // お問い合わせ内容をDBに格納
+        $dataArr['user_id'] = $user_id;
+
+        $table = ' contact ';
+        $insData = $dataArr;
+
+        $result = $this->db->insert($table, $insData);
+        return $result;
+    }
+
+    public function sendMail($user_id)
+    {
+        $userData = $this->getUserData($user_id);
+
+        $name = $userData['family_name'] . $userData['first_name'];
+        $email = $userData['email'];
+        $mailHeader = "From: chibakohei@gmail.com";
+        $mailSubject = "お問い合わせありがとうございます";
+        $mailBody = $name . "様 お問い合わせありがとうございます";
+
+        mb_language( 'Japanese' );
+        mb_internal_encoding( 'UTF-8' );
+        $res = mb_send_mail($email, $mailSubject, $mailBody, $mailHeader, '-f' . 'chibakohei@gmail.com');
+
         return $res;
     }
 }
