@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{constant('main\\Bootstrap::ENTRY_URL')}}stylesheets/index.css" rel="stylesheet">
+    <title>MUSCLE STORE｜お問い合わせページ</title>
+</head>
+<body>
+<header>
+    {% include 'header.html.twig' %}
+</header>
+<main class="container">
+    <h2 class="h2 mt-4 mb-4">お問い合わせ</h2>
+        <p>お問い合わせ内容を入力してください</p>
+        {% if errArr.contact_ctg_id | length > 0 %}
+            <div class="text-danger">{{errArr.contact_ctg_id}}</div>
+        {% endif %}
+        <form action="contact_confirm.php" method="post">
+            {% if errArr.login | length > 0 %}{<div class="text-danger">{errArr.login}}</div>{% endif %}
+            <div class="container">
+                {% for index, label in contactArr %}
+                <input type="radio" id="contact_{{index}}" name="contact_ctg_id" value="{{index}}" {% if dataArr.contact_ctg_id == index %} checked="checked" {% endif %}>
+                <label for="contact_{{index}}">{{label}}</label><br>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <div>詳細：</div>
+                {% if errArr.content | length > 0 %}
+                    <div class="text-danger">{{errArr.content}}</div>
+                {% endif %}
+                <textarea class="form-control" name="content" cols="40" rows="5">{{dataArr.content}}</textarea>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-primary" name="confirm" value="入力情報の確認">
+            </div>
+        </form>
+</main>
+<footer>
+    {% include 'footer.html.twig' %}
+</footer>
+</body>
+</html>

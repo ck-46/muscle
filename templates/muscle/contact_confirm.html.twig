@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{constant('main\\Bootstrap::ENTRY_URL')}}stylesheets/index.css" rel="stylesheet">
-    <title>MUSCLE STORE｜退会確認ページ</title>
+    <title>MUSCLE STORE｜お問い合わせ確認ページ</title>
 </head>
 <body>
 <header>
@@ -12,14 +12,14 @@
 </header>
 <main class="container">
     <h2 class="h2 mt-4 mb-4">入力情報の確認</h2>
-    <form action="delete_account_confirm.php" method="post">
-        <h3>退会理由</h3>
-        {% for index, label in delArr %}
-            {% if dataArr.del_ctg_id == index %}<div>{{label}}</div>{% endif %}</div>
+    <form action="contact_confirm.php" method="post">
+        <h3>お問い合わせ内容</h3>
+        {% for index, label in contactArr %}
+            {% if dataArr.contact_ctg_id == index %}<div>{{label}}</div>{% endif %}
         {% endfor %}
-        <div>{{dataArr.del_text}}</div><br>
+        <div>{{dataArr.content}}</div><br>
         <input type="submit" class="btn btn-secondary" name="back" value="修正する">
-        <input type="submit" class="btn btn-primary" name="complete" value="退会する">
+        <input type="submit" class="btn btn-primary" name="complete" value="送信する">
         {% for key,value in dataArr %}
             <input type="hidden" name="{{key}}" value="{{value}}">
         {% endfor %}

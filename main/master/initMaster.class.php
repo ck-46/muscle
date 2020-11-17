@@ -25,4 +25,16 @@ class initMaster
 
         return $delArr;
     }
+
+    public static function getContactCategory()
+    {
+        $contactArr = [
+            '1' => '商品について',
+            '2' => 'お支払いについて',
+            '3' => 'サイトの不具合について',
+            '9' => 'その他'
+        ];
+
+        return $contactArr;
+    }
 }
