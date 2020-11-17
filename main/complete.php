@@ -45,6 +45,10 @@ if (isset($_GET['key']) === true) {
     if ($_GET['key'] === 'delete_account') {
         $content['type'] = '退会手続き';
     }
+    // アカウント編集から来た場合
+    if ($_GET['key'] === 'update_account') {
+        $content['type'] = '変更';
+    }
 }
 
 $context = [];

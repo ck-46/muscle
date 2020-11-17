@@ -12,6 +12,7 @@ class Account
     public $ses = null;
 
     private $dataArr = [];
+    private $updateDataArr = [];
     private $errArr = [];
 
     public function __construct($db)
@@ -209,5 +210,57 @@ class Account
 
         $result = $this->db->insert($table, $insData);
         return $result;
+    }
+
+    public function getUserData($user_id)
+    {
+        $table = ' user ';
+        $col = 'family_name,first_name,email,password';
+        $where = ' user_id = ? ';
+        $arrVal = [$user_id];
+
+        $res = $this->db->select($table, $col, $where, $arrVal);
+        $dataArr = $res[0];
+        return $dataArr;
+    }
+
+    public function updateCheck($updateDataArr)
+    {
+        $this->updateDataArr = $updateDataArr;
+
+        if ($this->updateDataArr['family_name'] === '' &&
+            $this->updateDataArr['first_name'] === '' &&
+            $this->updateDataArr['email'] === '' &&
+            $this->updateDataArr['password'] === '') {
+
+            $this->errArr = ['all' => '変更がありません'];
+        }
+
+        if ($this->updateDataArr['email'] !== '' && preg_match('/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+[a-zA-Z0-9\._-]+$/', $this->updateDataArr['email']) === 0) {
+            $this->errArr['email'] = 'メールアドレスを正しい形式で入力してください';
+        }
+        if ($this->updateDataArr['password'] !== '' && preg_match('/^[0-9a-zA-Z]{6,20}$/', $this->updateDataArr['password']) === 0) {
+            $this->errArr['password'] = 'パスワードを正しい形式でで入力してください';
+        }
+        return $this->errArr;
+    }
+
+    public function updateUserData($updateDataArr, $user_id)
+    {
+        $this->updateDataArr = $updateDataArr;
+        // var_dump($this->updateDataArr);
+        // exit;
+        $table = ' user ';
+        foreach ($this->updateDataArr as $key => $value) {
+            if ($value !== '') {
+                $insData[$key] = $value;
+            }
+        }
+        $date = date('Y-m-d H:i:s');
+        $insData['update_date'] = $date;
+        $where = 'user_id = ' . $user_id;
+
+        $res = $this->db->update($table, $insData, $where);
+        return $res;
     }
 }
