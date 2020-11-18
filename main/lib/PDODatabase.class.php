@@ -188,6 +188,9 @@ class PDODatabase
             .  $preSt
             .  ') ';
 
+        // var_dump($sql);
+        // exit;
+
         $this->sqlLogInfo($sql, $insDataVal);
 
         $stmt = $this->dbh->prepare($sql);
@@ -217,6 +220,9 @@ class PDODatabase
             .  ' WHERE '
             .  $where;
 
+            // var_dump($sql);
+            // exit;
+
         $updateData = array_merge(array_values($insData), $arrWhereVal);
         $this->sqlLogInfo($sql, $updateData);
 
@@ -224,6 +230,8 @@ class PDODatabase
         // var_dump($stmt);
         // exit;
         $res = $stmt->execute($updateData);
+        // var_dump($res);
+        // exit;
 
         if ($res === false) {
             $this->catchError($stmt->errorInfo());

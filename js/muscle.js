@@ -3,6 +3,7 @@ $(function(){
 
     $("#cart_in").click(function(){
         var item_id = $("#item_id").val();
-        location.href = entry_url + "cart.php?item_id=" + item_id;
+        var item_amount = $("#amount").val();
+        location.href = entry_url + "cart.php?item_id=" + item_id + "&amount=" . amount;
     });
 });

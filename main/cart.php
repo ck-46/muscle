@@ -23,7 +23,7 @@ $cart = new Cart($db);
 $loader = new \Twig_Loader_Filesystem(Bootstrap::TEMPLATE_DIR);
 $twig = new \Twig_Environment($loader, [
     'cache' => Bootstrap::CACHE_DIR
-    ]);
+]);
 
 // ログインしていない場合はログインページへ遷移
 // ログインできたら商品がカートに追加された状態のカートに遷移
@@ -36,30 +36,53 @@ if (isset($_SESSION['user_id']) === true) {
     exit();
 }
 
+// var_dump($user_id);
+// exit;
+
 // item_idを取得する
 $item_id = (isset($_GET['item_id']) === true && preg_match('/^\d+$/', $_GET['item_id']) === 1) ? $_GET['item_id'] : '';
 $crt_id = (isset($_GET['crt_id']) === true && preg_match('/^\d+$/', $_GET['crt_id']) === 1) ? $_GET['crt_id'] : '';
 
+// var_dump($item_id);
+// var_dump($crt_id);
+// exit;
+
+// 数量を取得
+// $amount = (isset($_GET['amount']) === true && preg_match('/^\d+$/', $_GET['amount']) === 1) ? $_GET['amount'] : '';
+
 // item_idが設定されていれば、カートに登録する
-if ($item_id !== '') {
-    $res = $cart->insCartData($user_id, $item_id);
-    // 登録に失敗した場合、エラーページを表示する
-    if ($res === false) {
-        echo '商品購入に失敗しました。';
-        exit();
-    }
+// if ($item_id !== '') {
+//     $res = $cart->insCartData($user_id, $item_id, $amount);
+//     // 登録に失敗した場合、エラーページを表示する
+//     if ($res === false) {
+//         echo '商品購入に失敗しました。';
+//         exit();
+//     }
+// }
+
+// del_item_idが設定されていれば、削除する
+if (isset($_GET['del_item_id']) === true) {
+    $del_item_id = $_GET['del_item_id'];
+    // var_dump($del_item_id);
+    // exit;
+    $cart->delCartData($del_item_id, $user_id);
 }
 
-// crt_idが設定されていれば、削除する
-if ($crt_id !== '') {
-    $res = $cart->delCartData($crt_id);
-}
+
 // カートの情報を取得する
 $dataArr = $cart->getCartData($user_id);
+// var_dump($dataArr);
+// exit;
+
 // アイテム数と合計金額を取得する
 // listは配列をそれぞれの変数に分ける
 // $cartSumAndNumData = $cart->getItemAndSumPrice($customer_no);
 list($sumNum, $sumPrice) = $cart->getItemAndSumPrice($user_id);
+
+// var_dump($sumNum);
+// var_dump($sumPrice);
+// exit;
+
 
 $context = [];
 

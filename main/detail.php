@@ -33,12 +33,21 @@ if ($item_id === '') {
     header('Location:' . Bootstrap::ENTRY_URL. 'list.php');
 }
 
+$errMsg = (isset($_GET['amount']) === true) ? '数量を入力してください' : '';
+
 // 商品情報を取得する
 $itemData = $itm->getItemDetailData($item_id);
+
+$itemData['amount'] = '';
+
+// 数量
+$amountArr = $itm->getAmount();
 
 $context = [];
 
 $context['itemData'] = $itemData[0];
+$context['amountArr'] = $amountArr;
+$context['errMsg'] = $errMsg;
 
 $context['user_name'] = $user_name;
 $template = $twig->loadTemplate('detail.html.twig');

@@ -88,4 +88,13 @@ class Item
         $res = $this->db->select($table, $col, $where, $arrVal);
         return ($res !== false && count($res) !== 0) ? $res : false;
     }
+
+    public function getAmount()
+    {
+        for ($i = 0; $i < 100; $i ++) {
+            $amountArr[] = $i;
+        }
+
+        return $amountArr;
+    }
 }
