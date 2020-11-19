@@ -1,7 +1,7 @@
 <?php
 /**
  * ファイルパス：/Applications/XAMPP/xamppfiles/htdocs/muscle/main/cart.php
- * ファイル名：cart.php（商品詳細を表示するプログラム、Controller）
+ * ファイル名：cart.php（カートを表示するプログラム、Controller）
  * アクセスURL：http://localhost/muscle/main/cart.php
  */
 
@@ -68,16 +68,16 @@ if (isset($_GET['del_item_id']) === true) {
     $cart->delCartData($del_item_id, $user_id);
 }
 
+// アイテム数と合計金額を取得する
+// listは配列をそれぞれの変数に分ける
+// $cartSumAndNumData = $cart->getItemAndSumPrice($customer_no);
+list($sumNum, $sumPrice) = $cart->getItemAndSumPrice($user_id);
 
 // カートの情報を取得する
 $dataArr = $cart->getCartData($user_id);
 // var_dump($dataArr);
 // exit;
 
-// アイテム数と合計金額を取得する
-// listは配列をそれぞれの変数に分ける
-// $cartSumAndNumData = $cart->getItemAndSumPrice($customer_no);
-list($sumNum, $sumPrice) = $cart->getItemAndSumPrice($user_id);
 
 // var_dump($sumNum);
 // var_dump($sumPrice);

@@ -49,6 +49,10 @@ if (isset($_GET['key']) === true) {
     if ($_GET['key'] === 'update_account') {
         $content['type'] = '変更';
     }
+    // 購入ページから来た場合
+    if ($_GET['key'] === 'buy') {
+        $content['type'] = '購入';
+    }
 }
 
 $context = [];

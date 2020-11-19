@@ -21,7 +21,7 @@
         <p>カートに商品は入っていません</p>
     {% else %}
         <p>カート内商品数：{{sumNum}}個　合計金額：&yen;{{sumPrice|number_format(0, '.', ',')}}</p>
-            <p><a class="btn btn-primary" href="{{constant('main\\Bootstrap::ENTRY_URL')}}">購入する</a></p>
+            <p><a class="btn btn-primary" href="{{constant('main\\Bootstrap::ENTRY_URL')}}buy.php">購入する</a></p>
             {% for value in dataArr %}
                 <div>
                     <ul>

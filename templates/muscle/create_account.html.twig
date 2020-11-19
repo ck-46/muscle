@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{constant('main\\Bootstrap::APP_URL')}}js/muscle.js"></script>
     <link href="{{constant('main\\Bootstrap::ENTRY_URL')}}stylesheets/index.css" rel="stylesheet">
     <title>MUSCLE STORE｜新規登録ページ</title>
 </head>
@@ -17,6 +19,7 @@
     {% endif %}
     {% if user_name | length < 1 %}
         <form method="post" action="create_account_confirm.php">
+            <input type="hidden" name="entry_url" id="entry_url" value="{{constant('main\\Bootstrap::ENTRY_URL')}}">
             <h2 class="h2 mt-4 mb-4">新規登録</h2>
             <div class="form-group">
                 <label for="family_name">氏：</label>
@@ -27,6 +30,18 @@
                 <label for="first_name">名：</label>
                 {% if errArr.first_name | length > 0 %}<div class="text-danger">{{ errArr.first_name }}</div>{% endif %}
                 <input type="text" id="first_name" class="form-control" name="first_name" value="{{dataArr.first_name}}" size="40">
+            </div>
+            <div class="form-group">
+                <label for="zip">郵便番号：</label>
+                <div>※郵便番号は7文字の半角数字で入力してください</div>
+                {% if errArr.zip | length > 0 %}<div class="text-danger">{{errArr.zip}}</div>{% endif %}
+                <input type="text" class="form-control" name="zip" value="{{dataArr.zip}}" id="zip" size="7" maxlength="7">
+                <input type="button" name="address_search" value="〒から住所を入力" id="address_search">
+            </div>
+            <div class="form-group">
+                <label for="address">住所：</label>
+                {% if errArr.address | length > 0 %}<div class="text-danger">{{errArr.address}}</div>{% endif %}
+                <input type="text" id="address" class="form-control" name="address" value="{{dataArr.address}}" size="40">
             </div>
             <div class="form-group">
                 <label for="email">メールアドレス：</label>

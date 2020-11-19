@@ -49,7 +49,30 @@ if (isset($_POST['cart_in']) === true) {
     // var_dump($amount);
     // exit;
 
-    $res = $cart->insCartData($user_id, $item_id, $amount);
+    // カートの情報を取得し、同じ商品があればupdate、なければinsert
+    $dataArr = $cart->getCartData($user_id);
+    // var_dump($dataArr);
+    // exit;
+    if (count($dataArr) !== 0) {
+        foreach ($dataArr as $key => $value) {
+            if ($value['item_id'] === $item_id) {
+                $insAmount = $value['num'] + $amount;
+                // var_dump($value['num']);
+                // var_dump($amount);
+                // var_dump($insAmount);
+                // exit;
+                $res = $cart->updateCartData($item_id, $user_id, $insAmount);
+            } else {
+                $res = $cart->insCartData($user_id, $item_id, $amount);
+                // var_dump($res);
+                // exit;
+            }
+        }
+    } else {
+        $res = $cart->insCartData($user_id, $item_id, $amount);
+    }
+    // var_dump($res);
+    // exit;
 
     if ($res === true) {
         header('Location: ' . Bootstrap::ENTRY_URL . 'cart.php');
