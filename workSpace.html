@@ -1,21 +1,22 @@
 <main class="container">
-    <h2 class="h2 mt-4 mb-4">ご注文の概要</h2>
-    <form method="post" action="create_account_confirm.php">
+    <h2 class="h2 mt-4 mb-4">購入履歴</h2>
+    {% if buy_history | length == 0 %}
+        <p>購入履歴はありません</p>
+    {% else %}
+        {% for key, value in buy_history %}
         <div>
-            <div>氏：{{dataArr.family_name}}</div>
-            <div>名：{{dataArr.first_name}}</div>
-            <div>郵便番号：{{dataArr.zip}}</div>
-            <div>住所：{{dataArr.address}}</div>
-            <div>メールアドレス：{{dataArr.email}}</div>
-            <div>パスワード：******</div>
+            <p>購入日：{{value.buy_date}}</p>
+                {% for item_id, num in value.buy_data %}
+                    {% for item_data_value in item_data %}
+                        {% if item_data_value.item_id == item_id %}
+                            <p>商品名：{{item_data_value.item_name}}</p>
+                            <p>数量：{{num}}</p>
+                        {% endif %}
+                    {%  endfor %}
+                {% endfor %}
         </div>
-        <div>
-            <input type="submit" class="btn btn-secondary" name="back" value="修正する">
-            <input type="submit" class="btn btn-primary" name="complete" value="登録する">
-        </div>
-        {% for key,value in dataArr %}
-            <input type="hidden" name="{{key}}" value="{{value}}">
+        <br>
         {% endfor %}
-    </form>
-    
+    {% endif %}
+    <p><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php">商品一覧へ戻る</a></p>
 </main>

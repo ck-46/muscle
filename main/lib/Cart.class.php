@@ -146,13 +146,14 @@ class Cart
         return [$sumNum, $sumPrice];
     }
 
-    public function insSoldItemData($user_id, $item_id, $num)
+    public function insSoldItemData($user_id, $item_id, $num, $sumPrice)
     {
         $table = ' sold_item ';
         $insData = [
             'user_id' => $user_id,
             'item_id' => $item_id,
-            'num' => $num
+            'num' => $num,
+            'price' => $sumPrice
         ];
         return $this->db->insert($table, $insData);
     }

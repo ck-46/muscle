@@ -45,6 +45,9 @@ switch ($mode) {
 
     case 'complete':
         $dataArr = $cart->getCartData($user_id);
+        // var_dump($dataArr);
+        // exit;
+        list($sumNum, $sumPrice) = $cart->getItemAndSumPrice($user_id);
 
         foreach ($dataArr as $key => $value) {
             $item_id_arr[] = $value['item_id'];
@@ -68,7 +71,9 @@ switch ($mode) {
         // var_dump($num);
         // exit;
 
-        $res = $cart->insSoldItemData($user_id, $item_id, $num);
+        
+
+        $res = $cart->insSoldItemData($user_id, $item_id, $num, $sumPrice);
 
         if ($res === true) {
             // 購入完了メール送りたい
