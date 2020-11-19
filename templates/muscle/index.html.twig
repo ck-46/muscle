@@ -29,12 +29,16 @@
             {% include 'category.html.twig' %}
         </div>
         <div>
-            <form action="" method="post" class="form-inline">
+            <form action="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php" method="post">
+                <input type="text" name="keywords" value="">
+                <input type="submit" name="search" value="検索">
+            </form>
+            {# <form action="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php" method="post" class="form-inline">
                 <div  class="form-group">
-                    <input class="form-control mr-sm-2" type="search" placeholder="検索" aria-label="Search" size="30">
+                    <input class="form-control mr-sm-2" type="text" name="keyword" value="" placeholder="検索" aria-label="Search" size="30">
                     <input type="submit" class="btn btn-outline-success my-1 my-sm-0" name="search" value="検索">
                 </div>
-            </form>
+            </form> #}
             <div>
             <span>こんなキーワードで検索されています</span>
             <a href="">バニラ味</a>
