@@ -14,35 +14,35 @@
     <div>main-image</div>
 </div>
 <main class="container">
-        <h2 class="h2 mt-4 mb-4">おすすめの商品</h2>
+    <h2 class="h2 mt-4 mb-4">おすすめの商品</h2>
+    <div>
+        <a href="">item1</a>
+        <a href="">item2</a>
+        <a href="">item3</a>
+    </div>
+    <div>
+        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php">商品一覧を見る</a>
+    <div>
+    <h2 class="h2 mt-4 mb-4">商品を探す</h2>
+    <div>
         <div>
-            <a href="">item1</a>
-            <a href="">item2</a>
-            <a href="">item3</a>
+            {% include 'category.html.twig' %}
         </div>
         <div>
-            <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php">商品一覧を見る</a>
-        <div>
-        <h2 class="h2 mt-4 mb-4">商品を探す</h2>
-        <div>
-            <div>
-                {% include 'category.html.twig' %}
-            </div>
-            <div>
-                <form action="" method="post" class="form-inline">
-                    <div  class="form-group">
-                        <input class="form-control mr-sm-2" type="search" placeholder="検索" aria-label="Search" size="30">
-                        <input type="submit" class="btn btn-outline-success my-1 my-sm-0" name="search" value="検索">
-                    </div>
-                </form>
-                <div>
-                <span>こんなキーワードで検索されています</span>
-                <a href="">バニラ味</a>
-                <a href="">減量</a>
-                <a href="">5kg</a>
+            <form action="" method="post" class="form-inline">
+                <div  class="form-group">
+                    <input class="form-control mr-sm-2" type="search" placeholder="検索" aria-label="Search" size="30">
+                    <input type="submit" class="btn btn-outline-success my-1 my-sm-0" name="search" value="検索">
                 </div>
+            </form>
+            <div>
+            <span>こんなキーワードで検索されています</span>
+            <a href="">バニラ味</a>
+            <a href="">減量</a>
+            <a href="">5kg</a>
             </div>
         </div>
+    </div>
 </main>
 <footer>
     {% include 'footer.html.twig' %}

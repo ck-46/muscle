@@ -28,6 +28,8 @@ $dataArr = [
     'family_name' => '',
     'first_name' => '',
     'email' => '',
+    'zip' => '',
+    'address' => '',
     'password' => ''
 ];
 $confirmDataArr = [

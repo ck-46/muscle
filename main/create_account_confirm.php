@@ -42,7 +42,7 @@ switch ($mode) {
     case 'confirm' :
         unset($_POST['confirm']);
 
-        $dataArr = $_POST;
+        $dataArr[] = $_POST;
 
         $errArr = $acnt->errorCheck($dataArr);
         $err_check = $acnt->getErrorFlg();

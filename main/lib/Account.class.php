@@ -27,6 +27,8 @@ class Account
 
         $this->familyNameCheck();
         $this->firstNameCheck();
+        $this->zipCheck();
+        $this->addressCheck();
         $this->mailCheck();
         $this->confirmMail();
         $this->passwordCheck();
@@ -53,6 +55,22 @@ class Account
     {
         if ($this->dataArr['first_name'] === '') {
             $this->errArr['first_name'] = '名前（名）を入力してください';
+        }
+    }
+
+    private function zipCheck()
+    {
+        if ($this->dataArr['zip'] === ''){
+            $this->errArr['zip'] = '郵便番号を入力してください';
+        } elseif (preg_match('/^[0-9]{7}$/', $this->dataArr['zip']) === 0) {
+            $this->errArr['zip'] = '郵便番号は7文字の半角数字で入力してください';
+        }
+    }
+
+    private function addressCheck()
+    {
+        if ($this->dataArr['address'] === '') {
+            $this->errArr['address'] = '住所を入力してください';
         }
     }
 
@@ -214,11 +232,13 @@ class Account
     public function getUserData($user_id)
     {
         $table = ' user ';
-        $col = 'family_name,first_name,email,password';
+        $col = 'family_name,first_name,email,password,zip,address';
         $where = ' user_id = ? ';
         $arrVal = [$user_id];
 
         $res = $this->db->select($table, $col, $where, $arrVal);
+        // var_dump($res);
+        // exit;
         $dataArr = $res[0];
         return $dataArr;
     }
@@ -318,3 +338,5 @@ class Account
         return $res;
     }
 }
+
+// Notice: A non well formed numeric value encountered in /Applications/XAMPP/xamppfiles/htdocs/muscle/vendor/twig/twig/src/Environment.php(497) : eval()'d code on line 77

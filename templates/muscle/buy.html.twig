@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{constant('main\\Bootstrap::ENTRY_URL')}}stylesheets/index.css" rel="stylesheet">
+    <title>MUSCLE STORE｜購入ページ</title>
+</head>
+<body>
+<header>
+    {% include 'header.html.twig' %}
+</header>
+<main class="container">
+    <h2 class="h2 mt-4 mb-4">ご注文の概要</h2>
+    {% for value in dataArr %}
+        <div>
+            <ul>
+                <li>
+                    <img src="{{constant('main\\Bootstrap::ENTRY_URL')}}images/{{value.image}}" alt="{{value.item_name}}" width="10%">
+                </li>
+                <li>
+                    {{value.item_name}}
+                </li>
+                <li>
+                    &yen;{{value.price|number_format(0, '.', ',')}}
+                </li>
+                <li>
+                    個数：{{value.num}}
+                </li>
+            </ul>
+        </div>
+    {% endfor %}
+    <div>購入商品数：{{sumNum}}点</div>
+    <div>お支払い金額：&yen;{{sumPrice|number_format(0, '.', ',')}}</div>
+    <h2 class="h2 mt-4 mb-4">お届け先住所</h2>
+    <form method="post" action="buy_confirm.php">
+        <div>
+            <div>{{userData.family_name}} {{userData.first_name}}</div>
+            <div>〒{{userData.zip}}</div>
+            <div>{{userData.address}}</div>
+        </div>
+        <br>
+        <div>
+            <input type="submit" class="btn btn-secondary" name="back" value="戻る">
+            <input type="submit" class="btn btn-primary" name="complete" value="注文を確定する">
+        </div>
+    </form>
+</main>
+<footer>
+    {% include 'footer.html.twig' %}
+</footer>
+</body>
+</html>

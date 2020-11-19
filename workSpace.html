@@ -1,0 +1,21 @@
+<main class="container">
+    <h2 class="h2 mt-4 mb-4">ご注文の概要</h2>
+    <form method="post" action="create_account_confirm.php">
+        <div>
+            <div>氏：{{dataArr.family_name}}</div>
+            <div>名：{{dataArr.first_name}}</div>
+            <div>郵便番号：{{dataArr.zip}}</div>
+            <div>住所：{{dataArr.address}}</div>
+            <div>メールアドレス：{{dataArr.email}}</div>
+            <div>パスワード：******</div>
+        </div>
+        <div>
+            <input type="submit" class="btn btn-secondary" name="back" value="修正する">
+            <input type="submit" class="btn btn-primary" name="complete" value="登録する">
+        </div>
+        {% for key,value in dataArr %}
+            <input type="hidden" name="{{key}}" value="{{value}}">
+        {% endfor %}
+    </form>
+    
+</main>
