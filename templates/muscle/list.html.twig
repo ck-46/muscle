@@ -17,6 +17,8 @@
 </header>
 <main class="container">
     <div>
+        {% if searchFalse | length > 0 %}<div>{{searchFalse}}</div>{% endif %}
+        {% if keywords | length > 0 and searchFalse | length == 0 %}<div>「{{keywords}}」の検索結果</div>{% endif %}
         {% for value in dataArr %}
         <div>
             <ul>

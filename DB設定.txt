@@ -191,6 +191,7 @@ create table sold_item (
     user_id int unsigned not null,
     item_id varchar(100) not null,
     num varchar(100) not null,
+    price varchar(100) not null,
     buy_date datetime not null default current_timestamp,
     primary key( sold_item_id ),
     index sold_item_idx( user_id )

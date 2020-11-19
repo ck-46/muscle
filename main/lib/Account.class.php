@@ -337,6 +337,44 @@ class Account
 
         return $res;
     }
-}
 
-// Notice: A non well formed numeric value encountered in /Applications/XAMPP/xamppfiles/htdocs/muscle/vendor/twig/twig/src/Environment.php(497) : eval()'d code on line 77
+    public function getBuyHistory($user_id)
+    {
+        $table = ' sold_item ';
+        $col = 'item_id,num,buy_date,price';
+        $where = ' user_id = ? ';
+        $arrVal = [$user_id];
+    
+        $buy_data = $this->db->select($table, $col, $where, $arrVal);
+        // var_dump($buy_data);
+        // exit;
+
+        $item_id = '';
+        $num = '';
+        $buy_history = [];
+        
+        foreach ($buy_data as $key => $value) {
+            $item_id = explode(',', $value['item_id']);
+            $num = explode(',', $value['num']);
+
+            // var_dump($item_id);
+            // var_dump($num);
+            // var_dump(array_combine($item_id, $num));
+
+            $buy_history[] = [
+                'buy_data' => array_combine($item_id, $num),
+                'buy_date' => $value['buy_date'],
+                'price' => $value['price']
+            ];
+            // $buy_history[] = ['buy_date' => $value['buy_date']];
+
+            // var_dump($buy_history);
+            // var_dump($buy_history[$key]['item_id']);
+            // var_dump($buy_history[$key]['num']);
+            // exit;
+        }
+        // var_dump($buy_history);
+        // exit;
+        return $buy_history;
+    }
+}

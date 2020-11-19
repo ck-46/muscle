@@ -28,6 +28,7 @@ $twig = new \Twig_Environment($loader, [
 $flavor_id = '';
 $purpose_id = '';
 $brand_id = '';
+$keywords = '';
 
 // フレーバー別リスト
 if (isset($_GET['flavor']) === true && preg_match('/^[0-9]+$/', $_GET['flavor']) === 1) {
@@ -45,14 +46,35 @@ if (isset($_GET['brand']) === true && preg_match('/^[0-9]+$/', $_GET['brand']) =
     $dataArr = $itm->getBrandList($brand_id);
 }
 
+// 検索結果
+$searchFalse = '';
+
+// var_dump($_POST);
+
+if (isset($_POST['search']) === true) {
+    // var_dump($_POST['search']);
+    // var_dump($_POST['keyword']);
+    // exit;
+    $keywords = $_POST['keywords'];
+    $keywords = mb_convert_kana( $_POST['keywords'], 's', 'UTF-8');
+
+    $dataArr = $itm->getSearchResult($keywords);
+
+    if ($dataArr === false) $searchFalse = '「' . $keywords . '」の検索結果は見つかりませんでした';
+}
+// var_dump($searchFalse);
+// exit;
 // 全商品リスト
-if ($flavor_id === '' && $purpose_id === '' && $brand_id === '') {
+if ($flavor_id === '' && $purpose_id === '' && $brand_id === '' && $keywords === '') {
     $dataArr = $itm->getAllList();
 }
+
 
 $context = [];
 
 $context['dataArr'] = $dataArr;
+$context['searchFalse'] = $searchFalse;
+$context['keywords'] = $keywords;
 
 $context['user_name'] = $user_name;
 $template = $twig->loadTemplate('list.html.twig');
