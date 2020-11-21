@@ -43,6 +43,15 @@
                 <input type="submit" class="btn btn-primary" name="cart_in" value="カートへ入れる">
             </form>
             <input type="button" class="btn btn-secondary" name="back" value="一覧へ戻る" onclick="history.back(); return false;">
+            <div>
+                <p>レビュー</p>
+                {% for key, value in reviewArr %}
+                    <span>投稿日：{{value.review_date | date("Y年m月d日")}}</span>
+                    <span>投稿者：{{value.user_name}}さん </span>
+                    <p>{{value.content}}</p>
+                    <p>いいね：{{value.good}}</p>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </main>

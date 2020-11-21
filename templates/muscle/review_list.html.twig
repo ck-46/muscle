@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{constant('main\\Bootstrap::ENTRY_URL')}}stylesheets/index.css" rel="stylesheet">
+    <title>MUSCLE STORE｜レビュー履歴ページ</title>
+</head>
+<body>
+<header>
+    {% include 'header.html.twig' %}
+</header>
+<main class="container">
+    <h2 class="h2 mt-4 mb-4">レビュー履歴</h2>
+    {% if reviewList | length == 0 %}
+        <p>レビュー履歴はありません</p>
+    {% else %}
+        {% for key, value in reviewList %}
+        <div>
+            <p>投稿日：{{value.review_date|date("Y年m月d日")}}</p>
+            <p>商品名：{{value.item_name}}</p>
+            <img src="{{constant('main\\Bootstrap::ENTRY_URL')}}images/{{value.image}}" alt="{{value.image}}" width="10%">
+            <p>価格：&yen;{{value.price|number_format(0, '.', ',')}}</p>
+            <p>内容：{{value.content}}</p>
+            <p>いいね数：{{value.good}}</p>
+        </div>
+        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}review_list_update.php?review_id={{value.review_id}}&mode=update">編集する</a>
+        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}review_list_update.php?review_id={{value.review_id}}&mode=delete">削除する</a>
+        <br>
+        {% endfor %}
+    {% endif %}
+    <p><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}mypage.php">マイページへ戻る</a></p>
+</main>
+<footer>
+    {% include 'footer.html.twig' %}
+</footer>
+</body>
+</html>

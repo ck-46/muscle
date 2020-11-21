@@ -28,6 +28,7 @@
                             <p>数量：{{num}}</p>
                         {% endif %}
                     {%  endfor %}
+                    <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}review.php?item_id={{item_id}}">レビューを書く</a>
                 {% endfor %}
         </div>
         <br>

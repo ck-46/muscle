@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{constant('main\\Bootstrap::ENTRY_URL')}}stylesheets/index.css" rel="stylesheet">
+    <title>MUSCLE STORE｜レビュー編集確認ページ</title>
+</head>
+<body>
+<header>
+    {% include 'header.html.twig' %}
+</header>
+<main class="container">
+    <div>
+        <h2>レビュー編集確認ページ</h2>
+        <p>{{dataArr.item_name}}</p>
+        <img src="{{constant('main\\Bootstrap::ENTRY_URL')}}images/{{dataArr.image}}" alt="{{dataArr.item_name}}" width="10%">
+        <div>{{dataArr.content}}</div>
+        <form method="post" action="review_list_update.php">
+            {% for key,value in dataArr %}
+                <input type="hidden" name="{{key}}" value="{{value}}">
+            {% endfor %}
+            <input type="submit" class="btn btn-primary" name="complete" value="投稿する">
+            <input type="submit" class="btn btn-secondary" name="fix" value="修正する">
+        </form>
+    </div>
+</main>
+<footer>
+    {% include 'footer.html.twig' %}
+</footer>
+</body>
+</html>

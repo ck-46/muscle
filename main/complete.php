@@ -53,6 +53,18 @@ if (isset($_GET['key']) === true) {
     if ($_GET['key'] === 'buy') {
         $content['type'] = '購入';
     }
+    // レビューページから来た場合
+    if ($_GET['key'] === 'review') {
+        $content['type'] = 'レビュー';
+    }
+    // レビュー編集ページから来た場合
+    if ($_GET['key'] === 'review_update') {
+        $content['type'] = '編集';
+    }
+    // レビュー削除から来た場合
+    if ($_GET['key'] === 'review_delete') {
+        $content['type'] = 'レビュー削除';
+    }
 }
 
 $context = [];

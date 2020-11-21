@@ -46,6 +46,9 @@ switch ($mode) {
 
         $dataArr = $_POST;
 
+        var_dump($dataArr);
+        exit;
+
         if (isset($_POST['contact_ctg_id']) === false) {
             $dataArr['contact_ctg_id'] = '';
         }

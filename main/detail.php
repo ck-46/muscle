@@ -13,11 +13,13 @@ use main\Bootstrap;
 use main\lib\PDODatabase;
 use main\lib\Session;
 use main\lib\Item;
+use main\lib\Account;
 
 $db = new PDODatabase(Bootstrap::DB_HOST, Bootstrap::DB_USER, Bootstrap::DB_PASS, Bootstrap::DB_NAME, Bootstrap::DB_TYPE);
 $ses = new Session($db);
 $user_name = (isset($_SESSION['user_name']) === true) ? $_SESSION['user_name'] : '';
 $itm = new Item($db);
+$acnt = new Account($db);
 
 // テンプレート指定
 $loader = new \Twig_Loader_Filesystem(Bootstrap::TEMPLATE_DIR);
@@ -43,11 +45,17 @@ $itemData['amount'] = '';
 // 数量
 $amountArr = $itm->getAmount();
 
+// レビューを取得する
+$reviewArr = $acnt->getReviewData($item_id);
+// 降順で表示
+arsort($reviewArr);
+
 $context = [];
 
 $context['itemData'] = $itemData[0];
 $context['amountArr'] = $amountArr;
 $context['errMsg'] = $errMsg;
+$context['reviewArr'] = $reviewArr;
 
 $context['user_name'] = $user_name;
 $template = $twig->loadTemplate('detail.html.twig');
