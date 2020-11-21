@@ -31,6 +31,9 @@ $dataArr = $acnt->getUserData($user_id);
 // var_dump($dataArr);
 // exit;
 
+// var_dump($user_id);
+// exit;
+
 $context = [];
 
 $context['dataArr'] = $dataArr;

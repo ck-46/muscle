@@ -42,7 +42,10 @@ switch ($mode) {
     case 'confirm' :
         unset($_POST['confirm']);
 
-        $dataArr[] = $_POST;
+        $dataArr = $_POST;
+
+        // var_dump($dataArr);
+        // exit;
 
         $errArr = $acnt->errorCheck($dataArr);
         $err_check = $acnt->getErrorFlg();
@@ -73,8 +76,12 @@ switch ($mode) {
 
         // ↓この情報はいらないので外しておく
         unset($dataArr['complete']);
+        unset($dataArr['entry_url']);
         unset($dataArr['confirm_email']);
         unset($dataArr['confirm_password']);
+        
+        // var_dump($dataArr);
+        // exit;
 
         $res = $acnt->insUserData($dataArr);
 

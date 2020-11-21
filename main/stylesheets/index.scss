@@ -4,6 +4,7 @@ $line-height-base: 1.65;
 
 // Colors
 $gray-dark: #546E7A;
+$good-red: #f44336;
 
 // Font-family
 $font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Yu Gothic", YuGothic, Verdana, Meiryo, "M+ 1p", sans-serif;
@@ -55,7 +56,20 @@ $font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Y
 
 @import '/Applications/XAMPP/xamppfiles/htdocs/muscle/vendor/twbs/bootstrap/scss/bootstrap.scss';
 
-body {
-    letter-spacing: 0.1em;
-    text-align: justify;
-}
+// body {
+//     letter-spacing: 0.1em;
+//     text-align: justify;
+// }
+
+// .good_btn{
+//   display: inline-block;
+//   padding: 0 8px;
+//   cursor: pointer;
+//   &:hover{
+//     color: $good-red;
+//   }
+//   .active{
+//     color: $good-red;
+//   }
+// }
+

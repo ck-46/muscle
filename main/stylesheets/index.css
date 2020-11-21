@@ -10872,4 +10872,18 @@ body {
   letter-spacing: 0.1em;
   text-align: justify;
 }
+
+.good_btn {
+  display: inline-block;
+  padding: 0 8px;
+  cursor: pointer;
+}
+
+.good_btn:hover {
+  color: #f44336;
+}
+
+.good_btn .active {
+  color: #f44336;
+}
 /*# sourceMappingURL=index.css.map */

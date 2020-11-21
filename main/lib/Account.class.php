@@ -416,10 +416,11 @@ class Account
         return $res;
     }
 
-    public  function getReviewData($item_id)
+    public  function getReviewData($item_id, $user_id)
     {
         $table = ' review r LEFT JOIN user u ON r.user_id = u.user_id ';
-        $col = ' r.content,r.good,r.review_date,concat(u.family_name, u.first_name) AS user_name ';
+        // $col = ' r.review_id,r.content,r.good,r.review_date,concat(u.family_name, u.first_name) AS user_name ';
+        $col = ' r.review_id,r.content,r.review_date,u.user_id,concat(u.family_name, u.first_name) AS user_name ';
         $where = ' r.item_id = ? AND r.delete_flg = ? ';
         $arrVal = [$item_id, 0];
 
@@ -432,13 +433,35 @@ class Account
         $dataArr = $this->db->select($table, $col, $where, $arrVal);
         // var_dump($dataArr);
         // exit;
+
+        // var_dump(count($dataArr));
+        // exit;
+        
+        if (count($dataArr) !== 0) {
+            foreach ($dataArr as $key => $value) {
+                $res = $this->isGood($user_id, $value['review_id']);
+                if (count($res) !== 0) {
+                    $dataArr[$key]['isGood'] = '1';
+                } else {
+                    $dataArr[$key]['isGood'] = '';
+                }
+
+                $dataArr[$key]['goodAmount'] = count($this->countGood($value['review_id']));
+            }
+            // var_dump($dataArr);
+            // exit;
+        } else {
+            $dataArr = '';
+        }
+
         return $dataArr;
     }
 
     public function getReviewList($user_id)
     {
         $table = ' review r LEFT JOIN item i ON r.item_id = i.item_id ';
-        $col = ' r.review_id,r.content,r.good,r.review_date,i.item_name,i.price,i.image ';
+        // $col = ' r.review_id,r.content,r.good,r.review_date,i.item_name,i.price,i.image ';
+        $col = ' r.review_id,r.content,r.review_date,i.item_name,i.price,i.image ';
         $where = ' r.user_id = ? AND r.delete_flg = ? ';
         $arrVal = [$user_id, 0];
 
@@ -453,11 +476,14 @@ class Account
     public function getReviewd($review_id)
     {
         $table = ' review r LEFT JOIN item i ON r.item_id = i.item_id ';
-        $col = ' r.review_id,r.content,r.good,r.review_date,i.item_name,i.price,i.image ';
+        // $col = ' r.review_id,r.content,r.good,r.review_date,i.item_name,i.price,i.image ';
+        $col = ' r.review_id,r.content,r.review_date,i.item_name,i.price,i.image ';
         $where = ' r.review_id = ? ';
         $arrVal = [$review_id];
 
         $dataArr = $this->db->select($table, $col, $where, $arrVal);
+        // var_dump($dataArr);
+        // exit;
         return $dataArr;
     }
 
@@ -483,6 +509,64 @@ class Account
             'delete_date' => $date
         ];
         $where = 'review_id = ' . $review_id ;
+
+        $res = $this->db->update($table, $insData, $where);
+        return $res;
+    }
+
+    public function isGood($user_id, $review_id)
+    {
+        $table = ' good ';
+        $col = ' * ';
+        $where = ' user_id = ? AND review_id = ? AND delete_flg = ? ';
+        $arrVal = [$user_id, $review_id, 0];
+
+        $dataArr = $this->db->select($table, $col, $where, $arrVal);
+        // var_dump($dataArr);
+        // exit;
+        return $dataArr;
+    }
+
+    public function countGood($review_id)
+    {
+        $table = ' good ';
+        $col = ' * ';
+        $where = ' review_id = ? AND delete_flg = ? ';
+        $arrVal = [$review_id, 0];
+
+        $dataArr = $this->db->select($table, $col, $where, $arrVal);
+        // var_dump($dataArr);
+        // exit;
+        return $dataArr;
+    }
+
+    public function insGood($user_id, $review_id)
+    {
+        // var_dump($user_id);
+        // var_dump($review_id);
+        $dataArr['user_id'] = $user_id;
+        $dataArr['review_id'] = $review_id;
+
+        $table = ' good ';
+        $insData = $dataArr;
+
+        $res = $this->db->insert($table, $insData);
+        return $res;
+    }
+
+    public function delGood($user_id, $review_id)
+    {
+        // var_dump($user_id);
+        // var_dump($review_id);
+        // exit;
+        // delete_flgを1にする
+        $date = date('Y-m-d H:i:s');
+        $table = ' good ';
+        $insData = [
+            'delete_flg' => 1,
+            'delete_date' => $date
+        ];
+        $where = ' user_id = ' . $user_id . ' AND review_id = ' . $review_id . ' AND delete_flg = 0 ';
 
         $res = $this->db->update($table, $insData, $where);
         return $res;

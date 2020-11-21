@@ -204,7 +204,6 @@ create table review (
     user_id int unsigned not null,
     item_id int unsigned not null,
     content varchar(200) not null,
-    good int unsigned not null default 0,
     delete_flg tinyint(1) unsigned not null default 0,
     review_date datetime not null default current_timestamp,
     update_date datetime,
@@ -214,6 +213,19 @@ create table review (
 );
 
 11/20 10:54 ここまで作った
+
+create table good (
+    good_id int unsigned not null auto_increment,
+    user_id int unsigned not null,
+    review_id int unsigned not null,
+    delete_flg tinyint(1) unsigned not null default 0,
+    review_date datetime not null default current_timestamp,
+    delete_date datetime,
+    primary key( good_id ),
+    index good_idx( user_id, review_id, delete_flg )
+);
+
+11/21 10:25 ここまで作った
 
 create table want_item (
     want_id int unsigned not null auto_increment,
