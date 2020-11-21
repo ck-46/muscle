@@ -377,4 +377,114 @@ class Account
         // exit;
         return $buy_history;
     }
+
+    public function reviewCheck($dataArr)
+    {
+        // $this->dataArr = $dataArr;
+
+        $this->dataArr = $dataArr;
+        // $this->createErrorMessage();
+        // var_dump($this->dataArr);
+        // exit;
+        $this->createErrorMessage();
+        // var_dump($this->errArr);
+        // exit;
+
+        $this->reviewContentCheck();
+
+        return $this->errArr;
+    }
+
+    private function reviewContentCheck()
+    {
+        if ($this->dataArr['content'] === '') {
+            $this->errArr['content'] = 'レビューの入力をお願いします';
+        } elseif (mb_strlen($this->dataArr['content']) >= 150) {
+            $this->errArr['content'] = '150文字以内で入力してください';
+        }
+    }
+
+    public function insReviewData($dataArr, $user_id)
+    {
+        // レビュー内容をDBに格納
+        $dataArr['user_id'] = $user_id;
+
+        $table = ' review ';
+        $insData = $dataArr;
+
+        $res = $this->db->insert($table, $insData);
+        return $res;
+    }
+
+    public  function getReviewData($item_id)
+    {
+        $table = ' review r LEFT JOIN user u ON r.user_id = u.user_id ';
+        $col = ' r.content,r.good,r.review_date,concat(u.family_name, u.first_name) AS user_name ';
+        $where = ' r.item_id = ? AND r.delete_flg = ? ';
+        $arrVal = [$item_id, 0];
+
+        // SELECT r.content,r.good,r.review_date,u.family_name + u.first_name AS user_name
+        // FROM review r LEFT JOIN user u
+        // ON r.user_id = u.user_id 
+        // WHERE r.item_id = ? AND r.delete_flg = ?
+        // SELECT r.content,r.good,r.review_date,concat(u.family_name, u.first_name) AS user_name FROM review r LEFT JOIN user u ON r.user_id = u.user_id WHERE r.item_id = 2 AND r.delete_flg = 0;
+
+        $dataArr = $this->db->select($table, $col, $where, $arrVal);
+        // var_dump($dataArr);
+        // exit;
+        return $dataArr;
+    }
+
+    public function getReviewList($user_id)
+    {
+        $table = ' review r LEFT JOIN item i ON r.item_id = i.item_id ';
+        $col = ' r.review_id,r.content,r.good,r.review_date,i.item_name,i.price,i.image ';
+        $where = ' r.user_id = ? AND r.delete_flg = ? ';
+        $arrVal = [$user_id, 0];
+
+        // SELECT r.review_id,r.content,r.good,r.review_date,i.item_name,i.price,i.image
+        // FROM review r LEFT JOIN item i ON r.item_id = i.item_id
+        // WHERE r.user_id = ? AND r.delete_flg = ?
+        // SELECT r.content,r.good,r.review_date,i.item_name,i.price,i.image FROM review r LEFT JOIN item i ON r.item_id = i.item_id WHERE r.user_id = 1 AND r.delete_flg = 0;
+        $dataArr = $this->db->select($table, $col, $where, $arrVal);
+        return $dataArr;
+    }
+
+    public function getReviewd($review_id)
+    {
+        $table = ' review r LEFT JOIN item i ON r.item_id = i.item_id ';
+        $col = ' r.review_id,r.content,r.good,r.review_date,i.item_name,i.price,i.image ';
+        $where = ' r.review_id = ? ';
+        $arrVal = [$review_id];
+
+        $dataArr = $this->db->select($table, $col, $where, $arrVal);
+        return $dataArr;
+    }
+
+    public function updateReview($review_id, $content)
+    {
+        $table = ' review ';
+        $insData['content'] = $content;
+        $date = date('Y-m-d H:i:s');
+        $insData['update_date'] = $date;
+        $where = ' review_id = ' . $review_id;
+
+        $res = $this->db->update($table, $insData, $where);
+        return $res;
+    }
+
+    public function delReview($review_id)
+    {
+        // delete_flgを1にする
+        $date = date('Y-m-d H:i:s');
+        $table = ' review ';
+        $insData = [
+            'delete_flg' => 1,
+            'delete_date' => $date
+        ];
+        $where = 'review_id = ' . $review_id ;
+
+        $res = $this->db->update($table, $insData, $where);
+        return $res;
+    }
 }

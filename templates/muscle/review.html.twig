@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{constant('main\\Bootstrap::ENTRY_URL')}}stylesheets/index.css" rel="stylesheet">
+    <title>MUSCLE STORE｜レビューページ</title>
+</head>
+<body>
+<header>
+    {% include 'header.html.twig' %}
+</header>
+<main class="container">
+    <div>
+        <div>
+            <p>{{dataArr.item_name}}</p>
+            <img src="{{constant('main\\Bootstrap::ENTRY_URL')}}images/{{dataArr.image}}" alt="{{dataArr.item_name}}" width="10%">
+            <form method="post" action="review_confirm.php">
+                {% for key,value in dataArr %}
+                    <input type="hidden" name="{{key}}" value="{{value}}">
+                {% endfor %}
+                <div class="form-group">
+                    {% if errArr | length > 0 %}
+                    <p class="text-danger">{{errArr.content}}</p>
+                    {% else %}
+                    <p>※150文字以内で入力してください</p>
+                    {% endif %}
+                    <textarea class="form-control" name="content" cols="30" rows="5">{{dataArr.content}}</textarea>
+                </div>
+                <input type="submit" class="btn btn-primary" name="confirm" value="入力内容の確認">
+                <input type="submit" class="btn btn-secondary" name="back" value="戻る">
+            </form>
+        </div>
+    </div>
+</main>
+<footer>
+    {% include 'footer.html.twig' %}
+</footer>
+</body>
+</html>

@@ -199,6 +199,22 @@ create table sold_item (
 
 11/19 10:30　ここまで作った
 
+create table review (
+    review_id int unsigned not null auto_increment,
+    user_id int unsigned not null,
+    item_id int unsigned not null,
+    content varchar(200) not null,
+    good int unsigned not null default 0,
+    delete_flg tinyint(1) unsigned not null default 0,
+    review_date datetime not null default current_timestamp,
+    update_date datetime,
+    delete_date datetime,
+    primary key( review_id ),
+    index review_idx( user_id, delete_flg )
+);
+
+11/20 10:54 ここまで作った
+
 create table want_item (
     want_id int unsigned not null auto_increment,
     user_id int unsigned not null,
@@ -210,16 +226,6 @@ create table want_item (
 );
 
 
-create table review (
-    review_id int unsigned not null auto_increment,
-    user_id int unsigned not null,
-    item_id int unsigned not null,
-    content varchar(200) not null,
-    delete_flg tinyint(1) unsigned not null default 0,
-    review_date datetime not null,
-    primary key( review_id ),
-    index review_idx( user_id, delete_flg )
-);
 
 
 

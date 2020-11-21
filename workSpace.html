@@ -1,22 +1,9 @@
-<main class="container">
-    <h2 class="h2 mt-4 mb-4">購入履歴</h2>
-    {% if buy_history | length == 0 %}
-        <p>購入履歴はありません</p>
-    {% else %}
-        {% for key, value in buy_history %}
-        <div>
-            <p>購入日：{{value.buy_date}}</p>
-                {% for item_id, num in value.buy_data %}
-                    {% for item_data_value in item_data %}
-                        {% if item_data_value.item_id == item_id %}
-                            <p>商品名：{{item_data_value.item_name}}</p>
-                            <p>数量：{{num}}</p>
-                        {% endif %}
-                    {%  endfor %}
-                {% endfor %}
-        </div>
-        <br>
-        {% endfor %}
-    {% endif %}
-    <p><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php">商品一覧へ戻る</a></p>
-</main>
+<div>
+    <p>レビュー</p>
+    {% for key, value in reviewArr %}
+        <span>投稿者：{{value.user_name}}さん </span>
+        <span>投稿日：{{value.review_date | date("Y年m月d日")}}</span>
+        <p>{{value.content}}</p>
+        <p>いいね：{{value.good}}</p>
+    {% endfor %}
+</div>
