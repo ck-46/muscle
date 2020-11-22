@@ -51,24 +51,24 @@ $searchFalse = '';
 
 // var_dump($_POST);
 
-if (isset($_POST['search']) === true) {
-    // var_dump($_POST['search']);
-    // var_dump($_POST['keyword']);
-    // exit;
-    $keywords = $_POST['keywords'];
+if (isset($_POST['keywords']) === true && $_POST['keywords'] !== '') {
     $keywords = mb_convert_kana( $_POST['keywords'], 's', 'UTF-8');
+} elseif (isset($_GET['keywords']) === true && $_GET['keywords'] !== '') {
+    $keywords = mb_convert_kana( $_GET['keywords'], 's', 'UTF-8');
+}
 
+if ($keywords !== '') {
     $dataArr = $itm->getSearchResult($keywords);
 
     if ($dataArr === false) $searchFalse = '「' . $keywords . '」の検索結果は見つかりませんでした';
 }
+
 // var_dump($searchFalse);
 // exit;
 // 全商品リスト
 if ($flavor_id === '' && $purpose_id === '' && $brand_id === '' && $keywords === '') {
     $dataArr = $itm->getAllList();
 }
-
 
 $context = [];
 

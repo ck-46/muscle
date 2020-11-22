@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Yu Gothic";
   src: local("Yu Gothic Medium");
@@ -81,7 +82,7 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
-  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Yu Gothic", YuGothic, Verdana, Meiryo, "M+ 1p", sans-serif;
+  --font-family-sans-serif: メイリオ, Meiryo, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", sans-serif;
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
@@ -105,7 +106,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Yu Gothic", YuGothic, Verdana, Meiryo, "M+ 1p", sans-serif;
+  font-family: メイリオ, Meiryo, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.65;
@@ -6605,7 +6606,7 @@ a.close.disabled {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Yu Gothic", YuGothic, Verdana, Meiryo, "M+ 1p", sans-serif;
+  font-family: メイリオ, Meiryo, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.65;
@@ -6718,7 +6719,7 @@ a.close.disabled {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Yu Gothic", YuGothic, Verdana, Meiryo, "M+ 1p", sans-serif;
+  font-family: メイリオ, Meiryo, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.65;
@@ -10869,8 +10870,12 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 body {
-  letter-spacing: 0.1em;
+  letter-spacing: .1em;
   text-align: justify;
+}
+
+main {
+  min-height: 90vh;
 }
 
 .good_btn {
@@ -10879,11 +10884,30 @@ body {
   cursor: pointer;
 }
 
-.good_btn:hover {
+.good_btn :hover {
   color: #f44336;
 }
 
 .good_btn .active {
   color: #f44336;
+}
+
+.jumbotron-extend {
+  position: relative;
+  height: 70vh;
+  min-height: 300px;
+  background: url(../images/main_01.jpg) no-repeat center center;
+  background-size: cover;
+}
+
+.jumbotron-container {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+footer {
+  margin-top: auto;
 }
 /*# sourceMappingURL=index.css.map */

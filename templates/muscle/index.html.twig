@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{constant('main\\Bootstrap::ENTRY_URL')}}stylesheets/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <title>MUSCLE STORE｜トップページ</title>
 </head>
 <body>
@@ -11,42 +15,95 @@
     {% include 'header.html.twig' %}
 </header>
 <div>
-    <div>main-image</div>
+    <div class="jumbotron jumbotron-extend">
+        <div class="container-fluid jumbotron-container">
+            <h1 style="color: #ffffff;">見出しテキストテキス</h1>
+            <p class="text-muted">サブテキストサブテキストサブテキストサブテキストサブテキストサブテキスト</p>
+        </div>
+    </div>
 </div>
 <main class="container">
-    <h2 class="h2 mt-4 mb-4">おすすめの商品</h2>
-    <div>
-        <a href="">item1</a>
-        <a href="">item2</a>
-        <a href="">item3</a>
-    </div>
-    <div>
-        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php">商品一覧を見る</a>
-    <div>
-    <h2 class="h2 mt-4 mb-4">商品を探す</h2>
-    <div>
-        <div>
-            {% include 'category.html.twig' %}
-        </div>
-        <div>
-            <form action="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php" method="post">
-                <input type="text" name="keywords" value="">
-                <input type="submit" name="search" value="検索">
-            </form>
-            {# <form action="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php" method="post" class="form-inline">
-                <div  class="form-group">
-                    <input class="form-control mr-sm-2" type="text" name="keyword" value="" placeholder="検索" aria-label="Search" size="30">
-                    <input type="submit" class="btn btn-outline-success my-1 my-sm-0" name="search" value="検索">
+    <section id="Recommend" class="pt-4">
+        <h2 class="font-weight-bold mt-4 mb-4">おすすめの商品</h2>
+        <div class="row justify-content-center mb-4">
+            {% for key,value in topThreeArr %}
+                <div class="card col-11 col-md-5 col-lg-3 mx-3 mb-2 p-0" style="min-width: 18rem;">
+                    <img src="{{constant('main\\Bootstrap::ENTRY_URL')}}images/{{value.image}}" class="card-img-top" alt="{{value.item_name}}">
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold">{{value.item_name}}</h5>
+                        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}detail.php?item_id={{value.item_id}}" class="btn btn-dark w-100 my-1">詳しく見る</a>
+                    </div>
                 </div>
-            </form> #}
-            <div>
-            <span>こんなキーワードで検索されています</span>
-            <a href="">バニラ味</a>
-            <a href="">減量</a>
-            <a href="">5kg</a>
+            {% endfor %}
+        </div>
+        <div class="text-center">
+            <a class="btn btn-primary w-20 my-1" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php">商品一覧を見る</a>
+        </div>
+    </section>
+    <section id="find" class="pt-4">
+        <h2 class="font-weight-bold mt-4 mb-4">商品を探す</h2>
+        <div class="row justify-content-center mb-4">
+            <div class="card col-11 col-md-5 col-lg-3 mx-3 mb-2 p-0" style="min-width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">ブランド別</h5>
+                    <ul class="list-group list-group-flush">
+                        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?brand=1" class="list-group-item list-group-item-action">ウイダー</a>
+                        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?brand=2" class="list-group-item list-group-item-action">ザバス</a>
+                        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?brand=3" class="list-group-item list-group-item-action">マイプロテイン</a>
+                        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?brand=4" class="list-group-item list-group-item-action">ゴールドスタンダード</a>
+                        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?brand=5" class="list-group-item list-group-item-action">ゴールドジム</a>
+                    </ul>
+                </div>
+            </div>
+            <div class="card col-11 col-md-5 col-lg-3 mx-3 mb-2 p-0" style="min-width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">目的別</h5>
+                    <ul class="list-group list-group-flush">
+                        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?purpose=1" class="list-group-item list-group-item-action">増量</a>
+                        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?purpose=2" class="list-group-item list-group-item-action">減量</a>
+                        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?purpose=3" class="list-group-item list-group-item-action">健康維持</a>
+                        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?purpose=4" class="list-group-item list-group-item-action">リカバリー</a>
+                    </ul>
+                </div>
+            </div>
+            <div class="card col-11 col-md-5 col-lg-3 mx-3 mb-2 p-0" style="min-width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">フレーバー別</h5>
+                    <ul class="list-group list-group-flush">
+                        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?flavor=1" class="list-group-item list-group-item-action">ココア</a>
+                        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?flavor=2" class="list-group-item list-group-item-action">フルーツ</a>
+                        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?flavor=3" class="list-group-item list-group-item-action">コーヒー</a>
+                        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?flavor=4" class="list-group-item list-group-item-action"> バニラ</a>
+                        <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?flavor=5" class="list-group-item list-group-item-action">チョコ</a>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="col-10 col-md-12 col-lg-12 mb-2 p-0">
+            <form class="form-inline my-2 my-lg-0" action="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php" method="post">
+                <input class="form-control mr-sm-2" name="keywords" value="" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="search" value="検索">Search</button>
+            </form>
+            <div>
+                <span>こんなキーワードで検索されています</span>
+                <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?keywords=タンパク質">タンパク質</a>
+                <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?keywords=減量">減量</a>
+                <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?keywords=ビタミン">ビタミン</a>
+            </div>
+        </div>
+                {# <form action="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php" method="post">
+                    <input type="text" name="keywords" value="">
+                    <input type="submit" name="search" value="検索">
+                </form> #}
+                {# <form action="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php" method="post" class="form-inline">
+                    <div  class="form-group">
+                        <input class="form-control mr-sm-2" type="text" name="keyword" value="" placeholder="検索" aria-label="Search" size="30">
+                        <input type="submit" class="btn btn-outline-success my-1 my-sm-0" name="search" value="検索">
+                    </div>
+                </form> #}
+            </div>
+        </div>
+    </section>
 </main>
 <footer>
     {% include 'footer.html.twig' %}
