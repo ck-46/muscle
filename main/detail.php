@@ -48,8 +48,10 @@ $amountArr = $itm->getAmount();
 
 // レビューを取得する
 $reviewArr = $acnt->getReviewData($item_id, $user_id);
-// 降順で表示
-arsort($reviewArr);
+
+// var_dump($reviewArr);
+// exit;
+
 
 // var_dump($reviewArr);
 // exit;

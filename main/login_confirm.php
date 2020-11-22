@@ -25,6 +25,9 @@ $twig = new \Twig_Environment($loader, [
     'cache' => Bootstrap::CACHE_DIR
 ]);
 
+// var_dump($_SESSION);
+// exit;
+
 
 if (isset($_POST['confirm']) === true) {
 
@@ -44,13 +47,27 @@ if (isset($_POST['confirm']) === true) {
             $_SESSION = $ses->getSession($dataArr);
             header('Location: ' . $url);
             exit();
+        } elseif ($_SESSION['route'] === 'cart_in') {
+            $url = $_SESSION['url'];
+            $post = $_SESSION['post'];
 
+            // var_dump($post);
+
+            $_SESSION = array();
+            $_SESSION = $ses->getSession($dataArr);
+            $_SESSION['post'] = $post;
+
+            // var_dump($_SESSION);
+            // exit;
+            header('Location: ' . $url);
+            exit();
+        } else {
+            // ユーザー情報をセッションに保存
+            $_SESSION = $ses->getSession($dataArr);
+    
+            header('Location: ' . Bootstrap::ENTRY_URL . 'complete.php?key=login');
+            exit();
         }
-        // ユーザー情報をセッションに保存
-        $_SESSION = $ses->getSession($dataArr);
-
-        header('Location: ' . Bootstrap::ENTRY_URL . 'complete.php?key=login');
-        exit();
     } else {
         $template = 'login.html.twig';
     }

@@ -13,18 +13,6 @@ create table user (
     family_name varchar(20) not null,
     first_name varchar(20) not null,
     email varchar(255) not null,
-    password varchar(255) not null,
-    create_date datetime not null default current_timestamp,
-    update_date datetime,
-    delete_date datetime,
-    delete_flg tinyint(1) unsigned not null default 0,
-    primary key( user_id )
-);
-create table user (
-    user_id int unsigned not null auto_increment,
-    family_name varchar(20) not null,
-    first_name varchar(20) not null,
-    email varchar(255) not null,
     zip varchar(7) not null,
     address varchar(100) not null,
     password varchar(255) not null,
@@ -226,18 +214,6 @@ create table good (
 );
 
 11/21 10:25 ここまで作った
-
-create table want_item (
-    want_id int unsigned not null auto_increment,
-    user_id int unsigned not null,
-    item_id int unsigned not null,
-    num tinyint(1) unsigned not null default 1,
-    delete_flg tinyint(1) unsigned not null default 0,
-    primary key( want_id ),
-    index want_item_idx( user_id, delete_flg )
-);
-
-
 
 
 

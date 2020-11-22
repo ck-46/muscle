@@ -143,4 +143,34 @@ class Item
 
         return ($res !== false && count($res) !== 0) ? $res : false;
     }
+
+    public function getTopThree()
+    {
+        // $table = ' sold_item ';
+        // $col = ' item_id, item_name, detail, price, image ';
+        // $where = ($item_id !== '') ? ' item_id = ? ' : '';
+        // $arrVal = ($item_id !== '') ? [$item_id] : [];
+
+        // SELECT SUM( num ) AS total, i.item_id, i.item_name, i.image
+        // FROM sold_item s LEFT JOIN item i ON s.item_id = i.item_id
+        // GROUP BY i.item_id ORDER BY total DESC LIMIT 3
+        // SELECT SUM( num ) AS total, i.item_id, i.item_name, i.image FROM sold_item s LEFT JOIN item i ON s.item_id = i.item_id GROUP BY i.item_id ORDER BY total DESC LIMIT 3;
+
+        $table = ' sold_item s LEFT JOIN item i ON s.item_id = i.item_id ';
+        $column = ' SUM( num ) AS total, i.item_id, i.item_name, i.image ';
+
+        $orderby = ' total DESC ';
+        $limit = ' 3 ';
+        $groupby = ' i.item_id ';
+
+        $this->db->setOrder($orderby);
+        $this->db->setLimitOff($limit);
+        $this->db->setGroupBy($groupby);
+
+        $res = $this->db->select($table, $column);
+        // var_dump($res);
+        // exit;
+
+        return ($res !== false && count($res) !== 0) ? $res : false;
+    }
 }

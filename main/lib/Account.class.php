@@ -448,6 +448,8 @@ class Account
 
                 $dataArr[$key]['goodAmount'] = count($this->countGood($value['review_id']));
             }
+            // 降順で表示
+            arsort($dataArr);
             // var_dump($dataArr);
             // exit;
         } else {

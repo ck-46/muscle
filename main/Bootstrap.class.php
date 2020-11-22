@@ -24,11 +24,25 @@ class Bootstrap
 
     const APP_DIR = '/Applications/XAMPP/xamppfiles/htdocs/muscle/';
 
+    const APP_URL = 'http://localhost/muscle/';
+
+    // const DB_HOST = 'mysql10092.xserver.jp';
+
+    // const DB_NAME = 'xs867035_muscle';
+
+    // const DB_USER = 'xs867035_msluser';
+
+    // const DB_PASS = 'musclepass';
+
+    // const DB_TYPE = 'mysql';
+
+    // const APP_DIR = '/home/xs867035/ck-46.xyz/public_html/muscle/';
+
+    // const APP_URL = 'http://ck-46.xyz/muscle/';
+
     const TEMPLATE_DIR = self::APP_DIR . 'templates/muscle/';
 
     const CACHE_DIR = false;
-
-    const APP_URL = 'http://localhost/muscle/';
 
     const ENTRY_URL = self::APP_URL . 'main/';
 

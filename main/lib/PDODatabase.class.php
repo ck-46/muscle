@@ -116,8 +116,8 @@ class PDODatabase
 
     public function setOrder($order = '')
     {
-        if ($strOrder !== '') {
-            $this->order = ' ORDER BY ' . $strOrder;
+        if ($order !== '') {
+            $this->order = ' ORDER BY ' . $order;
         }
     }
 
