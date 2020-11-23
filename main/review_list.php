@@ -28,8 +28,6 @@ $twig = new \Twig_Environment($loader, [
 
 // レビューを取得する
 $reviewList = $acnt->getReviewList($user_id);
-// 降順で表示
-arsort($reviewList);
 
 $context = [];
 

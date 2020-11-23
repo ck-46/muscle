@@ -15,30 +15,32 @@
     {% include 'header.html.twig' %}
 </header>
 <main class="container">
-    <h2 class="h2 mt-4 mb-4">お問い合わせ</h2>
-        <p>お問い合わせ内容を入力してください</p>
-        {% if errArr.contact_ctg_id | length > 0 %}
-            <div class="text-danger">{{errArr.contact_ctg_id}}</div>
-        {% endif %}
-        <form action="contact_confirm.php" method="post">
-            {% if errArr.login | length > 0 %}{<div class="text-danger">{errArr.login}}</div>{% endif %}
-            <div class="container">
+    <section id="contact" class="pt-4">
+        <h2 class="font-weight-bold mt-4 mb-4">お問い合わせ</h2>
+        <form method="post" action="contact_confirm.php">
+            <p class="form-text">お問い合わせ内容を入力してください</p>
+            <div class="form-check mb-2">
                 {% for index, label in contactArr %}
-                <input type="radio" id="contact_{{index}}" name="contact_ctg_id" value="{{index}}" {% if dataArr.contact_ctg_id == index %} checked="checked" {% endif %}>
-                <label for="contact_{{index}}">{{label}}</label><br>
+                    <input class="form-check-input" type="radio" name="contact_ctg_id" id="contact_{{index}}" value="{{index}}" {% if dataArr.contact_ctg_id == index %} checked="checked" {% endif %}>
+                    <label class="form-check-label" for="contact_{{index}}">{{label}}</label><br>
                 {% endfor %}
+                {% if errArr.contact_ctg_id | length > 0 %}
+                    <small class="form-text text-danger">{{errArr.contact_ctg_id}}</small>
+                {% endif %}
             </div>
             <div class="form-group">
-                <div>詳細：</div>
+                <label for="content">詳細</label>
+                <textarea class="form-control" id="content" name="content" rows="3" placeholder="入力欄">{{dataArr.content}}</textarea>
                 {% if errArr.content | length > 0 %}
-                    <div class="text-danger">{{errArr.content}}</div>
+                    <small class="form-text text-danger pl-3">{{errArr.content}}</small>
                 {% endif %}
-                <textarea class="form-control" name="content" cols="40" rows="5">{{dataArr.content}}</textarea>
             </div>
-            <div>
-                <input type="submit" class="btn btn-primary" name="confirm" value="入力情報の確認">
-            </div>
+            <input type="submit" class="btn btn-primary w-20" name="confirm" value="入力情報の確認">
         </form>
+        <div class="mt-3">
+            <p><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}mypage.php">マイページへ戻る</a></p>
+        </div>
+    </section>
 </main>
 <footer>
     {% include 'footer.html.twig' %}

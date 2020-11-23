@@ -25,10 +25,6 @@ $twig = new \Twig_Environment($loader, [
     'cache' => Bootstrap::CACHE_DIR
 ]);
 
-// var_dump($_SESSION);
-// exit;
-
-
 if (isset($_POST['confirm']) === true) {
 
     unset($_POST['confirm']);

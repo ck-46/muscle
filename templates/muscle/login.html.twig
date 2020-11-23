@@ -15,26 +15,30 @@
     {% include 'header.html.twig' %}
 </header>
 <main class="container">
-    {% if user_name | length > 0 %}
-        <div>{{ user_name }}さんは登録済みです</div>
-        <div><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}index.php">トップページへ</a></div>
-    {% endif %}
-    {% if user_name | length < 1 %}
-        <input type="hidden" name="entry_url" id="entry_url" value="{{constant('main\\Bootstrap::ENTRY_URL')}}">
-        <form method="post" action="login_confirm.php">
-            <h2 class="h2 mt-4 mb-4">ログイン</h2>
-            <div class="text-danger">{% if errArr.login | length > 0 %}{{errArr.login}}{% endif %}</div>
-            <div  class="form-group">
-                <label for="email">メールアドレス：</label>
-                <input type="text" id="email" class="form-control" name="email" value="{{dataArr.email}}" size="40">
+    <section id="login" class="pt-4">
+        <h2 class="font-weight-bold mt-4 mb-4">ログイン</h2>
+        {% if user_name | length > 0 %}
+            <div class="py-2">{{ user_name }}さんは登録済みです</div>
+            <div>
+                <a class="btn btn-primary w-20 my-5" href="{{constant('main\\Bootstrap::ENTRY_URL')}}index.php">トップページへ</a>
             </div>
-            <div class="form-group">
-                <label for="password">パスワード：</label>
-                <input type="password" id="password" class="form-control" name="password" value="{{dataArr.password}}" size="40">
-            </div>
-            <input type="submit" class="btn btn-primary" name="confirm" value="ログイン">
-        </form>
-    {% endif %}
+        {% else %}
+            <form method="post" action="login_confirm.php">
+                {% if errArr.login | length > 0 %}
+                    <div class="form-text text-danger">{{errArr.login}}</div>
+                {% endif %}
+                <div class="form-group">
+                    <label for="email">メールアドレス</label>
+                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email" value="{{dataArr.email}}">
+                </div>
+                <div class="form-group">
+                    <label for="password">パスワード</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="{{dataArr.password}}">
+                </div>
+                <input type="submit" class="btn btn-primary" name="confirm" value="ログイン">
+            </form>
+        {% endif %}
+    </section>
 </main>
 <footer>
     {% include 'footer.html.twig' %}

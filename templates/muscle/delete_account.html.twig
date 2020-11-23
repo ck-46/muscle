@@ -15,30 +15,32 @@
     {% include 'header.html.twig' %}
 </header>
 <main class="container">
-    <h2 class="h2 mt-4 mb-4">退会手続き</h2>
-        <p>退会理由を入力してください</p>
-        {% if errArr.del_ctg_id | length > 0 %}
-            <div class="text-danger">{{errArr.del_ctg_id}}</div>
-        {% endif %}
-        <form action="delete_account_confirm.php" method="post">
-            <div class="text-danger">{% if errArr.login | length > 0 %}{{errArr.login}}{% endif %}</div>
-            <div class="container">
+    <section id="delete_account" class="pt-4">
+        <h2 class="font-weight-bold mt-4 mb-4">退会手続き</h2>
+        <form method="post" action="delete_account_confirm.php">
+            <p class="form-text">退会理由を入力してください</p>
+            <div class="form-check mb-2">
                 {% for index, label in delArr %}
-                <input type="radio" id="del_{{index}}" name="del_ctg_id" value="{{index}}" {% if dataArr.del_ctg_id == index %} checked="checked" {% endif %}>
-                <label for="del_{{index}}">{{label}}</label><br>
+                    <input class="form-check-input" type="radio" id="del_{{index}}" name="del_ctg_id" value="{{index}}" {% if dataArr.del_ctg_id == index %} checked="checked" {% endif %}>
+                    <label class="form-check-label" for="del_{{index}}">{{label}}</label><br>
                 {% endfor %}
+                {% if errArr.del_ctg_id | length > 0 %}
+                    <small class="text-danger">{{errArr.del_ctg_id}}</small>
+                {% endif %}
             </div>
             <div class="form-group">
-                <div>上記理由の詳細：</div>
+                <label for="del_text">上記理由の詳細</label>
+                <textarea class="form-control" id="del_text" name="del_text" rows="3" placeholder="入力欄">{{dataArr.del_text}}</textarea>
                 {% if errArr.del_text | length > 0 %}
-                    <div class="text-danger">{{errArr.del_text}}</div>
+                    <small class="form-text text-danger pl-3">{{errArr.del_text}}</small>
                 {% endif %}
-                <textarea class="form-control" name="del_text" cols="40" rows="5">{{dataArr.del_text}}</textarea>
             </div>
-            <div>
-                <input type="submit" class="btn btn-primary" name="confirm" value="入力情報の確認">
-            </div>
+            <input type="submit" class="btn btn-primary w-20" name="confirm" value="入力情報の確認">
         </form>
+        <div class="mt-3">
+            <p><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}mypage.php">マイページへ戻る</a></p>
+        </div>
+    </section>
 </main>
 <footer>
     {% include 'footer.html.twig' %}

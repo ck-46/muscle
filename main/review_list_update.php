@@ -37,9 +37,13 @@ if (isset($_GET['mode']) === true) {
 if (isset($_POST['confirm']) === true) {
     $mode = 'confirm';
 }
-// 修正するから来た場合
+// 戻るから来た場合
 if (isset($_POST['back']) === true) {
     $mode = 'back';
+}
+// 修正するから来た場合
+if (isset($_POST['fix']) === true) {
+    $mode = 'fix';
 }
 // 投稿するから来た場合
 if (isset($_POST['complete']) === true) {
@@ -84,6 +88,13 @@ switch ($mode) {
         // err_check = true →エラーなし
         // エラーがなければcreate_account_confirm.html.twig、エラーがあればcreate_account.html.twig
         $template = ($err_check === true) ? 'review_update_confirm.html.twig' : 'review_update.html.twig';
+    break;
+
+    case 'back' :
+        header('Location: ' . Bootstrap::ENTRY_URL . 'review_list.php');
+        exit();
+
+        unset($_POST['back']);
     break;
 
     case 'fix' :

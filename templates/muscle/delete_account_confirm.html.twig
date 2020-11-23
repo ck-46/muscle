@@ -15,19 +15,29 @@
     {% include 'header.html.twig' %}
 </header>
 <main class="container">
-    <h2 class="h2 mt-4 mb-4">入力情報の確認</h2>
-    <form action="delete_account_confirm.php" method="post">
-        <h3>退会理由</h3>
-        {% for index, label in delArr %}
-            {% if dataArr.del_ctg_id == index %}<div>{{label}}</div>{% endif %}</div>
-        {% endfor %}
-        <div>{{dataArr.del_text}}</div><br>
-        <input type="submit" class="btn btn-secondary" name="back" value="修正する">
-        <input type="submit" class="btn btn-primary" name="complete" value="退会する">
-        {% for key,value in dataArr %}
-            <input type="hidden" name="{{key}}" value="{{value}}">
-        {% endfor %}
-    </form>
+    <section id="delete_account_confirm" class="pt-4">
+        <h2 class="font-weight-bold mt-4 mb-4">入力情報の確認</h2>
+        <div class="mb-4">
+            <h5 class="font-weight-bold mb-4">退会理由</h5>
+            <ul class="list-group list-group-flush">
+                {% for index, label in delArr %}
+                    {% if dataArr.del_ctg_id == index %}
+                        <li class="list-group-item">{{label}}</li>
+                    {% endif %}
+                {% endfor %}
+                <li class="list-group-item">{{dataArr.del_text}}</li>
+            </ul>
+        </div>
+        <form method="post" action="delete_account_confirm.php">
+            <div>
+                <input type="submit" class="btn btn-secondary w-20" name="back" value="修正する">
+                <input type="submit" class="btn btn-primary w-20" name="complete" value="退会する">
+            </div>
+            {% for key,value in dataArr %}
+                <input type="hidden" name="{{key}}" value="{{value}}">
+            {% endfor %}
+        </form>
+    </section>
 </main>
 <footer>
     {% include 'footer.html.twig' %}

@@ -42,11 +42,11 @@ if (isset($_POST['complete']) === true) {
 switch ($mode) {
     case 'confirm' :
         $updateDataArr = $_POST;
-        
+
         unset($updateDataArr['confirm']);
 
         $errArr = $acnt->updateCheck($updateDataArr);
-        $err_check = $acnt->getErrorFlg();
+        $err_check = $acnt->getUpdateErrorFlg($errArr);
         // err_check = false →エラーあり
         // err_check = true →エラーなし
         // エラーがなければcreate_account_confirm.html.twig、エラーがあればcreate_account.html.twig
@@ -76,8 +76,6 @@ switch ($mode) {
             $updateDataArr['password'] = password_hash($updateDataArr['password'], PASSWORD_DEFAULT);
         }
 
-        // var_dump($updateDataArr);
-        // exit;
         $res = $acnt->updateUserData($updateDataArr, $user_id);
 
         if ($res === true) {

@@ -15,17 +15,21 @@
     {% include 'header.html.twig' %}
 </header>
 <main class="container">
-    <div>
-        <h2 class="h2 mt-4 mb-4">{{ content.type }}完了しました</h2>
-        {% if  content.page | length > 0 %}
-            {# ログインページURL #}
-            <div><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}login.php">{{ content.page }}</a></div>
-        {% endif %}
-        {% if content.name | length > 0 %}
-            <div>こんにちは、{{ content.name }}さん</div>
-        {% endif %}
-        <div><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}index.php">トップページへ</a></div>
-    </div>
+    <section id="complete" class="pt-4">
+        <h2 class="font-weight-bold mt-4 mb-4">{{ content.type }}完了しました</h2>
+        <div>
+            {% if content.name | length > 0 %}
+                <div class="py-2">こんにちは、{{ content.name }}さん</div>
+            {% endif %}
+            <div>
+                <a class="btn btn-primary w-20 my-5" href="{{constant('main\\Bootstrap::ENTRY_URL')}}index.php">トップページへ</a>
+                {% if  content.page | length > 0 %}
+                    {# ログインページURL #}
+                    <a class="btn btn-primary w-20 my-2" href="{{constant('main\\Bootstrap::ENTRY_URL')}}login.php">{{ content.page }}</a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
 </main>
 <footer>
     {% include 'footer.html.twig' %}

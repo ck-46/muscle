@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{constant('main\\Bootstrap::ENTRY_URL')}}stylesheets/index.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-    <script src="{{constant('main\\Bootstrap::APP_URL')}}js/muscle.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link href="{{constant('main\\Bootstrap::ENTRY_URL')}}stylesheets/index.css" rel="stylesheet">
+    <script src="{{constant('main\\Bootstrap::APP_URL')}}js/muscle.js"></script>
     <title>MUSCLE STORE｜新規登録ページ</title>
 </head>
 <body>
@@ -17,60 +17,78 @@
     {% include 'header.html.twig' %}
 </header>
 <main class="container">
-    {% if user_name | length > 0 %}
-        <div>{{ user_name }}さんは登録済みです</div>
-        <div><a href="{{constant('main\\Bootstrap::ENTRY_URL')}}index.php">トップページへ</a></div>
-    {% endif %}
-    {% if user_name | length < 1 %}
-        <form method="post" action="create_account_confirm.php">
-            <input type="hidden" name="entry_url" id="entry_url" value="{{constant('main\\Bootstrap::ENTRY_URL')}}">
-            <h2 class="h2 mt-4 mb-4">新規登録</h2>
-            <div class="form-group">
-                <label for="family_name">氏：</label>
-                {% if errArr.family_name | length > 0 %}<div class="text-danger">{{ errArr.family_name }}</div>{% endif %}
-                <input type="text" id="family_name" class="form-control" name="family_name" value="{{dataArr.family_name}}" size="40">
+    <section id="create_account" class="pt-4">
+        <h2 class="font-weight-bold mt-4 mb-4">新規登録</h2>
+        <input type="hidden" name="entry_url" value="{{constant('main\\Bootstrap::ENTRY_URL')}}" id="entry_url">
+        {% if user_name | length > 0 %}
+            <div class="py-2">{{ user_name }}さんは登録済みです</div>
+            <div>
+                <a class="btn btn-primary w-20 my-5" href="{{constant('main\\Bootstrap::ENTRY_URL')}}index.php">トップページへ</a>
             </div>
-            <div class="form-group">
-                <label for="first_name">名：</label>
-                {% if errArr.first_name | length > 0 %}<div class="text-danger">{{ errArr.first_name }}</div>{% endif %}
-                <input type="text" id="first_name" class="form-control" name="first_name" value="{{dataArr.first_name}}" size="40">
-            </div>
-            <div class="form-group">
-                <label for="zip">郵便番号：</label>
-                <div>※郵便番号は7文字の半角数字で入力してください</div>
-                {% if errArr.zip | length > 0 %}<div class="text-danger">{{errArr.zip}}</div>{% endif %}
-                <input type="text" class="form-control" name="zip" value="{{dataArr.zip}}" id="zip" size="7" maxlength="7">
-                <input type="button" name="address_search" value="〒から住所を入力" id="address_search">
-            </div>
-            <div class="form-group">
-                <label for="address">住所：</label>
-                {% if errArr.address | length > 0 %}<div class="text-danger">{{errArr.address}}</div>{% endif %}
-                <input type="text" id="address" class="form-control" name="address" value="{{dataArr.address}}" size="40">
-            </div>
-            <div class="form-group">
-                <label for="email">メールアドレス：</label>
-                {% if errArr.email | length > 0 %}<div class="text-danger">{{errArr.email}}</div>{% endif %}
-                <input type="text" id="email" class="form-control" name="email" value="{{dataArr.email}}" size="40">
-            </div>
-            <div class="form-group">
-                <label for="confirm_email">もう一度メールアドレスを入力してください：</label>
-                {% if errArr.confirm_email | length > 0 %}<div class="text-danger">{{errArr.confirm_email}}</div>{% endif %}
-                <input type="text" id="confirm_email" class="form-control" name="confirm_email" value="{{confirmDataArr.confirm_email}}" size="40">
-            </div>
-            <div class="form-group">
-                <label for="password">パスワード：</label>
-                <div>※パスワードは6〜20文字の半角数字で入力してください</div>
-                {% if errArr.password | length > 0 %}<div class="text-danger">{{ errArr.password }}</div>{% endif %}
-                <input type="password" id="password" class="form-control" name="password" value="" size="40">
-            </div>
-            <div class="form-group">
-                <label for="confirm_password">もう一度パスワードを入力してください：</label>
-                {% if errArr.confirm_password | length > 0 %}<div class="text-danger">{{errArr.confirm_password}}</div>{% endif %}
-                <input type="password" id="confirm_password" class="form-control" name="confirm_password" value="{{confirmDataArr.confirm_password}}" size="40">
-            </div>
-            <input type="submit" class="btn btn-primary" name="confirm" value="入力情報を確認">
-        </form>
-    {% endif %}
+        {% else %}
+            <form method="post" action="create_account_confirm.php">
+                <div class="form-group">
+                    <label for="family_name">姓</label>
+                    <input type="text" class="form-control" id="family_name" name="family_name" value="{{dataArr.family_name}}" placeholder="Family name">
+                    {% if errArr.family_name | length > 0 %}
+                        <small class="form-text text-danger">{{ errArr.family_name }}</small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="first_name">名</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" value="{{dataArr.first_name}}" placeholder="First name">
+                    {% if errArr.first_name | length > 0 %}
+                        <small class="form-text text-danger">{{ errArr.first_name }}</small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="zip">郵便番号</label>
+                    <input type="text" class="form-control" id="zip" name="zip" value="{{dataArr.zip}}" size="7" maxlength="7" placeholder="Zip">
+                    <small class="form-text text-muted">※郵便番号は7文字の半角数字で入力してください</small>
+                    {% if errArr.zip | length > 0 %}
+                        <small class="form-text text-danger">{{ errArr.zip }}</small>
+                    {% endif %}
+                    <input type="button" class="btn btn-info w-20" name="address_search" value="〒から住所を入力" id="address_search">
+                </div>
+                <div class="form-group">
+                    <label for="address">住所</label>
+                    <input type="text" class="form-control" id="address" name="address" value="{{dataArr.address}}" placeholder="Address">
+                    {% if errArr.address | length > 0 %}
+                        <small class="form-text text-danger">{{ errArr.address }}</small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="email">メールアドレス</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{dataArr.email}}" placeholder="Email">
+                    {% if errArr.email | length > 0 %}
+                        <small class="form-text text-danger">{{ errArr.email }}</small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="confirm_email">もう一度メールアドレスを入力してください</label>
+                    <input type="email" class="form-control" id="confirm_email" name="confirm_email" value="{{dataArr.confirm_email}}" placeholder="Email">
+                    {% if errArr.confirm_email | length > 0 %}
+                        <small class="form-text text-danger">{{ errArr.confirm_email }}</small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="password">パスワード</label>
+                    <input type="password" class="form-control" id="password" name="password" value="" placeholder="Password">
+                    {% if errArr.password | length > 0 %}
+                        <small class="form-text text-danger">{{ errArr.password }}</small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">もう一度パスワードを入力してください</label>
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" value="{{dataArr.confirm_password}}" placeholder="Password">
+                    {% if errArr.confirm_password | length > 0 %}
+                        <small class="form-text text-danger">{{ errArr.confirm_password }}</small>
+                    {% endif %}
+                </div>
+                <input type="submit" class="btn btn-primary w-20" name="confirm" value="入力情報を確認">
+            </form>
+        {% endif %}
+    </section>
 </main>
 <footer>
     {% include 'footer.html.twig' %}
