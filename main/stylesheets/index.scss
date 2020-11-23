@@ -82,18 +82,41 @@ main {
   }
 }
 
+.carousel-item {
+  a:hover {
+    text-decoration: none;
+  }
+}
+
 .jumbotron-extend {
   position: relative;
   height: 70vh;
   min-height: 300px;
+}
+.main_01 {
   background: url(../images/main_01.jpg) no-repeat center center;
+  background-size: cover;
+}
+.main_02 {
+  background: url(../images/main_02.jpg) no-repeat center center;
+  background-size: cover;
+}
+.main_03 {
+  background: url(../images/main_03.jpg) no-repeat center center;
+  background-size: cover;
+}
+.main_04 {
+  background: url(../images/main_04.jpg) no-repeat center center;
   background-size: cover;
 }
 
 .jumbotron-container {
   position: relative;
-  top: 50%;
+  top: 80%;
   transform: translateY(-50%);
+  h1 {
+    font-size: 6vw;
+  }
 }
 
 footer {
