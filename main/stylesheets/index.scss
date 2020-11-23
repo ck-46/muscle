@@ -70,14 +70,14 @@ main {
     min-height: 90vh;
 }
 
-.good_btn{
+.good_btn {
   display: inline-block;
   padding: 0 8px;
   cursor: pointer;
-  :hover{
+  :hover {
     color: $good-red;
   }
-  .active{
+  .active {
     color: $good-red;
   }
 }
@@ -98,4 +98,10 @@ main {
 
 footer {
   margin-top: auto;
+}
+
+ul {
+  li {
+  list-style: none;
+  }
 }

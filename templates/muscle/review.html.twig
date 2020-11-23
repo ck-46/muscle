@@ -8,34 +8,32 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <title>MUSCLE STORE｜レビューページ</title>
+    <title>MUSCLE STORE｜レビュー入力ページ</title>
 </head>
 <body>
 <header>
     {% include 'header.html.twig' %}
 </header>
 <main class="container">
-    <div>
-        <div>
-            <p>{{dataArr.item_name}}</p>
-            <img src="{{constant('main\\Bootstrap::ENTRY_URL')}}images/{{dataArr.image}}" alt="{{dataArr.item_name}}" width="10%">
-            <form method="post" action="review_confirm.php">
-                {% for key,value in dataArr %}
-                    <input type="hidden" name="{{key}}" value="{{value}}">
-                {% endfor %}
-                <div class="form-group">
-                    {% if errArr | length > 0 %}
-                    <p class="text-danger">{{errArr.content}}</p>
-                    {% else %}
-                    <p>※150文字以内で入力してください</p>
-                    {% endif %}
-                    <textarea class="form-control" name="content" cols="30" rows="5">{{dataArr.content}}</textarea>
-                </div>
-                <input type="submit" class="btn btn-primary" name="confirm" value="入力内容の確認">
-                <input type="submit" class="btn btn-secondary" name="back" value="戻る">
-            </form>
-        </div>
-    </div>
+    <section id="review" class="pt-4">
+        <h2 class="font-weight-bold mt-4 mb-4">レビュー入力</h2>
+        <form method="post" action="review_confirm.php">
+            {% for key,value in dataArr %}
+                <input type="hidden" name="{{key}}" value="{{value}}">
+            {% endfor %}
+            <div class="form-group">
+                <label for="content">{{dataArr.item_name}}</label>
+                <textarea class="form-control" id="content" name="content" rows="3" placeholder="入力欄">{{dataArr.content}}</textarea>
+                {% if errArr | length > 0 %}
+                    <small class="form-text text-danger">{{errArr.content}}</small>
+                {% else %}
+                    <small class="form-text text-muted">※150文字以内で入力してください</small>
+                {% endif %}
+            </div>
+            <input type="submit" class="btn btn-primary w-20" name="confirm" value="入力情報の確認">
+            <input type="submit" class="btn btn-secondary w-20" name="back" value="戻る">
+        </form>
+    </section>
 </main>
 <footer>
     {% include 'footer.html.twig' %}

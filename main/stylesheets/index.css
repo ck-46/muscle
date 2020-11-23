@@ -10910,4 +10910,8 @@ main {
 footer {
   margin-top: auto;
 }
+
+ul li {
+  list-style: none;
+}
 /*# sourceMappingURL=index.css.map */

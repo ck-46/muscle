@@ -171,6 +171,9 @@ class Account
         $this->errArr['login'] = '';
         $this->dataArr = $dataArr;
 
+        // var_dump($this->dataArr);
+        // exit;
+
         $this->loginErrorCheck();
 
         return $this->errArr;
@@ -237,8 +240,6 @@ class Account
         $arrVal = [$user_id];
 
         $res = $this->db->select($table, $col, $where, $arrVal);
-        // var_dump($res);
-        // exit;
         $dataArr = $res[0];
         return $dataArr;
     }
@@ -247,21 +248,53 @@ class Account
     {
         $this->updateDataArr = $updateDataArr;
 
+        $errArr = [];
+
+        foreach ($this->updateDataArr as $key => $val) {
+            $errArr[$key] = '';
+        }
+
         if ($this->updateDataArr['family_name'] === '' &&
             $this->updateDataArr['first_name'] === '' &&
+            $this->updateDataArr['zip'] === '' &&
+            $this->updateDataArr['address'] === '' &&
             $this->updateDataArr['email'] === '' &&
             $this->updateDataArr['password'] === '') {
 
-            $this->errArr = ['all' => '変更がありません'];
+            $errArr = ['all' => '変更がありません'];
         }
 
         if ($this->updateDataArr['email'] !== '' && preg_match('/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+[a-zA-Z0-9\._-]+$/', $this->updateDataArr['email']) === 0) {
-            $this->errArr['email'] = 'メールアドレスを正しい形式で入力してください';
+            $errArr['email'] = 'メールアドレスを正しい形式で入力してください';
+        } else {
+            $table = ' user ';
+            $col = ' email ';
+            $where = ' email = ? ';
+            $arrVal = [$this->updateDataArr['email']];
+
+            $res = $this->db->select($table, $col, $where, $arrVal);
+
+            if (count($res) !== 0) {
+                if ($res[0]['email'] === $this->updateDataArr['email']) {
+                    $errArr['email'] = '既に同じメールアドレスが存在します';
+                }
+            }
         }
         if ($this->updateDataArr['password'] !== '' && preg_match('/^[0-9a-zA-Z]{6,20}$/', $this->updateDataArr['password']) === 0) {
-            $this->errArr['password'] = 'パスワードを正しい形式でで入力してください';
+            $errArr['password'] = 'パスワードを正しい形式でで入力してください';
         }
-        return $this->errArr;
+        return $errArr;
+    }
+
+    public function getUpdateErrorFlg($errArr)
+    {
+        $err_check = true;
+        foreach ($errArr as $key => $value) {
+            if ($value !== '') {
+                $err_check = false;
+            }
+        }
+        return $err_check;
     }
 
     public function updateUserData($updateDataArr, $user_id)
@@ -346,8 +379,6 @@ class Account
         $arrVal = [$user_id];
     
         $buy_data = $this->db->select($table, $col, $where, $arrVal);
-        // var_dump($buy_data);
-        // exit;
 
         $item_id = '';
         $num = '';
@@ -357,24 +388,13 @@ class Account
             $item_id = explode(',', $value['item_id']);
             $num = explode(',', $value['num']);
 
-            // var_dump($item_id);
-            // var_dump($num);
-            // var_dump(array_combine($item_id, $num));
-
             $buy_history[] = [
                 'buy_data' => array_combine($item_id, $num),
                 'buy_date' => $value['buy_date'],
                 'price' => $value['price']
             ];
-            // $buy_history[] = ['buy_date' => $value['buy_date']];
-
-            // var_dump($buy_history);
-            // var_dump($buy_history[$key]['item_id']);
-            // var_dump($buy_history[$key]['num']);
-            // exit;
         }
-        // var_dump($buy_history);
-        // exit;
+        krsort($buy_history);
         return $buy_history;
     }
 
@@ -463,15 +483,23 @@ class Account
     {
         $table = ' review r LEFT JOIN item i ON r.item_id = i.item_id ';
         // $col = ' r.review_id,r.content,r.good,r.review_date,i.item_name,i.price,i.image ';
-        $col = ' r.review_id,r.content,r.review_date,i.item_name,i.price,i.image ';
+        $col = ' r.review_id,r.content,r.review_date,i.item_name ';
         $where = ' r.user_id = ? AND r.delete_flg = ? ';
         $arrVal = [$user_id, 0];
 
-        // SELECT r.review_id,r.content,r.good,r.review_date,i.item_name,i.price,i.image
+        // SELECT r.review_id,r.content,r.good,r.review_date,i.item_name
         // FROM review r LEFT JOIN item i ON r.item_id = i.item_id
         // WHERE r.user_id = ? AND r.delete_flg = ?
         // SELECT r.content,r.good,r.review_date,i.item_name,i.price,i.image FROM review r LEFT JOIN item i ON r.item_id = i.item_id WHERE r.user_id = 1 AND r.delete_flg = 0;
+
         $dataArr = $this->db->select($table, $col, $where, $arrVal);
+
+        foreach ($dataArr as $key => $value) {
+            $dataArr[$key]['good'] = count($this->countGood($value['review_id']));
+        }
+
+        // 降順で表示
+        arsort($dataArr);
         return $dataArr;
     }
 

@@ -15,40 +15,38 @@
     {% include 'header.html.twig' %}
 </header>
 <main class="container">
-    <h2 class="h2 mt-4 mb-4">ご注文の概要</h2>
-    {% for value in dataArr %}
-        <div>
-            <ul>
-                <li>
-                    <img src="{{constant('main\\Bootstrap::ENTRY_URL')}}images/{{value.image}}" alt="{{value.item_name}}" width="10%">
-                </li>
-                <li>
-                    {{value.item_name}}
-                </li>
-                <li>
-                    &yen;{{value.price|number_format(0, '.', ',')}}
-                </li>
-                <li>
-                    個数：{{value.num}}
-                </li>
-            </ul>
+    <section id="buy" class="pt-4">
+        <h2 class="font-weight-bold mt-4 mb-4">注文の確認</h2>
+        <div class="card mb-4">
+            <h5 class="card-header font-weight-bold">注文内容</h5>
+            <div class="card-body">
+                <p class="card-text">購入商品数：{{sumNum}}点</p>
+                <p class="card-text">お支払い金額：&yen;{{sumPrice|number_format(0, '.', ',')}}</p>
+            </div>
         </div>
-    {% endfor %}
-    <div>購入商品数：{{sumNum}}点</div>
-    <div>お支払い金額：&yen;{{sumPrice|number_format(0, '.', ',')}}</div>
-    <h2 class="h2 mt-4 mb-4">お届け先住所</h2>
-    <form method="post" action="buy_confirm.php">
-        <div>
-            <div>{{userData.family_name}} {{userData.first_name}}</div>
-            <div>〒{{userData.zip}}</div>
-            <div>{{userData.address}}</div>
+        <div class="card mb-4">
+            <h5 class="card-header font-weight-bold">お届け先住所</h5>
+            <div class="card-body">
+                <p class="card-text">{{userData.family_name}} {{userData.first_name}}</p>
+                <p class="card-text">〒{{userData.zip}}</p>
+                <p class="card-text">{{userData.address}}</p>
+            </div>
         </div>
-        <br>
-        <div>
-            <input type="submit" class="btn btn-secondary" name="back" value="戻る">
-            <input type="submit" class="btn btn-primary" name="complete" value="注文を確定する">
+        <div class="card mb-4">
+            <h5 class="card-header font-weight-bold">注文商品</h5>
+            <div class="card-body">
+                {% for value in dataArr %}
+                    <h5 class="card-title font-weight-bold">{{value.item_name}}</h5>
+                    <p class="card-text">価格：&yen;{{value.price|number_format(0, '.', ',')}}</p>
+                    <p class="card-text">数量：{{value.num}}</p>
+                {% endfor %}
+            </div>
         </div>
-    </form>
+        <form method="post" action="buy_confirm.php">
+            <input type="submit" class="btn btn-primary w-20" name="complete" value="注文を確定する">
+            <input type="submit" class="btn btn-secondary w-20" name="back" value="戻る">
+        </form>
+    </section>
 </main>
 <footer>
     {% include 'footer.html.twig' %}

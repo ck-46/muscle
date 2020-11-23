@@ -15,19 +15,22 @@
     {% include 'header.html.twig' %}
 </header>
 <main class="container">
-    <div>
-        <h2>レビュー編集確認ページ</h2>
-        <p>{{dataArr.item_name}}</p>
-        <img src="{{constant('main\\Bootstrap::ENTRY_URL')}}images/{{dataArr.image}}" alt="{{dataArr.item_name}}" width="10%">
-        <div>{{dataArr.content}}</div>
+    <section id="review_update_confirm" class="pt-4">
+        <h2 class="font-weight-bold mt-4 mb-4">レビュー編集確認</h2>
+        <div class="mb-4">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{dataArr.item_name}}</li>
+                <li class="list-group-item">{{dataArr.content}}</li>
+            </ul>
+        </div>
         <form method="post" action="review_list_update.php">
+            <input type="submit" class="btn btn-primary w-20" name="complete" value="投稿する">
+            <input type="submit" class="btn btn-secondary w-20" name="fix" value="修正する">
             {% for key,value in dataArr %}
                 <input type="hidden" name="{{key}}" value="{{value}}">
             {% endfor %}
-            <input type="submit" class="btn btn-primary" name="complete" value="投稿する">
-            <input type="submit" class="btn btn-secondary" name="fix" value="修正する">
         </form>
-    </div>
+    </section>
 </main>
 <footer>
     {% include 'footer.html.twig' %}

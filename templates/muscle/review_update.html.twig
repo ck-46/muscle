@@ -15,27 +15,39 @@
     {% include 'header.html.twig' %}
 </header>
 <main class="container">
-    <div>
-        <div>
-            <p>{{dataArr.item_name}}</p>
-            <img src="{{constant('main\\Bootstrap::ENTRY_URL')}}images/{{dataArr.image}}" alt="{{dataArr.item_name}}" width="10%">
-            <form method="post" action="review_list_update.php">
-                {% for key,value in dataArr %}
-                    <input type="hidden" name="{{key}}" value="{{value}}">
-                {% endfor %}
-                <div class="form-group">
-                    {% if errArr | length > 0 %}
-                    <p class="text-danger">{{errArr.content}}</p>
-                    {% else %}
-                    <p>※150文字以内で入力してください</p>
-                    {% endif %}
-                    <textarea class="form-control" name="content" cols="30" rows="5">{{dataArr.content}}</textarea>
+    <section id="review_update" class="pt-4">
+        <h2 class="font-weight-bold mt-4 mb-4">レビュー編集</h2>
+        <div class="card mb-3" style="max-width: 620px;">
+            <div class="row no-gutters">
+                <div class="col-sm-4 my-auto">
+                    <img src="{{constant('main\\Bootstrap::ENTRY_URL')}}images/{{dataArr.image}}" class="card-img" alt="{{dataArr.item_name}}" weight="100%">
                 </div>
-                <input type="submit" class="btn btn-primary" name="confirm" value="入力内容の確認">
-                <input type="submit" class="btn btn-secondary" name="back" value="戻る">
-            </form>
+                <div class="col-sm-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{dataArr.item_name}}</h5>
+                        <p class="card-text">価格：&yen;{{dataArr.price|number_format(0, '.', ',')}}</p>
+                        <p class="card-text">内容：{{dataArr.content}}</p>
+                        <p class="card-text"><small class="text-muted">{{dataArr.review_date|date("Y年m月d日")}}</small></p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+        <form method="post" action="review_list_update.php">
+            {% for key,value in dataArr %}
+                <input type="hidden" name="{{key}}" value="{{value}}">
+            {% endfor %}
+            <div class="form-group">
+                <textarea class="form-control" name="content" rows="3" placeholder="編集欄">{{dataArr.content}}</textarea>
+                {% if errArr | length > 0 %}
+                    <small class="form-text text-danger">{{errArr.content}}</small>
+                {% else %}
+                    <small class="form-text text-muted">※150文字以内で入力してください</small>
+                {% endif %}
+            </div>
+            <input type="submit" class="btn btn-primary w-20" name="confirm" value="入力内容の確認">
+            <input type="submit" class="btn btn-secondary w-20" name="back" value="戻る">
+        </form>
+    </section>
 </main>
 <footer>
     {% include 'footer.html.twig' %}

@@ -1,9 +1,0 @@
-<div>
-    <p>レビュー</p>
-    {% for key, value in reviewArr %}
-        <span>投稿者：{{value.user_name}}さん </span>
-        <span>投稿日：{{value.review_date | date("Y年m月d日")}}</span>
-        <p>{{value.content}}</p>
-        <p>いいね：{{value.good}}</p>
-    {% endfor %}
-</div>
