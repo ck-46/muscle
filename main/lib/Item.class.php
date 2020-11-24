@@ -102,26 +102,6 @@ class Item
     {
         $table = ' item ';
         $col = ' item_id, item_name, price, image ';
-        // $where = ($keyword !==  '') ? " item_name LIKE ? OR detail LIKE ? " : '';
-        // $arrVal = ($keyword !== '') ? [$keyword, $keyword] : [];
-
-        // if ($keywords !== '') {
-        //     $keywords = explode(' ', $keywords);
-
-        //     $where = " item_name LIKE ? OR detail LIKE ? ";
-        //     if (count($keywords) === 1) {
-        //         $arrVal = [$keywords, $keywords];
-        //     } elseif (count($keywords) > 1) {
-        //         foreach ($keywords as $key) {
-        //             $where .= " OR item_name LIKE ? OR detail LIKE ? ";
-        //             $arrVal = [$key, $key];
-        //         }
-        //     }
-        // }
-
-        // var_dump($keywords);
-
-        // $where = '';
         $where = [];
         $arrVal = [];
 
@@ -134,10 +114,6 @@ class Item
             }
             $where = implode(' OR ', $where);
         }
-
-        // var_dump($where);
-        // var_dump($arrVal);
-        // exit;
 
         $res = $this->db->select($table, $col, $where, $arrVal);
 
@@ -168,8 +144,6 @@ class Item
         $this->db->setGroupBy($groupby);
 
         $res = $this->db->select($table, $column);
-        // var_dump($res);
-        // exit;
 
         return ($res !== false && count($res) !== 0) ? $res : false;
     }

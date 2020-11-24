@@ -57,9 +57,6 @@ switch ($mode) {
 
         $dataArr = $res[0];
 
-        // var_dump($dataArr);
-        // exit;
-
         $template = 'review_update.html.twig';
     break;
 
@@ -78,9 +75,6 @@ switch ($mode) {
         unset($_POST['confirm']);
 
         $dataArr = $_POST;
-
-        // var_dump($dataArr);
-        // exit;
 
         $errArr = $acnt->reviewCheck($dataArr);
         $err_check = $acnt->getErrorFlg();

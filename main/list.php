@@ -49,8 +49,6 @@ if (isset($_GET['brand']) === true && preg_match('/^[0-9]+$/', $_GET['brand']) =
 // 検索結果
 $searchFalse = '';
 
-// var_dump($_POST);
-
 if (isset($_POST['keywords']) === true && $_POST['keywords'] !== '') {
     $keywords = mb_convert_kana( $_POST['keywords'], 's', 'UTF-8');
 } elseif (isset($_GET['keywords']) === true && $_GET['keywords'] !== '') {
@@ -63,8 +61,6 @@ if ($keywords !== '') {
     if ($dataArr === false) $searchFalse = '「' . $keywords . '」の検索結果は見つかりませんでした';
 }
 
-// var_dump($searchFalse);
-// exit;
 // 全商品リスト
 if ($flavor_id === '' && $purpose_id === '' && $brand_id === '' && $keywords === '') {
     $dataArr = $itm->getAllList();

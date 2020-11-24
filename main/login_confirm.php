@@ -47,14 +47,20 @@ if (isset($_POST['confirm']) === true) {
             $url = $_SESSION['url'];
             $post = $_SESSION['post'];
 
-            // var_dump($post);
-
             $_SESSION = array();
             $_SESSION = $ses->getSession($dataArr);
             $_SESSION['post'] = $post;
 
-            // var_dump($_SESSION);
-            // exit;
+            header('Location: ' . $url);
+            exit();
+        } elseif ($_SESSION['route'] === 'good') {
+            $url = $_SESSION['url'];
+            $review_id = $_SESSION['review_id'];
+
+            $_SESSION = array();
+            $_SESSION = $ses->getSession($dataArr);
+            $_SESSION['review_id'] = $review_id;
+
             header('Location: ' . $url);
             exit();
         } else {

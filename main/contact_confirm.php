@@ -46,9 +46,6 @@ switch ($mode) {
 
         $dataArr = $_POST;
 
-        // var_dump($dataArr);
-        // exit;
-
         if (isset($_POST['contact_ctg_id']) === false) {
             $dataArr['contact_ctg_id'] = '';
         }
@@ -85,10 +82,10 @@ switch ($mode) {
 
         unset($dataArr['complete']);
 
-        $acnt->recordContact($user_id, $dataArr);
-        $res = $acnt->sendMail($user_id);
+        $res = $acnt->recordContact($user_id, $dataArr);
 
         if ($res === true) {
+            $acnt->sendContactMail($user_id, $dataArr);
             header('Location: ' . Bootstrap::ENTRY_URL . 'complete.php?key=contact');
             exit();
         } else {

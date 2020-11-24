@@ -48,26 +48,36 @@
     </section>
     <section id="review" class="pt-4">
         <h2 class="font-weight-bold mt-4 mb-4">レビュー</h2>
-        {% if reviewArr | length > 0 %}
-            {% for key, value in reviewArr %}
-                <div class="card border-dark mb-3">
-                    <div class="card-header">{{value.user_name}}さん</div>
-                    <div class="card-body text-dark">
-                        <h5 class="card-title">{{value.content}}</h5>
-                        <p class="card-text text-right"><small class="text-muted">{{value.review_date | date("Y年m月d日H時i分")}}</small></p>
-                        <div class="good_btn" value="{{value.review_id}}">
-                            <div class="btn good {% if value.isGood | length > 0 %}active{% endif %}">
-                                <input type="hidden" class="user_id" value="{{user_id}}">
-                                <input type="hidden" class="review_id" value="{{value.review_id}}">
-                                <i class="fa-heart fa-lg px-16 {% if value.isGood | length > 0 %}active fas{% else %}far{% endif %}"></i>
-                                <span>{{value.goodAmount}}</span>
+        {% if user_id | length > 0 %}
+            {% if reviewArr | length > 0 %}
+                {% for key, value in reviewArr %}
+                    <div class="card border-dark mb-3">
+                        <div class="card-header">{{value.user_name}}さん</div>
+                        <div class="card-body text-dark">
+                            <p class="card-text">{{value.content}}</p>
+                            <p class="card-text text-right"><small class="text-muted">{{value.review_date | date("Y年m月d日H時i分")}}</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="good_btn" value="{{value.review_id}}">
+                                <div class="btn good {% if value.isGood | length > 0 %}active{% endif %} py-0">
+                                    <input type="hidden" class="user_id" value="{{user_id}}">
+                                    <input type="hidden" class="review_id" value="{{value.review_id}}">
+                                    <i class="fa-heart fa-lg px-16 {% if value.isGood | length > 0 %}active fas{% else %}far{% endif %}"></i>
+                                    <span>{{value.goodAmount}}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <div class="mb-4">まだレビューはありません</div>
+            {% endif %}
         {% else %}
-            <div class="mb-4">まだレビューはありません</div>
+            <a class="" href="{{constant('main\\Bootstrap::ENTRY_URL')}}login.php">
+                <div class="card">
+                    <div class="card-body"><span class="badge badge-success"><i class="fa fa-check"></i></span> ログインするとレビューを見ることができます</div>
+                </div>
+            </a>
         {% endif %}
     </section>
     {% include 'find_item.html.twig' %}

@@ -44,9 +44,6 @@ switch ($mode) {
 
         $dataArr = $_POST;
 
-        // var_dump($dataArr);
-        // exit;
-
         $errArr = $acnt->errorCheck($dataArr);
         $err_check = $acnt->getErrorFlg();
         // err_check = false →エラーあり
@@ -79,9 +76,6 @@ switch ($mode) {
         unset($dataArr['entry_url']);
         unset($dataArr['confirm_email']);
         unset($dataArr['confirm_password']);
-        
-        // var_dump($dataArr);
-        // exit;
 
         $res = $acnt->insUserData($dataArr);
 

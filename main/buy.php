@@ -29,13 +29,9 @@ $twig = new \Twig_Environment($loader, [
 ]);
 
 $userData = $acnt->getUserData($user_id);
-// var_dump($userData);
-// exit;
+
 list($sumNum, $sumPrice) = $cart->getItemAndSumPrice($user_id);
 $dataArr = $cart->getCartData($user_id);
-
-// var_dump($dataArr);
-// exit;
 
 $context = [];
 
