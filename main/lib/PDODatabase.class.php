@@ -66,18 +66,12 @@ class PDODatabase
     public function select($table, $column = '', $where = '', $arrVal = [])
     {
         $sql = $this->getSql('select', $table, $where, $column);
-        // var_dump($sql);
-        // exit;
         
         $this->sqlLogInfo($sql, $arrVal);
         
         $stmt = $this->dbh->prepare($sql);
-        // var_dump($stmt);
-        // exit;
         
         $res = $stmt->execute($arrVal);
-        // var_dump($res);
-        // exit;
         if ($res === false) {
             $this->catchError($stmt->errorInfo());
         }
@@ -85,14 +79,9 @@ class PDODatabase
         // データを連想配列に格納
         $data = [];
         while ($result = $stmt->fetch(\PDO::FETCH_ASSOC)) {
-            // var_dump($result);
-            // exit;
             array_push($data, $result);
-            // var_dump($data);
-            // exit;
         }
-        // var_dump($data);
-        // exit;
+
         return $data;
     }
 
@@ -188,9 +177,6 @@ class PDODatabase
             .  $preSt
             .  ') ';
 
-        // var_dump($sql);
-        // exit;
-
         $this->sqlLogInfo($sql, $insDataVal);
 
         $stmt = $this->dbh->prepare($sql);
@@ -209,7 +195,7 @@ class PDODatabase
         foreach ($insData as $col => $val) {
             $arrPreSt[] = $col . ' =? ';
         }
-        // $preSt = implode($arrPreSt, ',');
+
         $preSt = implode(',', $arrPreSt);
 
         // SQL文の作成
@@ -220,18 +206,11 @@ class PDODatabase
             .  ' WHERE '
             .  $where;
 
-            // var_dump($sql);
-            // exit;
-
         $updateData = array_merge(array_values($insData), $arrWhereVal);
         $this->sqlLogInfo($sql, $updateData);
 
         $stmt = $this->dbh->prepare($sql);
-        // var_dump($stmt);
-        // exit;
         $res = $stmt->execute($updateData);
-        // var_dump($res);
-        // exit;
 
         if ($res === false) {
             $this->catchError($stmt->errorInfo());

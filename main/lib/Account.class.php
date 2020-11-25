@@ -87,8 +87,6 @@ class Account
             $arrVal = [$this->dataArr['email']];
 
             $res = $this->db->select($table, $col, $where, $arrVal);
-            // var_dump($res);
-            // exit;
 
             if (count($res) !== 0) {
                 if ($res[0]['email'] === $this->dataArr['email']) {
@@ -170,9 +168,6 @@ class Account
     {
         $this->errArr['login'] = '';
         $this->dataArr = $dataArr;
-
-        // var_dump($this->dataArr);
-        // exit;
 
         $this->loginErrorCheck();
 
@@ -300,8 +295,6 @@ class Account
     public function updateUserData($updateDataArr, $user_id)
     {
         $this->updateDataArr = $updateDataArr;
-        // var_dump($this->updateDataArr);
-        // exit;
         $table = ' user ';
         foreach ($this->updateDataArr as $key => $value) {
             if ($value !== '') {
@@ -354,21 +347,47 @@ class Account
         return $result;
     }
 
-    public function sendMail($user_id)
+    public function sendContactMail($user_id, $dataArr)
     {
         $userData = $this->getUserData($user_id);
 
         $name = $userData['family_name'] . $userData['first_name'];
         $email = $userData['email'];
-        $mailHeader = "From: chibakohei@gmail.com";
+        $mailHeader = "From: chiba.kohei.sample@gmail.com";
         $mailSubject = "お問い合わせありがとうございます";
-        $mailBody = $name . "様 お問い合わせありがとうございます";
+
+        // テンプレート読み込み
+        ob_start();
+        include dirname(__FILE__) . './../../templates/muscle/contact_mail.php';
+        $mailBody = ob_get_contents();
+        ob_end_clean();
 
         mb_language( 'Japanese' );
         mb_internal_encoding( 'UTF-8' );
-        $res = mb_send_mail($email, $mailSubject, $mailBody, $mailHeader, '-f' . 'chibakohei@gmail.com');
+        $res = mb_send_mail($email, $mailSubject, $mailBody, $mailHeader, '-f' . 'chiba.kohei.sample@gmail.com');
 
         return $res;
+    }
+
+    public function sendBuyMail($userData, $dataArr, $sumNum, $sumPrice)
+    {
+        $name = $userData['family_name'] . $userData['first_name'];
+        $email = $userData['email'];
+        $mailHeader = "From: chiba.kohei.sample@gmail.com";
+        $mailSubject = "ご購入ありがとうございます";
+
+        // テンプレート読み込み
+        ob_start();
+        include dirname(__FILE__) . './../../templates/muscle/buy_mail.php';
+        $mailBody = ob_get_contents();
+        ob_end_clean();
+
+        mb_language( 'Japanese' );
+        mb_internal_encoding( 'UTF-8' );
+        $res = mb_send_mail($email, $mailSubject, $mailBody, $mailHeader, '-f' . 'chiba.kohei.sample@gmail.com');
+
+        return $res;
+
     }
 
     public function getBuyHistory($user_id)
@@ -400,16 +419,8 @@ class Account
 
     public function reviewCheck($dataArr)
     {
-        // $this->dataArr = $dataArr;
-
         $this->dataArr = $dataArr;
-        // $this->createErrorMessage();
-        // var_dump($this->dataArr);
-        // exit;
         $this->createErrorMessage();
-        // var_dump($this->errArr);
-        // exit;
-
         $this->reviewContentCheck();
 
         return $this->errArr;
@@ -439,7 +450,6 @@ class Account
     public  function getReviewData($item_id, $user_id)
     {
         $table = ' review r LEFT JOIN user u ON r.user_id = u.user_id ';
-        // $col = ' r.review_id,r.content,r.good,r.review_date,concat(u.family_name, u.first_name) AS user_name ';
         $col = ' r.review_id,r.content,r.review_date,u.user_id,concat(u.family_name, u.first_name) AS user_name ';
         $where = ' r.item_id = ? AND r.delete_flg = ? ';
         $arrVal = [$item_id, 0];
@@ -451,11 +461,6 @@ class Account
         // SELECT r.content,r.good,r.review_date,concat(u.family_name, u.first_name) AS user_name FROM review r LEFT JOIN user u ON r.user_id = u.user_id WHERE r.item_id = 2 AND r.delete_flg = 0;
 
         $dataArr = $this->db->select($table, $col, $where, $arrVal);
-        // var_dump($dataArr);
-        // exit;
-
-        // var_dump(count($dataArr));
-        // exit;
         
         if (count($dataArr) !== 0) {
             foreach ($dataArr as $key => $value) {
@@ -470,8 +475,6 @@ class Account
             }
             // 降順で表示
             arsort($dataArr);
-            // var_dump($dataArr);
-            // exit;
         } else {
             $dataArr = '';
         }
@@ -482,7 +485,6 @@ class Account
     public function getReviewList($user_id)
     {
         $table = ' review r LEFT JOIN item i ON r.item_id = i.item_id ';
-        // $col = ' r.review_id,r.content,r.good,r.review_date,i.item_name,i.price,i.image ';
         $col = ' r.review_id,r.content,r.review_date,i.item_name ';
         $where = ' r.user_id = ? AND r.delete_flg = ? ';
         $arrVal = [$user_id, 0];
@@ -506,14 +508,11 @@ class Account
     public function getReviewd($review_id)
     {
         $table = ' review r LEFT JOIN item i ON r.item_id = i.item_id ';
-        // $col = ' r.review_id,r.content,r.good,r.review_date,i.item_name,i.price,i.image ';
         $col = ' r.review_id,r.content,r.review_date,i.item_name,i.price,i.image ';
         $where = ' r.review_id = ? ';
         $arrVal = [$review_id];
 
         $dataArr = $this->db->select($table, $col, $where, $arrVal);
-        // var_dump($dataArr);
-        // exit;
         return $dataArr;
     }
 
@@ -552,8 +551,6 @@ class Account
         $arrVal = [$user_id, $review_id, 0];
 
         $dataArr = $this->db->select($table, $col, $where, $arrVal);
-        // var_dump($dataArr);
-        // exit;
         return $dataArr;
     }
 
@@ -565,15 +562,11 @@ class Account
         $arrVal = [$review_id, 0];
 
         $dataArr = $this->db->select($table, $col, $where, $arrVal);
-        // var_dump($dataArr);
-        // exit;
         return $dataArr;
     }
 
     public function insGood($user_id, $review_id)
     {
-        // var_dump($user_id);
-        // var_dump($review_id);
         $dataArr['user_id'] = $user_id;
         $dataArr['review_id'] = $review_id;
 
@@ -586,9 +579,6 @@ class Account
 
     public function delGood($user_id, $review_id)
     {
-        // var_dump($user_id);
-        // var_dump($review_id);
-        // exit;
         // delete_flgを1にする
         $date = date('Y-m-d H:i:s');
         $table = ' good ';

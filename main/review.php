@@ -27,14 +27,9 @@ $twig = new \Twig_Environment($loader, [
 
 $item_id = (isset($_GET['item_id']) === true) ? $_GET['item_id'] : '';
 
-// var_dump($item_id);
-// exit;
 $dataArr = $itm->getItemDetailData($item_id);
 
 $dataArr[0]['content'] = '';
-
-// var_dump($itemData);
-// exit;
 
 $context = [];
 

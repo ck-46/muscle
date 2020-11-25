@@ -27,22 +27,14 @@ $cart = new Cart($db);
 if (isset($_SESSION['user_id']) === true) {
     $user_id = $_SESSION['user_id'];
 } else {
-    
-    // var_dump($_POST);
+
     $_SESSION['post'] = $_POST;
     $_SESSION['route'] = 'cart_in';
     $_SESSION['url'] = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://').$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
-    // var_dump($_SESSION);
-    // var_dump($_SESSION['post']);
-    // exit;
     header('Location: ' . Bootstrap::ENTRY_URL . 'login.php');
     exit();
 }
-
-// var_dump($_POST);
-// var_dump($_SESSION);
-// exit;
 
 if (isset($_POST['cart_in']) === true) {
     $dataArr = $_POST;
@@ -52,14 +44,6 @@ if (isset($_POST['cart_in']) === true) {
 }
 
 $item_id = (preg_match('/^\d+$/', $dataArr['item_id']) === 1) ? $dataArr['item_id'] : '';
-// var_dump($item_id);
-// exit;
-// $amount = (preg_match('/^\d+$/', $_POST['amount']) === 1 ) ? $_POST['amount'] : '';
-// if (preg_match('/^[0-9]+$/', $_POST['amount']) === 1) {
-//     $amount = $_POST['amount'];
-// } elseif ($_POST['amount'] === '0' || $_POST['amount'] === '') {
-//     header('Location:' . Bootstrap::ENTRY_URL. 'detail.php?item_id=' . $item_id . '&amount=0');
-// }
 
 if ($dataArr['amount'] === '0' || $dataArr['amount'] === '') {
     header('Location:' . Bootstrap::ENTRY_URL. 'detail.php?item_id=' . $item_id . '&amount=0');
@@ -67,33 +51,20 @@ if ($dataArr['amount'] === '0' || $dataArr['amount'] === '') {
     $amount = $dataArr['amount'];
 }
 
-// var_dump($amount);
-// exit;
-
 // カートの情報を取得し、同じ商品があればupdate、なければinsert
 $cartArr = $cart->getCartData($user_id);
-// var_dump($dataArr);
-// exit;
 if (count($cartArr) !== 0) {
     foreach ($cartArr as $key => $value) {
         if ($value['item_id'] === $item_id) {
             $insAmount = $value['num'] + $amount;
-            // var_dump($value['num']);
-            // var_dump($amount);
-            // var_dump($insAmount);
-            // exit;
             $res = $cart->updateCartData($item_id, $user_id, $insAmount);
         } else {
             $res = $cart->insCartData($user_id, $item_id, $amount);
-            // var_dump($res);
-            // exit;
         }
     }
 } else {
     $res = $cart->insCartData($user_id, $item_id, $amount);
 }
-// var_dump($res);
-// exit;
 
 if ($res === true) {
     header('Location: ' . Bootstrap::ENTRY_URL . 'cart.php');

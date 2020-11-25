@@ -44,39 +44,26 @@ switch ($mode) {
     break;
 
     case 'complete':
+        $userData = $acnt->getUserData($user_id);
         $dataArr = $cart->getCartData($user_id);
-        // var_dump($dataArr);
-        // exit;
         list($sumNum, $sumPrice) = $cart->getItemAndSumPrice($user_id);
 
         foreach ($dataArr as $key => $value) {
             $item_id_arr[] = $value['item_id'];
             $num_arr[] = $value['num'];
         }
-
-        // var_dump($item_id_arr);
-        // exit;
-
         // 購入されたカートの商品のdelete_flgを更新
         foreach ($item_id_arr as $key) {
-            // var_dump($key);
-            // exit;
             $cart->delCartData($key, $user_id);
         }
 
         $item_id = implode(',', $item_id_arr);
         $num = implode(',', $num_arr);
 
-        // var_dump($item_id);
-        // var_dump($num);
-        // exit;
-
-        
-
         $res = $cart->insSoldItemData($user_id, $item_id, $num, $sumPrice);
 
         if ($res === true) {
-            // 購入完了メール送りたい
+            $acnt->sendBuyMail($userData, $dataArr, $sumNum, $sumPrice);
             // 登録成功時は完成ページへ
             header('Location: ' . Bootstrap::ENTRY_URL . 'complete.php?key=buy');
             exit();

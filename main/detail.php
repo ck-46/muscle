@@ -49,24 +49,6 @@ $amountArr = $itm->getAmount();
 // レビューを取得する
 $reviewArr = $acnt->getReviewData($item_id, $user_id);
 
-// var_dump($reviewArr);
-// exit;
-
-
-// var_dump($reviewArr);
-// exit;
-
-// var_dump($reviewArr);
-// exit;
-// $res = $acnt->isGood($user_id, $reviewArr[0]['review_id']);
-
-
-
-// $isGood = (isset($acnt->isGood($user_id, $reviewArr[0]['review_id'])) === true) ? '0' : '1';
-// var_dump($isGood);
-// exit;
-
-
 $context = [];
 
 $context['itemData'] = $itemData[0];

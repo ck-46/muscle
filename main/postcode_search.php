@@ -13,9 +13,6 @@ use main\lib\PDODatabase;
 
 $db = new PDODatabase(Bootstrap::DB_HOST, Bootstrap::DB_USER, Bootstrap::DB_PASS, Bootstrap::DB_NAME, Bootstrap::DB_TYPE);
 
-// var_dump($_GET);
-// exit;
-
 if (isset($_GET['zip']) === true) {
     $zip = $_GET['zip'];
 

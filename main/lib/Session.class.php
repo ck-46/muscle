@@ -16,8 +16,6 @@ class Session
     {
         // セッションをスタートする
         session_start();
-        // セッションIDを取得する
-        // $this->session_key = session_id();
         // DBの登録
         $this->db = $db;
     }

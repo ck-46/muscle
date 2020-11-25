@@ -107,20 +107,14 @@ class Cart
 
         $groupby = 'c.item_id';
 
-        // $this->db->setGroupBy($groupby);
-
         $res = $this->db->select($table, $column, $where, $arrWhereVal);
-        // var_dump($res);
-        // exit;
 
         if ($res !== false && count($res) !== 0) {
             foreach ($res as $key => $value) {
                 $price[] = $value['totalPrice'];
             }
             $sumPrice = array_sum($price);
-            
-            // var_dump($sumPrice);
-            // exit;
+
         } else {
             $sumPrice = '';
         }
@@ -130,8 +124,6 @@ class Cart
         $table = ' cart c ';
         $column = ' SUM( num ) AS num ';
         $res = $this->db->select($table, $column, $where, $arrWhereVal);
-        // var_dump($res);
-        // exit;
         if ($res !== false && count($res) !== 0) {
             foreach ($res as $key => $value) {
                 $num[] = $value['num'];
@@ -140,8 +132,6 @@ class Cart
         } else {
             $sumNum = '';
         }
-        // var_dump($sumNum);
-        // exit;
 
         return [$sumNum, $sumPrice];
     }

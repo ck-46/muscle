@@ -49,9 +49,6 @@ switch ($mode) {
 
         $dataArr = $_POST;
 
-        // var_dump($dataArr);
-        // exit;
-
         $errArr = $acnt->reviewCheck($dataArr);
         $err_check = $acnt->getErrorFlg();
         // err_check = false →エラーあり
@@ -64,9 +61,6 @@ switch ($mode) {
         unset($_POST['fix']);
 
         $dataArr = $_POST;
-
-        // var_dump($dataArr);
-        // exit;
 
         // エラーも定義しておかないと、Undefinedエラーがでる
         foreach ($dataArr as $key => $value) {
@@ -89,9 +83,6 @@ switch ($mode) {
         unset($_POST['image']);
 
         $dataArr = $_POST;
-        // var_dump($dataArr);
-        // exit;
-
         $res = $acnt->insReviewData($dataArr, $user_id);
 
         if ($res === true) {
