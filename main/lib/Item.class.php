@@ -16,65 +16,61 @@ class Item
     {
         $this->db = $db;
     }
-    // カテゴリーリストの取得
-    public function getCategoryList()
-    {
-        $table = ' category ';
-        $col = ' ctg_id, category_name ';
-        $res = $this->db->select($table, $col);
-        return $res;
-    }
 
     // 全商品リストを取得する
-    public function getAllList()
+    public function getAllList($start)
     {
         $table = ' item ';
         $col = ' item_id, item_name, price, image ';
         $where = '';
         $arrVal = [];
 
-        $res = $this->db->select($table, $col, $where, $arrVal);
+        $item_num = $this->getItemNum($table, $col, $where, $arrVal);
+        // var_dump($item_num);
+        // exit;
+        $dataArr = $this->getLimitDataArr($table, $col, $where, $arrVal, $start);
 
-        return ($res !== false && count($res) !== 0) ? $res : false;
+        return [$item_num, $dataArr];
     }
 
-    // フレーバー別リストを取得する
-    public function getFlavorList($flavor_id)
+     // カテゴリー別リストを取得する
+    public function getCategoryList($category_key, $category_flg, $start)
     {
         $table = ' item ';
         $col = ' item_id, item_name, price, image ';
-        $where = ($flavor_id !==  '') ? ' flavor_id = ? ' : '';
-        $arrVal = ($flavor_id !== '') ? [$flavor_id] : [];
+        if ($category_flg === 'flavor') {
+            $where = ' flavor_id = ? ';
+        } elseif ($category_flg === 'purpose') {
+            $where = ' purpose_id = ? ';
+        } elseif ($category_flg === 'brand') {
+            $where = ' brand_id = ? ';
+        } else {
+            $where = '';
+        }
+        $arrVal = ($category_key !== '') ? [$category_key] : [];
 
-        $res = $this->db->select($table, $col, $where, $arrVal);
+        $item_num = $this->getItemNum($table, $col, $where, $arrVal);
+        $dataArr = $this->getLimitDataArr($table, $col, $where, $arrVal, $start);
 
-        return ($res !== false && count($res) !== 0) ? $res : false;
-    }
-    
-    // 目的別リストを取得する
-    public function getPurposeList($purpose_id)
-    {
-        $table = ' item ';
-        $col = ' item_id, item_name, price, image ';
-        $where = ($purpose_id !==  '') ? ' purpose_id = ? ' : '';
-        $arrVal = ($purpose_id !== '') ? [$purpose_id] : [];
-
-        $res = $this->db->select($table, $col, $where, $arrVal);
-
-        return ($res !== false && count($res) !== 0) ? $res : false;
+        return [$item_num, $dataArr];
     }
 
-    // ブランド別リストを取得する
-    public function getBrandList($brand_id)
+    private function getItemNum($table, $col, $where, $arrVal)
     {
-        $table = ' item ';
-        $col = ' item_id, item_name, price, image ';
-        $where = ($brand_id !==  '') ? ' brand_id = ? ' : '';
-        $arrVal = ($brand_id !== '') ? [$brand_id] : [];
-
         $res = $this->db->select($table, $col, $where, $arrVal);
+        $item_num = count($res);
 
-        return ($res !== false && count($res) !== 0) ? $res : false;
+        return $item_num;
+    }
+
+    private function getLimitDataArr($table, $col, $where, $arrVal, $start)
+    {
+        $limit = $start . ' ,12 ';
+        $this->db->setLimitOff($limit);
+        $res = $this->db->select($table, $col, $where, $arrVal);
+        $dataArr = ($res !== false && count($res) !== 0) ? $res : false;
+
+        return $dataArr;
     }
 
     // 商品の詳細情報を取得する
@@ -98,7 +94,7 @@ class Item
         return $amountArr;
     }
 
-    public function getSearchResult($keywords)
+    public function getSearchResult($keywords, $start)
     {
         $table = ' item ';
         $col = ' item_id, item_name, price, image ';
@@ -115,9 +111,10 @@ class Item
             $where = implode(' OR ', $where);
         }
 
-        $res = $this->db->select($table, $col, $where, $arrVal);
+        $item_num = $this->getItemNum($table, $col, $where, $arrVal);
+        $dataArr = $this->getLimitDataArr($table, $col, $where, $arrVal, $start);
 
-        return ($res !== false && count($res) !== 0) ? $res : false;
+        return [$item_num, $dataArr];
     }
 
     public function getTopThree()
@@ -147,4 +144,6 @@ class Item
 
         return ($res !== false && count($res) !== 0) ? $res : false;
     }
+
+
 }

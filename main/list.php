@@ -25,52 +25,115 @@ $twig = new \Twig_Environment($loader, [
     'cache' => Bootstrap::CACHE_DIR
 ]);
 
-$flavor_id = '';
-$purpose_id = '';
-$brand_id = '';
+$category_flg = '';
+$category_key = '';
 $keywords = '';
+
+// GETで現在のページ数を取得する（未入力の場合は1を挿入）
+if (isset($_GET['page'])) {
+    $page = (int)$_GET['page'];
+} else {
+    $page = 1;
+}
+
+// スタートのポジションを計算する
+if ($page > 1) {
+    // 例：２ページ目の場合は、『(2 × 12) - 12 = 12』
+    $start = ($page * 12) - 12;
+} else {
+    $start = 0;
+}
 
 // フレーバー別リスト
 if (isset($_GET['flavor']) === true && preg_match('/^[0-9]+$/', $_GET['flavor']) === 1) {
-    $flavor_id = $_GET['flavor'];
-    $dataArr = $itm->getFlavorList($flavor_id);
+    $category_key = $_GET['flavor'];
+    $category_flg = 'flavor';
 }
 // 目的別リスト
 if (isset($_GET['purpose']) === true && preg_match('/^[0-9]+$/', $_GET['purpose']) === 1) {
-    $purpose_id = $_GET['purpose'];
-    $dataArr = $itm->getPurposeList($purpose_id);
+    $category_key = $_GET['purpose'];
+    $category_flg = 'purpose';
 }
 // ブランド別リスト
 if (isset($_GET['brand']) === true && preg_match('/^[0-9]+$/', $_GET['brand']) === 1) {
-    $brand_id = $_GET['brand'];
-    $dataArr = $itm->getBrandList($brand_id);
+    $category_key = $_GET['brand'];
+    $category_flg = 'brand';
 }
+
+if ($category_flg === 'flavor' || $category_flg === 'purpose' || $category_flg === 'brand') {
+    list($item_num, $dataArr) = $itm->getCategoryList($category_key, $category_flg, $start);
+}
+
 
 // 検索結果
 $searchFalse = '';
 
 if (isset($_POST['keywords']) === true && $_POST['keywords'] !== '') {
-    $keywords = mb_convert_kana( $_POST['keywords'], 's', 'UTF-8');
+    $category_flg = 'keywords';
+    $category_key = mb_convert_kana($_POST['keywords'], 's', 'UTF-8');
 } elseif (isset($_GET['keywords']) === true && $_GET['keywords'] !== '') {
-    $keywords = mb_convert_kana( $_GET['keywords'], 's', 'UTF-8');
+    $category_flg = 'keywords';
+    $category_key = mb_convert_kana($_GET['keywords'], 's', 'UTF-8');
 }
 
-if ($keywords !== '') {
-    $dataArr = $itm->getSearchResult($keywords);
-
-    if ($dataArr === false) $searchFalse = '「' . $keywords . '」の検索結果は見つかりませんでした';
+if ($category_flg === 'keywords' && $category_key !== '') {
+    list($item_num, $dataArr) = $itm->getSearchResult($category_key, $start);
+    if ($dataArr === false) $searchFalse = '「' . $category_key . '」の検索結果は見つかりませんでした';
 }
 
 // 全商品リスト
-if ($flavor_id === '' && $purpose_id === '' && $brand_id === '' && $keywords === '') {
-    $dataArr = $itm->getAllList();
+if ($category_key === '') {
+    list($item_num, $dataArr) = $itm->getAllList($start);
 }
 
+
+// var_dump($item_num);
+// ページネーションの数を取得する
+$pagination = ceil( $item_num / 12 );
+
+// var_dump($pagination);
+// exit;
+
+
+
+// postsテーブルから10件のデータを取得する
+// $posts = $db->prepare("
+// 	SELECT  id, title
+// 	FROM posts
+// 	LIMIT {$start}, 10
+// ");
+// $posts->execute();
+// $posts = $posts->fetchAll(PDO::FETCH_ASSOC);
+
+// foreach ($posts as $post) {
+// 	echo $post['id'], '：';
+// 	echo $post['title'], '<br>';
+// }
+
+// postsテーブルのデータ件数を取得する
+// $page_num = $db->prepare("
+// 	SELECT COUNT(*) id
+// 	FROM posts
+// ");
+// $page_num->execute();
+// $page_num = $page_num->fetchColumn();
+
+// ページネーションの数を取得する
+// $pagination = ceil($page_num / 10);
+
+
+// var_dump($category_flg);
+// var_dump($category_key);
+// exit;
 $context = [];
 
 $context['dataArr'] = $dataArr;
 $context['searchFalse'] = $searchFalse;
+$context['category_flg'] = $category_flg;
+$context['category_key'] = $category_key;
 $context['keywords'] = $keywords;
+$context['pagination'] = $pagination;
+$context['page'] = $page;
 
 $context['user_name'] = $user_name;
 $template = $twig->loadTemplate('list.html.twig');
