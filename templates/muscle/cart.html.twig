@@ -32,22 +32,22 @@
                     <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}buy.php" class="btn btn-primary mt-2">購入する</a>
                 </div>
             </div>
-            <div class="row justify-content-start mb-4">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-start no-gutters mb-4">
                 {% for value in dataArr %}
-                    <div class="card col-11 col-md-5 col-lg-3 mx-3 mb-2 p-0" style="min-width: 18rem;">
-                        <img src="{{constant('main\\Bootstrap::ENTRY_URL')}}images/{{value.image}}" class="card-img-top" alt="{{value.item_name}}">
+                    <div class="card col py-2 px-0 mb-2" style="min-width: 10rem;">
+                        <img src="{{constant('main\\Bootstrap::ENTRY_URL')}}images/{{value.image}}" class="card-img-top mx-auto" alt="{{value.item_name}}" style="width: 250px;">
                         <div class="card-body">
                             <h5 class="card-title font-weight-bold">{{value.item_name}}</h5>
                             <p class="card-text">価格：&yen;{{value.price|number_format(0, '.', ',')}}</p>
                             <div class="form-group form-inline">
                                 <label fclass="control-label my-auto">数量：</label>
-                                <select class="form-control mr-2 amount" style="width: 80px;" name="amount">
+                                <select class="form-control mr-2 amount" style="width: 70px;" name="amount">
                                     {% for index, label in amountArr %}
                                         <option value="{{label}}" {% if value.num == label %} selected {% endif %}>{{ label }}</option>
                                     {% endfor %}
                                 </select>
-                                <div type="button" class="btn btn-primary">
-                                    <span class="num_change">変更する
+                                <div type="button" class="btn btn-primary w-20">
+                                    <span class="num_change">変更
                                         <input type="hidden" class="item_id" value="{{value.item_id}}">
                                         <input type="hidden" class="user_id" value="{{user_id}}">
                                     </span>
