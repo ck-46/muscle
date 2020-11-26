@@ -18,6 +18,19 @@ class Item
     }
 
     // 全商品リストを取得する
+    public function getBuyItemList()
+    {
+        $table = ' item ';
+        $col = ' item_id, item_name, price, image ';
+        $where = '';
+        $arrVal = [];
+
+        $item_data = $this->db->select($table, $col, $where, $arrVal);
+
+        return $item_data;
+    }
+
+    // 全商品リストを取得する
     public function getAllList($start)
     {
         $table = ' item ';

@@ -30,10 +30,8 @@ $twig = new \Twig_Environment($loader, [
     'cache' => Bootstrap::CACHE_DIR
 ]);
 
-$start = 0;
-
 $buy_history = $acnt->getBuyHistory($user_id);
-list($item_num, $item_data) = $itm->getAllList($start);
+$item_data = $itm->getBuyItemList();
 
 $context = [];
 
