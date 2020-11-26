@@ -86,4 +86,22 @@ $(function(){
             },
         );
     });
+
+    $('textarea').on('blur change click keydown keypress keyup paste', function() {
+        var str = $(this).val();
+
+        // 入力文字数
+        var count = str.length;
+
+        $('#count').html(count);
+
+        // 残文字数
+        var rest = 150 - count;
+        if (rest < 0) {
+            $('#rest').css('color','#DD3544');
+        } else {
+            $('#rest').removeAttr('style');
+        }
+        $('#rest').html(rest);
+    });
 });
