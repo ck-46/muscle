@@ -78,7 +78,7 @@ class Account
     {
         if ($this->dataArr['email'] === '') {
             $this->errArr['email'] = 'メールアドレスをを入力してください';
-        } elseif (preg_match('/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+[a-zA-Z0-9\._-]+$/', $this->dataArr['email']) === 0) {
+        } elseif (preg_match('/^[0-9a-zA-Z][0-9a-zA-Z\s!-~]+@[0-9a-zA-Z]+\.[0-9a-zA-Z.]+[a-zA-Z0-9]+$/', $this->dataArr['email']) === 0) {
             $this->errArr['email'] = 'メールアドレスを正しい形式で入力してください';
         } else {
             $table = ' user ';
@@ -259,7 +259,7 @@ class Account
             $errArr = ['all' => '変更がありません'];
         }
 
-        if ($this->updateDataArr['email'] !== '' && preg_match('/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+[a-zA-Z0-9\._-]+$/', $this->updateDataArr['email']) === 0) {
+        if ($this->updateDataArr['email'] !== '' && preg_match('/^[0-9a-zA-Z][0-9a-zA-Z\s!-~]+@[0-9a-zA-Z]+\.[0-9a-zA-Z.]+[a-zA-Z0-9]+$/', $this->updateDataArr['email']) === 0) {
             $errArr['email'] = 'メールアドレスを正しい形式で入力してください';
         } else {
             $table = ' user ';
