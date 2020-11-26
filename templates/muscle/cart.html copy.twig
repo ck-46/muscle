@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{constant('main\\Bootstrap::ENTRY_URL')}}stylesheets/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-    <link href="{{constant('main\\Bootstrap::ENTRY_URL')}}stylesheets/index.css" rel="stylesheet">
-    <script src="{{constant('main\\Bootstrap::APP_URL')}}js/muscle.js"></script>
     <title>MUSCLE STORE｜カート</title>
 </head>
 <body>
-<input type="hidden" name="entry_url" value="{{constant('main\\Bootstrap::ENTRY_URL')}}" id="entry_url">
 <header>
     {% include 'header.html.twig' %}
 </header>
@@ -25,11 +22,9 @@
         {% else %}
             <div class="card mb-4">
                 <div class="card-body">
-                    <div id="total" class="card-text">
-                        カート内商品数：{{sumNum}}個<br>
-                        合計金額：&yen;{{sumPrice|number_format(0, '.', ',')}}
-                    </div>
-                    <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}buy.php" class="btn btn-primary mt-2">購入する</a>
+                    <p class="card-text">カート内商品数：{{sumNum}}個</p>
+                    <p class="card-text">合計金額：&yen;{{sumPrice|number_format(0, '.', ',')}}</p>
+                    <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}buy.php" class="btn btn-primary">購入する</a>
                 </div>
             </div>
             <div class="row justify-content-start mb-4">
@@ -39,20 +34,7 @@
                         <div class="card-body">
                             <h5 class="card-title font-weight-bold">{{value.item_name}}</h5>
                             <p class="card-text">価格：&yen;{{value.price|number_format(0, '.', ',')}}</p>
-                            <div class="form-group form-inline">
-                                <label fclass="control-label my-auto">数量：</label>
-                                <select class="form-control mr-2 amount" style="width: 80px;" name="amount">
-                                    {% for index, label in amountArr %}
-                                        <option value="{{label}}" {% if value.num == label %} selected {% endif %}>{{ label }}</option>
-                                    {% endfor %}
-                                </select>
-                                <div type="button" class="btn btn-primary">
-                                    <span class="num_change">変更する
-                                        <input type="hidden" class="item_id" value="{{value.item_id}}">
-                                        <input type="hidden" class="user_id" value="{{user_id}}">
-                                    </span>
-                                </div>
-                            </div>
+                            <p class="card-text">数量：{{value.num}}</p>
                             <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}cart.php?del_item_id={{value.item_id}}" class="btn btn-secondary">削除</a>
                         </div>
                     </div>

@@ -31,17 +31,17 @@
             </div>
         </div>
         <form method="post" action="cart_in.php">
-            <div class="form-group">
-                <label for="amount_{{index}}">数量：</label>
-                <select class="form-control" name="amount">
+            <div class="form-group form-inline">
+                <label class="control-label">数量：</label>
+                <select class="form-control" style="width: 80px;" name="amount">
                     {% for index, label in amountArr %}
                         <option id="amount_{{index}}" value="{{index}}" {% if itemData.amount == index %} selected {% endif %}>{{ label }}</option>
                     {% endfor %}
                 </select>
-                {% if errMsg | length > 0 %}
-                    <small class="form-text text-danger">{{errMsg}}</small>
-                {% endif %}
             </div>
+            {% if errMsg | length > 0 %}
+                <small class="form-text text-danger">{{errMsg}}</small>
+            {% endif %}
             <input type="hidden" name="item_id" id="item_id" value="{{itemData.item_id}}">
             <input type="submit" class="btn btn-primary" name="cart_in" value="カートへ入れる">
         </form>

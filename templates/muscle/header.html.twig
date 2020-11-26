@@ -12,21 +12,18 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?brand=1">ウイダー</a>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?brand=2">ザバス</a>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?brand=3">マイプロテイン</a>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?brand=4">ゴールドスタンダード</a>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?brand=5">ゴールドジム</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          目的別
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?purpose=1">増量</a>
-            <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?purpose=2">減量</a>
-            <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?purpose=3">健康維持</a>
-            <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?purpose=4">リカバリー</a>
-        </div>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?brand=6">DNS</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?brand=9">その他</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -34,10 +31,30 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?flavor=1">ココア</a>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?flavor=2">フルーツ</a>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?flavor=3">コーヒー</a>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?flavor=4"> バニラ</a>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?flavor=5">チョコ</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?flavor=9">その他</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          目的別
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?purpose=1">増量</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?purpose=2">減量</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?purpose=3">健康維持</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?purpose=4">リカバリー</a>
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -46,9 +63,9 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             {% if user_name | length > 0 %}
-                <div class="mt-2 mb-2">{{ user_name }}さんの<br>アカウント</div>
+                <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}mypage.php">{{ user_name }}さんのマイページ</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}mypage.php">マイページ</a>
+                <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}contact.php">お問い合わせ</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{constant('main\\Bootstrap::ENTRY_URL')}}logout.php">ログアウト</a>
             {% endif %}

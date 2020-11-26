@@ -35,8 +35,14 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="text-center">
-            <a class="btn btn-primary w-20 my-1" href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php">商品一覧を見る</a>
+        <div class="row justify-content-md-center">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                {% for i in 1..pagination %}
+                    <a href="{{constant('main\\Bootstrap::ENTRY_URL')}}list.php?{{category_flg}}={{category_key}}&page={{i}}">
+                        <button type="button" class="btn btn-secondary {% if i == page %}active{% endif %}">{{i}}</button>
+                    </a>
+                {% endfor %}
+            </div>
         </div>
     </section>
     {% include 'find_item.html.twig' %}

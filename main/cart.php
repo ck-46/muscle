@@ -13,11 +13,13 @@ use main\Bootstrap;
 use main\lib\PDODatabase;
 use main\lib\Session;
 use main\lib\Cart;
+use main\lib\Item;
 
 $db = new PDODatabase(Bootstrap::DB_HOST, Bootstrap::DB_USER, Bootstrap::DB_PASS, Bootstrap::DB_NAME, Bootstrap::DB_TYPE);
 $ses = new Session($db);
 $user_name = (isset($_SESSION['user_name']) === true) ? $_SESSION['user_name'] : '';
 $cart = new Cart($db);
+$itm = new Item($db);
 
 // テンプレート指定
 $loader = new \Twig_Loader_Filesystem(Bootstrap::TEMPLATE_DIR);
@@ -53,12 +55,16 @@ list($sumNum, $sumPrice) = $cart->getItemAndSumPrice($user_id);
 // カートの情報を取得する
 $dataArr = $cart->getCartData($user_id);
 
+$amountArr = $itm->getChangeAmount();
+
 $context = [];
 
 $context['sumNum'] = $sumNum;
 $context['sumPrice'] = $sumPrice;
 $context['dataArr'] = $dataArr;
+$context['amountArr'] = $amountArr;
 
+$context['user_id'] = $user_id;
 $context['user_name'] = $user_name;
 $template = $twig->loadTemplate('cart.html.twig');
 $template->display($context);
