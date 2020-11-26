@@ -94,6 +94,15 @@ class Item
         return $amountArr;
     }
 
+    public function getChangeAmount()
+    {
+        for ($i = 1; $i < 100; $i ++) {
+            $amountArr[] = $i;
+        }
+
+        return $amountArr;
+    }
+
     public function getSearchResult($keywords, $start)
     {
         $table = ' item ';

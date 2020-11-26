@@ -19,9 +19,6 @@ $ses = new Session($db);
 $user_name = (isset($_SESSION['user_name']) === true) ? $_SESSION['user_name'] : '';
 $cart = new Cart($db);
 
-// var_dump($_POST);
-// exit;
-
 // ログインしていない場合はログインページへ遷移
 // ログインできたら商品がカートに追加された状態のカートに遷移
 if (isset($_SESSION['user_id']) === true) {
@@ -53,14 +50,18 @@ if ($dataArr['amount'] === '0' || $dataArr['amount'] === '') {
 
 // カートの情報を取得し、同じ商品があればupdate、なければinsert
 $cartArr = $cart->getCartData($user_id);
+
+$res = '';
+
 if (count($cartArr) !== 0) {
     foreach ($cartArr as $key => $value) {
         if ($value['item_id'] === $item_id) {
             $insAmount = $value['num'] + $amount;
             $res = $cart->updateCartData($item_id, $user_id, $insAmount);
-        } else {
-            $res = $cart->insCartData($user_id, $item_id, $amount);
         }
+    }
+    if ($res === '') {
+        $res = $cart->insCartData($user_id, $item_id, $amount);
     }
 } else {
     $res = $cart->insCartData($user_id, $item_id, $amount);
