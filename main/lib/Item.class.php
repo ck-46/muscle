@@ -26,8 +26,6 @@ class Item
         $arrVal = [];
 
         $item_num = $this->getItemNum($table, $col, $where, $arrVal);
-        // var_dump($item_num);
-        // exit;
         $dataArr = $this->getLimitDataArr($table, $col, $where, $arrVal, $start);
 
         return [$item_num, $dataArr];

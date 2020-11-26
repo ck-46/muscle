@@ -30,14 +30,15 @@ $twig = new \Twig_Environment($loader, [
     'cache' => Bootstrap::CACHE_DIR
 ]);
 
+$start = 0;
+
 $buy_history = $acnt->getBuyHistory($user_id);
-$item_data = $itm->getAllList();
+list($item_num, $item_data) = $itm->getAllList($start);
 
 $context = [];
 
 $context['buy_history'] = $buy_history;
 $context['item_data'] = $item_data;
-
 $context['user_name'] = $user_name;
 $template = $twig->loadTemplate('buy_history.html.twig');
 $template->display($context);
