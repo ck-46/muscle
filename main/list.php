@@ -86,45 +86,9 @@ if ($category_key === '') {
     list($item_num, $dataArr) = $itm->getAllList($start);
 }
 
-
-// var_dump($item_num);
 // ページネーションの数を取得する
 $pagination = ceil( $item_num / 12 );
 
-// var_dump($pagination);
-// exit;
-
-
-
-// postsテーブルから10件のデータを取得する
-// $posts = $db->prepare("
-// 	SELECT  id, title
-// 	FROM posts
-// 	LIMIT {$start}, 10
-// ");
-// $posts->execute();
-// $posts = $posts->fetchAll(PDO::FETCH_ASSOC);
-
-// foreach ($posts as $post) {
-// 	echo $post['id'], '：';
-// 	echo $post['title'], '<br>';
-// }
-
-// postsテーブルのデータ件数を取得する
-// $page_num = $db->prepare("
-// 	SELECT COUNT(*) id
-// 	FROM posts
-// ");
-// $page_num->execute();
-// $page_num = $page_num->fetchColumn();
-
-// ページネーションの数を取得する
-// $pagination = ceil($page_num / 10);
-
-
-// var_dump($category_flg);
-// var_dump($category_key);
-// exit;
 $context = [];
 
 $context['dataArr'] = $dataArr;

@@ -31,13 +31,12 @@ $twig = new \Twig_Environment($loader, [
 ]);
 
 $buy_history = $acnt->getBuyHistory($user_id);
-$item_data = $itm->getAllList();
+$item_data = $itm->getBuyItemList();
 
 $context = [];
 
 $context['buy_history'] = $buy_history;
 $context['item_data'] = $item_data;
-
 $context['user_name'] = $user_name;
 $template = $twig->loadTemplate('buy_history.html.twig');
 $template->display($context);

@@ -65,26 +65,9 @@ $(function(){
 
         var $this = $(this);
 
-        $('li').on('click', function() {
-            var $clicked = $(this); // 基準となる要素
-            var $brother = $clicked.prevAll() // 兄要素
-            var $cousin = $clicked.parent().prevAll().children(); // 親の兄要素の子要素
-        
-            // 従兄と兄をひとつのjQueryオブジェクトに
-            var $target = $cousin.add($brother);
-        
-            // 基準となる要素も含める場合
-            $target = $target.add($clicked);
-        
-            // 確認用にコンソールに出力
-            console.log($target);
-        });
-
         var $parent = $this.parent();
         var changed_num = $parent.prev().val();
 
-        // var changed_num = $('[name=amount]').val();
-        // var changed_num = $this.parent().prev('option:selected').val();
         var item_id = $this.children('.item_id').val();
         var user_id = $this.children('.user_id').val();
 
@@ -102,5 +85,23 @@ $(function(){
                 alert('読み込みに失敗しました。');
             },
         );
+    });
+
+    $('textarea').on('blur change click keydown keypress keyup paste', function() {
+        var str = $(this).val();
+
+        // 入力文字数
+        var count = str.length;
+
+        $('#count').html(count);
+
+        // 残文字数
+        var rest = 150 - count;
+        if (rest < 0) {
+            $('#rest').css('color','#DD3544');
+        } else {
+            $('#rest').removeAttr('style');
+        }
+        $('#rest').html(rest);
     });
 });

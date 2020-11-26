@@ -22,7 +22,7 @@
         <h2 class="font-weight-bold mt-4 mb-4">商品詳細</h2>
         <div class="card mb-3">
             <div class="bd-placeholder-img card-img-top text-center pt-3 pb-2">
-                <img src="{{constant('main\\Bootstrap::ENTRY_URL')}}images/{{itemData.image}}" alt="{{itemData.item_name}}">
+                <img src="{{constant('main\\Bootstrap::ENTRY_URL')}}images/{{itemData.image}}" alt="{{itemData.item_name}}" style="width: 250px;">
             </div>
             <div class="card-body">
                 <h5 class="card-title font-weight-bold">{{itemData.item_name}}</h5>
@@ -33,7 +33,7 @@
         <form method="post" action="cart_in.php">
             <div class="form-group form-inline">
                 <label class="control-label">数量：</label>
-                <select class="form-control" style="width: 80px;" name="amount">
+                <select class="form-control" style="width: 70px;" name="amount">
                     {% for index, label in amountArr %}
                         <option id="amount_{{index}}" value="{{index}}" {% if itemData.amount == index %} selected {% endif %}>{{ label }}</option>
                     {% endfor %}

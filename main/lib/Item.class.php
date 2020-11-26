@@ -18,6 +18,19 @@ class Item
     }
 
     // 全商品リストを取得する
+    public function getBuyItemList()
+    {
+        $table = ' item ';
+        $col = ' item_id, item_name, price, image ';
+        $where = '';
+        $arrVal = [];
+
+        $item_data = $this->db->select($table, $col, $where, $arrVal);
+
+        return $item_data;
+    }
+
+    // 全商品リストを取得する
     public function getAllList($start)
     {
         $table = ' item ';
@@ -26,8 +39,6 @@ class Item
         $arrVal = [];
 
         $item_num = $this->getItemNum($table, $col, $where, $arrVal);
-        // var_dump($item_num);
-        // exit;
         $dataArr = $this->getLimitDataArr($table, $col, $where, $arrVal, $start);
 
         return [$item_num, $dataArr];
