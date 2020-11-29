@@ -29,7 +29,6 @@ if (isset($_GET['key']) === true) {
     // 新規登録から来た場合
     if ($_GET['key'] === 'create_account') {
         $content['type'] = '新規登録';
-        $content['page'] = 'ログインページへ';
     }
     // ログインから来た場合
     if ($_GET['key'] === 'login') {

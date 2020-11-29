@@ -80,7 +80,7 @@ switch ($mode) {
         $res = $acnt->insUserData($dataArr);
 
         if ($res === true) {
-            $_SESSION['log'] = 'in';
+            $_SESSION = $ses->getSession($dataArr);
             // 登録成功時は完成ページへ
             header('Location: ' . Bootstrap::ENTRY_URL . 'complete.php?key=create_account');
             exit();
