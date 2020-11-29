@@ -49,9 +49,16 @@
             </div>
             <div class="form-group">
                 <label for="address">住所：{{dataArr.address}}</label>
-                <input type="text" class="form-control" id="address" name="address" value="{{updateDataArr.address}}" placeholder="Address">
+                <input type="text" class="form-control" id="address" name="address" value="{{updateDataArr.address}}" placeholder="Address1">
                 {% if errArr.address | length > 0 %}
                     <small class="form-text text-danger">{{ errArr.address }}</small>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="address">住所2：{{dataArr.address2}}</label>
+                <input type="text" class="form-control" id="address2" name="address2" value="{{updateDataArr.address2}}" placeholder="Address2">
+                {% if errArr.address2 | length > 0 %}
+                    <small class="form-text text-danger">{{ errArr.address2 }}</small>
                 {% endif %}
             </div>
             <div class="form-group">
@@ -68,6 +75,7 @@
                     <small class="form-text text-danger">{{ errArr.password }}</small>
                 {% endif %}
             </div>
+            <input type="hidden" name="old_zip" value="{{dataArr.zip}}" id="old_zip">
             <input type="submit" class="btn btn-primary w-20" name="confirm" value="変更を確認">
         </form>
         <div class="mt-3">

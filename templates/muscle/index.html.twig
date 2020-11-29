@@ -13,6 +13,18 @@
 <body>
 <header>
     {% include 'header.html.twig' %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="ml-auto mx-0">
+        {% if user_name | length > 0 %}
+        <p class="my-0">ようこそ、{{user_name}}さん</p>
+        {% else %}
+        <form class="form-inline">
+            <a class="btn btn-primary w-20 my-0 mr-2" href="{{constant('main\\Bootstrap::ENTRY_URL')}}login.php">ログイン</a>
+            <a class="btn btn-secondary w-20 my-0" href="{{constant('main\\Bootstrap::ENTRY_URL')}}create_account.php">新規登録</a>
+        </form>
+        {% endif %}
+    </div>
+    </nav>
 </header>
 {% include 'main_image.html.twig' %}
 <main class="container">

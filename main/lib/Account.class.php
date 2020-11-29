@@ -29,6 +29,7 @@ class Account
         $this->firstNameCheck();
         $this->zipCheck();
         $this->addressCheck();
+        $this->address2Check();
         $this->mailCheck();
         $this->confirmMail();
         $this->passwordCheck();
@@ -47,7 +48,7 @@ class Account
     private function familyNameCheck()
     {
         if ($this->dataArr['family_name'] === '') {
-            $this->errArr['family_name'] = '名前（氏）を入力してください';
+            $this->errArr['family_name'] = '名前（姓）を入力してください';
         }
     }
 
@@ -70,15 +71,51 @@ class Account
     private function addressCheck()
     {
         if ($this->dataArr['address'] === '') {
-            $this->errArr['address'] = '住所を入力してください';
+            $this->errArr['address'] = '住所1を入力してください';
+        } else {
+            $table = ' postcode ';
+            $col = ' pref,city,town ';
+            $where = ' zip = ? ';
+            $arrVal = [$this->dataArr['zip']];
+
+            $res = $this->db->select($table, $col, $where, $arrVal);
+            $res= implode('', $res[0]);
+
+            if ($res !== $this->dataArr['address']) {
+                $this->errArr['address'] = '住所と郵便番号の組み合わせが正しくありません';
+                $this->errArr['address2'] = '住所と郵便番号の組み合わせが正しくありません';
+            }
+        }
+    }
+
+    private function address2Check()
+    {
+        if ($this->dataArr['address2'] === '') {
+            $this->errArr['address2'] = '住所2(番地以降)を入力してください';
+        }
+
+        if ($this->errArr['address'] === '' && $this->errArr['address2'] === '') {
+            $table = ' user ';
+            $col = ' address,address2 ';
+            $where = ' family_name = ? AND first_name = ? ';
+            $arrVal = [$this->dataArr['family_name'],$this->dataArr['first_name']];
+
+            $res = $this->db->select($table, $col, $where, $arrVal);
+
+            if (count($res) !== 0) {
+                if ($res[0]['address'] === $this->dataArr['address'] && $res[0]['address2'] === $this->dataArr['address2']) {
+                    $this->errArr['address'] = 'こちらの住所には入力されたお名前のユーザーが既に登録しています';
+                    $this->errArr['address2'] = 'こちらの住所には入力されたお名前のユーザーが既に登録しています';
+                }
+            }
         }
     }
 
     private function mailCheck()
     {
         if ($this->dataArr['email'] === '') {
-            $this->errArr['email'] = 'メールアドレスをを入力してください';
-        } elseif (preg_match('/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+[a-zA-Z0-9\._-]+$/', $this->dataArr['email']) === 0) {
+            $this->errArr['email'] = 'メールアドレスを入力してください';
+        } elseif (preg_match('/^[0-9a-zA-Z][0-9a-zA-Z\s!-~]+@[0-9a-zA-Z]+\.[0-9a-zA-Z.]+[a-zA-Z0-9]+$/', $this->dataArr['email']) === 0) {
             $this->errArr['email'] = 'メールアドレスを正しい形式で入力してください';
         } else {
             $table = ' user ';
@@ -99,7 +136,7 @@ class Account
     private function confirmMail()
     {
         if ($this->dataArr['confirm_email'] === '') {
-            $this->errArr['confirm_email'] = 'メールアドレスをを入力してください';
+            $this->errArr['confirm_email'] = 'メールアドレスを入力してください';
         } elseif ($this->dataArr['email'] !== $this->dataArr['confirm_email']) {
             $this->errArr['confirm_email'] = 'メールアドレスが一致しません';
         }
@@ -109,7 +146,7 @@ class Account
         if ($this->dataArr['password'] === '') {
             $this->errArr['password'] = 'パスワードを入力してください';
         } elseif (preg_match('/^[0-9a-zA-Z]{6,20}$/', $this->dataArr['password']) === 0) {
-            $this->errArr['password'] = 'パスワードを正しい形式でで入力してください';
+            $this->errArr['password'] = 'パスワードを正しい形式で入力してください';
         }
     }
 
@@ -230,7 +267,7 @@ class Account
     public function getUserData($user_id)
     {
         $table = ' user ';
-        $col = 'family_name,first_name,email,password,zip,address';
+        $col = 'family_name,first_name,email,password,zip,address,address2';
         $where = ' user_id = ? ';
         $arrVal = [$user_id];
 
@@ -253,13 +290,34 @@ class Account
             $this->updateDataArr['first_name'] === '' &&
             $this->updateDataArr['zip'] === '' &&
             $this->updateDataArr['address'] === '' &&
+            $this->updateDataArr['address2'] === '' &&
             $this->updateDataArr['email'] === '' &&
             $this->updateDataArr['password'] === '') {
 
             $errArr = ['all' => '変更がありません'];
         }
+        
+        if ($this->updateDataArr['address'] !== '') {
+            
+            $table = ' postcode ';
+            $col = ' pref,city,town ';
+            $where = ' zip = ? ';
+            if ($this->updateDataArr['zip'] !== '') {
+                $arrVal = [$this->updateDataArr['zip']];
+            } else {
+                $arrVal = [$this->updateDataArr['old_zip']];
+            }
+            
+            $res = $this->db->select($table, $col, $where, $arrVal);
+            $res= implode('', $res[0]);
 
-        if ($this->updateDataArr['email'] !== '' && preg_match('/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+[a-zA-Z0-9\._-]+$/', $this->updateDataArr['email']) === 0) {
+            if ($res !== $this->updateDataArr['address']) {
+                $errArr['address'] = '住所と郵便番号の組み合わせが正しくありません';
+                $errArr['address2'] = '住所と郵便番号の組み合わせが正しくありません';
+            }
+        }
+
+        if ($this->updateDataArr['email'] !== '' && preg_match('/^[0-9a-zA-Z][0-9a-zA-Z\s!-~]+@[0-9a-zA-Z]+\.[0-9a-zA-Z.]+[a-zA-Z0-9]+$/', $this->updateDataArr['email']) === 0) {
             $errArr['email'] = 'メールアドレスを正しい形式で入力してください';
         } else {
             $table = ' user ';

@@ -23,7 +23,8 @@
                     {% if updateDataArr.family_name | length > 0 %}<li class="list-group-item">氏：{{updateDataArr.family_name}}</li>{% endif %}
                     {% if updateDataArr.first_name | length > 0 %}<li class="list-group-item">名：{{updateDataArr.first_name}}</li>{% endif %}
                     {% if updateDataArr.zip | length > 0 %}<li class="list-group-item">郵便番号：{{updateDataArr.zip}}</li>{% endif %}
-                    {% if updateDataArr.address | length > 0 %}<li class="list-group-item">住所：{{updateDataArr.address}}</li>{% endif %}
+                    {% if updateDataArr.address | length > 0 %}<li class="list-group-item">住所1：{{updateDataArr.address}}</li>{% endif %}
+                    {% if updateDataArr.address2 | length > 0 %}<li class="list-group-item">住所2：{{updateDataArr.address2}}</li>{% endif %}
                     {% if updateDataArr.email | length > 0 %}<li class="list-group-item">メールアドレス：{{updateDataArr.email}}</li>{% endif %}
                     {% if updateDataArr.password | length > 0 %}<li class="list-group-item">パスワード：******</li>{% endif %}
                 </ul>
