@@ -44,17 +44,24 @@
                 <div class="form-group">
                     <label for="zip">郵便番号</label>
                     <input type="text" class="form-control" id="zip" name="zip" value="{{dataArr.zip}}" size="7" maxlength="7" placeholder="Zip">
-                    <small class="form-text text-muted">※郵便番号は7文字の半角数字で入力してください</small>
+                    <small class="form-text text-muted">※7文字の半角数字で入力してください</small>
                     {% if errArr.zip | length > 0 %}
                         <small class="form-text text-danger">{{ errArr.zip }}</small>
                     {% endif %}
                     <input type="button" class="btn btn-info w-20" name="address_search" value="〒から住所を入力" id="address_search">
                 </div>
                 <div class="form-group">
-                    <label for="address">住所</label>
-                    <input type="text" class="form-control" id="address" name="address" value="{{dataArr.address}}" placeholder="Address">
+                    <label for="address">住所1</label>
+                    <input type="text" class="form-control" id="address" name="address" value="{{dataArr.address}}" placeholder="Address1">
                     {% if errArr.address | length > 0 %}
                         <small class="form-text text-danger">{{ errArr.address }}</small>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="address2">住所2(番地以降)</label>
+                    <input type="text" class="form-control" id="address2" name="address2" value="{{dataArr.address2}}" placeholder="Address2">
+                    {% if errArr.address2 | length > 0 %}
+                        <small class="form-text text-danger">{{ errArr.address2 }}</small>
                     {% endif %}
                 </div>
                 <div class="form-group">
@@ -74,6 +81,7 @@
                 <div class="form-group">
                     <label for="password">パスワード</label>
                     <input type="password" class="form-control" id="password" name="password" value="" placeholder="Password">
+                    <small class="form-text text-muted">※6〜20文字の半角英数字で入力してください</small>
                     {% if errArr.password | length > 0 %}
                         <small class="form-text text-danger">{{ errArr.password }}</small>
                     {% endif %}
