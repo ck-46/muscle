@@ -10898,7 +10898,7 @@ main {
 
 .jumbotron-extend {
   position: relative;
-  height: 70vh;
+  height: 80vh;
   min-height: 300px;
 }
 
@@ -10925,6 +10925,8 @@ main {
 .jumbotron-container {
   position: relative;
   top: 80%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
 
 .jumbotron-container h1 {
