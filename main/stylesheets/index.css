@@ -10925,8 +10925,6 @@ main {
 .jumbotron-container {
   position: relative;
   top: 80%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
 }
 
 .jumbotron-container h1 {
