@@ -29,10 +29,11 @@
 {% include 'main_image.html.twig' %}
 <main class="container">
     <section id="Recommend" class="pt-4">
-        <h2 class="font-weight-bold mt-4 mb-4">おすすめの商品</h2>
-        <div class="row justify-content-center mb-4">
+        <h2 class="font-weight-bold mt-4 mb-4">人気商品ランキング</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mb-4">
             {% for key,value in topThreeArr %}
                 <div class="card col-11 col-md-5 col-lg-3 mx-3 mb-2 py-2 px-0" style="min-width: 10rem;">
+                    <div class="text-center my-0"><p class="my-0">第 <span class="h2 mx-0">{{value.rank}}</span> 位</p></div>
                     <img src="{{constant('main\\Bootstrap::ENTRY_URL')}}images/{{value.image}}" class="card-img-top mx-auto" alt="{{value.item_name}}" style="width: 250px;">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold">{{value.item_name}}</h5>
