@@ -162,8 +162,12 @@ class Item
 
         $res = $this->db->select($table, $column);
 
-        return ($res !== false && count($res) !== 0) ? $res : false;
+        if ($res !== false && count($res) !== 0) {
+            for ($i = 0; $i < 3; $i ++) {
+                $res[$i]['rank'] = $i+1;
+            }
+        }
+
+        return $res;
     }
-
-
 }
